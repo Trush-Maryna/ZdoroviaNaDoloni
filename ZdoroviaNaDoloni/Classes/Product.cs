@@ -4,7 +4,7 @@ using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni
 {
-    public class Product: IProductManagement, IComparable<Product>
+    public class Product: IProductManagement, Classes.Interfaces.IComparable<Product>
     {
         private static int id;
         private string name;

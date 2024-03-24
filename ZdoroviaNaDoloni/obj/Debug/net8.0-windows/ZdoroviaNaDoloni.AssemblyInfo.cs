@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZdoroviaNaDoloni")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0a255dcaa7da48f95fb6528eeae5a265089fc486")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+321382d5430efea0773e9a9476e82ceefde18cf0")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZdoroviaNaDoloni")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZdoroviaNaDoloni")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
