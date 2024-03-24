@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ZdoroviaNaDoloni</id>
+    <version>1.0.0</version>
+    <authors>ZdoroviaNaDoloni</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="0a255dcaa7da48f95fb6528eeae5a265089fc486" />
+    <dependencies>
+      <group targetFramework="net8.0-windows7.0" />
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net8.0-windows7.0">
+        <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+  <files>
+    <file src="D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.runtimeconfig.json" target="lib\net8.0-windows7.0\ZdoroviaNaDoloni.runtimeconfig.json" />
+    <file src="D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.dll" target="lib\net8.0-windows7.0\ZdoroviaNaDoloni.dll" />
+  </files>
+</package>

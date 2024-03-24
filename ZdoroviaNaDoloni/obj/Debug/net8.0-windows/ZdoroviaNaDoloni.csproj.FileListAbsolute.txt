@@ -1,0 +1,17 @@
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.exe
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.deps.json
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.runtimeconfig.json
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.dll
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\ZdoroviaNaDoloni.pdb
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.Form1.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.csproj.GenerateResource.cache
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.AssemblyInfoInputs.cache
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.AssemblyInfo.cs
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.csproj.CoreCompileInputs.cache
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.sourcelink.json
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.dll
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\refint\ZdoroviaNaDoloni.dll
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.pdb
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.genruntimeconfig.cache
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ref\ZdoroviaNaDoloni.dll
