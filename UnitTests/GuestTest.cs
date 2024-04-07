@@ -18,22 +18,20 @@ namespace UnitTests
         public void Guest_Search_Product_Return_True()
         {
             var guest = new Guest();
-            var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, TotalDiscounts.Null, null) };
+            var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
 
-            guest.FoundProduct(products);
+            guest.FindProduct(products);
 
             Assert.True(true);
         }
 
-        [Fact]
-        public void Guest_Search_Product_Return_False()
-        {
-            var guest = new Guest();
-            var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, TotalDiscounts.Null, null) };
+        //[Fact]
+        //public void Guest_Search_Product_With_Empty_Name_Return_False()
+        //{
+        //    var guest = new Guest();
+        //    var products = new List<Product>() { new Product("", "", 0, 0, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
 
-            guest.FoundProduct(products);
-
-            Assert.True(false);
-        }
+        //    Assert.Throws<ArgumentException>(() => guest.FindProduct(products));
+        //}
     }
 }

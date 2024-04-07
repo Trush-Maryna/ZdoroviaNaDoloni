@@ -6,17 +6,9 @@ namespace ZdoroviaNaDoloni
 {
     public class Product: IProductManagement, Classes.Interfaces.IComparable<Product>
     {
-        private static int id;
-        private string name;
-        private string description;
-        private decimal price;
-        private int quantity;
+        private static int id = 1;
 
-        private Statuses status;
-        private Categories category;
-        private TotalDiscounts totalDiscount;
-
-        public static int ID => ID;
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
@@ -24,41 +16,62 @@ namespace ZdoroviaNaDoloni
 
         public Statuses Status { get; set; }
         public Categories Category { get; set; }
-        public TotalDiscounts TotalDiscount { get; set; }
+        public Discounts TotalDiscount { get; set; }
+        public bool Confirmation { get; private set; }
 
-        private List<Feedback>? Feedbacks { get; set; }
+        public List<Feedback>? Feedbacks { get; set; }
 
-        public Product(string name, string description, decimal price, int quantity, Statuses status, Categories category, TotalDiscounts totalDiscount, List<Feedback>? feedbacks)
+        public Product(string name, string description, decimal price, int quantity, Statuses status, Categories category, Discounts totalDiscount, List<Feedback>? feedbacks)
         {
-            throw new NotImplementedException();
-            //Name = name;
-            //Description = description;
-            //Price = price;
-            //Quantity = quantity;
-            //Status = status;
-            //Category = category;
-            //TotalDiscount = totalDiscount;
-            //Feedbacks = feedbacks;
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Name cannot be empty.");
+
+            if (string.IsNullOrWhiteSpace(description))
+                throw new ArgumentException("Description cannot be empty.");
+
+            if (price <= 0)
+                throw new ArgumentException("Price must be positive.");
+
+            if (quantity <= 0)
+                throw new ArgumentException("Quantity must be positive.");
+
+            ID = id++;
+            Name = name;
+            Description = description;
+            Price = price;
+            Quantity = quantity;
+            Status = status;
+            Category = category;
+            TotalDiscount = totalDiscount;
+            Feedbacks = feedbacks;
         }
 
-        public static void StockUpdated() 
+        public void StockUpdated(int newQuantity)
         {
-            throw new NotImplementedException();
+            if (newQuantity < 0)
+                throw new ArgumentException("Quantity cannot be negative.");
+
+            Quantity = newQuantity;
+            Confirmation = true;
         }
 
-        public static void GenerateID(int id) 
+        public void GenerateID(string jsonFile)
         {
-            throw new NotImplementedException();
+            List<Product> products = LoadProduct(jsonFile);
+            foreach (var product in products)
+            {
+                product.ID = id++;
+            }
         }
 
-        public void LoadFromJson(string jsonFile)
+        public List<Product> LoadProduct(string source)
         {
-            throw new NotImplementedException();
+            return new List<Product>();
         }
 
         public int CompareTo(Product other)
         {
-            throw new NotImplementedException();
+            return Name.CompareTo(other.Name);
         }
     }
 }

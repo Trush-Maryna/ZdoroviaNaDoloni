@@ -1,6 +1,6 @@
 ﻿namespace ZdoroviaNaDoloni.Classes.Enums
 {
-    public enum TotalDiscounts
+    public enum Discounts
     {
         Null = 0,
         Five = 5,

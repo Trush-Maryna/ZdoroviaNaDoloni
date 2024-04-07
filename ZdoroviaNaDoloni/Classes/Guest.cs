@@ -1,20 +1,39 @@
-﻿namespace ZdoroviaNaDoloni.Classes
+﻿using ZdoroviaNaDoloni.Classes.Enums;
+
+namespace ZdoroviaNaDoloni.Classes
 {
     public class Guest : User
     {
-        private static int id;
+        private static int id = 1;
 
-        public static int ID => ID;
+        public static int ID => id++;
 
         public Guest()
         {
-            throw new NotImplementedException();
-            //Role = Roles.Guest;
+            Role = Roles.Guest;
         }
 
-        public void FoundProduct(List<Product> products)
+        public bool FindProduct(List<Product> products)
         {
-            throw new NotImplementedException();
+            if (products == null || !products.Any())
+            {
+                throw new InvalidOperationException("The product list is empty.");
+            }
+
+            foreach (var product in products)
+            {
+                if (string.IsNullOrWhiteSpace(product.Name))
+                {
+                    throw new ArgumentException("The product name cannot be empty.");
+                }
+
+                if (product.Status == Statuses.InStock)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

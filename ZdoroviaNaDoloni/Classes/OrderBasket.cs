@@ -5,56 +5,62 @@ namespace ZdoroviaNaDoloni.Classes
 {
     public class OrderBasket : IEnumerable
     {
-        private string deliveryAddress;
-        private static int counterOrders;
-        private DeliveryMethods deliveryMethod;
-        protected List<Product>? orders;
+        protected List<Product> orders;
 
         public static int CounterOrders => CounterOrders;
         public string DeliveryAddress { get; set; }
         public DeliveryMethods DeliveryMethod { get; set; }
-        public List<Product>? Orders => Orders;
+        public decimal TotalCost { get; private set; }
+        public List<Product> Orders => orders;
 
-        protected DiscountCard? DiscountCard { get; set; }
+        public DiscountCard? DiscountCard { get; set; }
+
+        public OrderBasket(List<Product>? Orders) 
+        {
+            orders = Orders;
+        }
 
         public OrderBasket(string deliveryAddress, DeliveryMethods deliveryMethod)
         {
-            throw new NotImplementedException();
-            //DeliveryAddress = deliveryAddress;
-            //DeliveryMethod = deliveryMethod;
+            DeliveryAddress = !string.IsNullOrWhiteSpace(deliveryAddress) ? deliveryAddress : throw new ArgumentException("Delivery address cannot be empty.");
+            DeliveryMethod = deliveryMethod;
+            orders = new List<Product>();
         }
 
-        public OrderBasket(string deliveryAddress, DeliveryMethods deliveryMethod, DiscountCard? discountCard) : this(deliveryAddress, deliveryMethod)
+        public OrderBasket(string deliveryAddress, DeliveryMethods deliveryMethod, DiscountCard? discountCard) 
+            : this(deliveryAddress, deliveryMethod)
         {
-            throw new NotImplementedException();
-            //DiscountCard = discountCard;
+            DiscountCard = discountCard;
         }
 
         public event Action OrderCompleted = delegate { };
 
-        public void AddProducts(Product product, List<Product> orders)
+        public void AddProducts(Product product)
         {
-            throw new NotImplementedException();
+            orders.Add(product);
         }
 
         public void DeleteProducts(Product product, List<Product> orders)
         {
-            throw new NotImplementedException();
+            orders.Remove(product);
         }
 
-        public static void CalculateTotalCost(List<Product> orders)
+        public void CalculateTotalCost()
         {
-            throw new NotImplementedException();
-        }
-
-        public void TransferOrderDetails()
-        {
-            throw new NotImplementedException();
+            if (orders != null && orders.Count > 0)
+            {
+                decimal totalCost = orders.Sum(product => product.Price);
+                TotalCost = totalCost;
+            }
+            else
+            {
+                throw new ArgumentException("Orders list is null or empty.");
+            }
         }
 
         public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            return orders.GetEnumerator();
         }
     }
 }

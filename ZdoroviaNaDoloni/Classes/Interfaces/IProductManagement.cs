@@ -2,6 +2,7 @@
 {
     public interface IProductManagement
     {
-        void LoadFromJson(string jsonFile);
+        void GenerateID(string jsonFile);
+        List<Product> LoadProduct(string source);
     }
 }

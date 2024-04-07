@@ -15,7 +15,7 @@ namespace UnitTests
             int quantity = 5;
             Statuses status = Statuses.InStock;
             Categories category = Categories.Medicines;
-            TotalDiscounts totalDiscount = TotalDiscounts.Five;
+            Discounts totalDiscount = Discounts.Five;
             List<Feedback>? feedbacks = new List<Feedback>();
 
             var product = new Product(name, description, price, quantity, status, category, totalDiscount, feedbacks);
@@ -31,12 +31,12 @@ namespace UnitTests
         }
 
         [Theory]
-        [InlineData("", "Description", 200, 5, Statuses.InStock, Categories.Medicines, TotalDiscounts.Five, null)]
-        [InlineData("Ibuprofen", "", 200, 5, Statuses.InStock, Categories.Medicines, TotalDiscounts.Five, null)]
-        [InlineData("Ibuprofen", "Description", -200, 5, Statuses.InStock, Categories.Medicines, TotalDiscounts.Five, null)]
-        [InlineData("Ibuprofen", "Description", 200, 0, Statuses.InStock, Categories.Medicines, TotalDiscounts.Five, null)]
+        [InlineData("", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Five, null)]
+        [InlineData("Ibuprofen", "", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Five, null)]
+        [InlineData("Ibuprofen", "Description", -200, 5, Statuses.InStock, Categories.Medicines, Discounts.Five, null)]
+        [InlineData("Ibuprofen", "Description", 200, 0, Statuses.InStock, Categories.Medicines, Discounts.Five, null)]
 
-        public void Product_Constructor_InvalidValues(string name, string description, decimal price, int quantity, Statuses status, Categories category, TotalDiscounts totalDiscount, List<Feedback>? feedbacks)
+        public void Product_Constructor_InvalidValues(string name, string description, decimal price, int quantity, Statuses status, Categories category, Discounts totalDiscount, List<Feedback>? feedbacks)
         {
             Assert.Throws<ArgumentException>(() => new Product(name, description, price, quantity, status, category, totalDiscount, feedbacks));
         }
@@ -50,11 +50,11 @@ namespace UnitTests
             int quantity = 5;
             Statuses status = Statuses.InStock;
             Categories category = Categories.Medicines;
-            TotalDiscounts totalDiscount = TotalDiscounts.Null;
+            Discounts totalDiscount = Discounts.Null;
             List<Feedback> feedbacks = new List<Feedback>
             {
-                new Feedback("Feedback 1", 4, DateTime.Now),
-                new Feedback("Feedback 2", 5, DateTime.Now)
+                new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List < Feedback >())),
+                new Feedback("Feedback 2", 5, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List < Feedback >()))
             };
 
             var product = new Product(name, description, price, quantity, status, category, totalDiscount, feedbacks);

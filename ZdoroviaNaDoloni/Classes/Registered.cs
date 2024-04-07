@@ -1,4 +1,5 @@
-﻿using ZdoroviaNaDoloni.Classes.Interfaces;
+﻿using ZdoroviaNaDoloni.Classes.Enums;
+using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {
@@ -9,83 +10,179 @@ namespace ZdoroviaNaDoloni.Classes
         private DateTime? birthDate;
         private string? city;
 
-        public string? Name { get; set; }
-        public string? Surname { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public string? City { get; set; }
+        public string? Name
+        {
+            get => name;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value) && value.Length > 0)
+                    name = value;
+                else
+                    throw new ArgumentException("Name cannot be empty.");
+            }
+        }
+
+        public string? Surname
+        {
+            get => surname;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value) && value.Length > 0)
+                    surname = value;
+                else
+                    throw new ArgumentException("Surname cannot be empty.");
+            }
+        }
+
+        public DateTime? BirthDate 
+        { 
+            get => birthDate; 
+            set => birthDate = value; 
+        }
+
+        public string? City
+        {
+            get => city;
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value) && value.Length > 0)
+                    city = value;
+                else
+                    throw new ArgumentException("City cannot be empty.");
+            }
+        }
 
         public DiscountCard? Card { get; set; }
 
         public List<OrderBasket>? Orders { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
 
-        public Registered(string phoneNumber, string password) : base(phoneNumber, password)
+        public Registered(string phoneNumber, string password, Roles role, Genders gender) 
+            : base(phoneNumber, password, role, gender)
         {
-            throw new NotImplementedException();
-            //PhoneNumber = phoneNumber;
-            //Password = password;
-            //Role = Roles.Registered;
+            Orders = new List<OrderBasket>();
+            Feedbacks = new List<Feedback>();
+            Card = null;
         }
 
-        public Registered(string email) : base(email)
+        public Registered(string email) 
+            : base(email)
         {
-            throw new NotImplementedException();
-            //Email = email;
-            //Role = Roles.Registered;
+            Orders = new List<OrderBasket>();
+            Feedbacks = new List<Feedback>();
+            Card = null;
         }
 
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks) : this(phoneNumber, password)
+        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks, Roles role, Genders gender) 
+            : base(phoneNumber, password, role, gender)
         {
-            throw new NotImplementedException();
-            //Name = name;
-            //Surname = surname;
-            //BirthDate = birthDate;
-            //City = city;
-            //Card = card;
-            //Orders = orders;
-            //Feedbacks = feedbacks;
+            Name = name;
+            Surname = surname;
+            BirthDate = birthDate;
+            City = city;
+            Card = card;
+            Orders = orders ?? new List<OrderBasket>();
+            Feedbacks = feedbacks ?? new List<Feedback>();
         }
 
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string email, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks) : this(email)
+        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string email, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
+            : this(email)
         {
-            throw new NotImplementedException();
-            //Name = name;
-            //Surname = surname;
-            //BirthDate = birthDate;
-            //City = city;
-            //Card = card;
-            //Orders = orders;
-            //Feedbacks = feedbacks;
+            Name = name;
+            Surname = surname;
+            BirthDate = birthDate;
+            City = city;
+            Card = card;
+            Orders = orders ?? new List<OrderBasket>();
+            Feedbacks = feedbacks ?? new List<Feedback>();
         }
 
-        public void FoundProduct(List<Product> products)
+        public delegate void ProductFoundEventHandler(Product product);
+        public event ProductFoundEventHandler ProductFound;
+
+        public void FindProduct(List<Product> products)
         {
-            throw new NotImplementedException();
+            //List<Product> productsFromJson = LoadProduct("Json/products.json");
+
+            //foreach (var product in products)
+            //{
+            //    var foundProducts = productsFromJson.Where(p => p.Name.Contains(product.Name)).ToList();
+
+            //    if (foundProducts.Any())
+            //    {
+            //        foreach (var foundProduct in foundProducts)
+            //        {
+            //            ProductFound?.Invoke(foundProduct);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        throw new InvalidOperationException($"Product {product.Name} not found.");
+            //    }
+            //}
         }
 
         public void OrderProducts(List<Product> products)
         {
-            throw new NotImplementedException();
+            if (Orders == null)
+                Orders = new List<OrderBasket>();
+
+            foreach (var product in products)
+            {
+                if (product.Quantity <= 0)
+                {
+                    throw new InvalidOperationException($"The quantity of {product.Name} is not available.");
+                }
+            }
+
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(PhoneNumber))
+            {
+                throw new InvalidOperationException("Required fields are missing.");
+            }
+
+            Orders ??= new List<OrderBasket>();
+            Orders.Add(new OrderBasket(products));
         }
 
-        public void AddDiscountCard(DiscountCard card)
+        public DiscountCard AddDiscountCard(string ownerName, string ownerSurname, Discounts userDiscount, DateTime creationDate)
         {
-            throw new NotImplementedException();
+            if (Card == null)
+            {
+                string code = GenerateDiscountCardCode();
+                var card = new DiscountCard(ownerName, ownerSurname, userDiscount, creationDate);
+                Card = card;
+                return card;
+            }
+            else
+            {
+                throw new InvalidOperationException("This user already has a discount card.");
+            }
+        }
+
+        private string GenerateDiscountCardCode()
+        {
+            return Guid.NewGuid().ToString().Substring(0, 13);
         }
 
         public void AddFeedback(Feedback feedback)
         {
-            throw new NotImplementedException();
+            Feedbacks?.Add(feedback);
         }
 
         public void DeleteAccount()
         {
-            throw new NotImplementedException();
+            Name = null;
+            Surname = null;
+            BirthDate = null;
+            City = null;
+            Card = null;
+            Orders = null;
+            Feedbacks = null;
         }
 
         public List<string> SearchCities(string query)
         {
-            throw new NotImplementedException();
+            return new List<string>();
         }
     }
 }

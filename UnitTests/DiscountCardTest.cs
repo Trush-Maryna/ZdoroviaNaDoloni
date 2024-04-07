@@ -8,36 +8,35 @@ namespace UnitTests
     public class DiscountCardTest
     {
         [Fact]
-        public void Add_DiscountCard_Successfully()
+        public void Pharmacist_Add_DiscountCardRegistered_Successfully()
         {
-            var card_1 = new DiscountCard("1234567890123", "Trush", "Maryna", null, DateTime.Now);
             var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-            var registered = new Registered("0666395820", "Mar03Mar", Roles.Registered, Genders.Female);
-            var card_2 = registered.AddDiscountCard("1234567890123", "Trush", "Maryna", null, DateTime.Now);
-            
-            pharmacist.AddDiscountCard(card_1);
+            var registered = new Registered("666395820", "Mar03Mar", Roles.Registered, Genders.Female);
+            registered.AddDiscountCard("Trush", "Maryna", Discounts.Null, DateTime.Now);
 
-            Assert.Contains(card_1, pharmacist.Cards);
-            Assert.Equal(card_2, registered.Card);
+            pharmacist.AddDiscountCard(registered.Card.OwnerName, registered.Card.OwnerSurname, registered.Card.UserDiscount, registered.Card.CreationDate);
+
+            Assert.Contains(registered.Card, pharmacist.Cards);
+            Assert.Equal(registered.Card, pharmacist.Cards.FirstOrDefault());
         }
 
         [Fact]
-        public void Add_DiscountCard_Already_Exists()
+        public void Pharmacist_Add_DiscountCard_Already_Exists()
         {
-            var card = new DiscountCard("1234567890123", "Trush", "Maryna", null, DateTime.Now);
             var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-            pharmacist.Cards?.Add(card);
+            var card = new DiscountCard("Trush", "Maryna", Discounts.Five, DateTime.Now);
+            pharmacist.AddDiscountCard(card.OwnerName, card.OwnerSurname, card.UserDiscount, card.CreationDate);
 
-            Action act = () => pharmacist.AddDiscountCard(card);
+            Action act = () => pharmacist.AddDiscountCard(card.OwnerName, card.OwnerSurname, card.UserDiscount, card.CreationDate);
 
             var exception = Assert.Throws<InvalidOperationException>(act);
-            Assert.Equal("This card already exists.", exception.Message);
+            Assert.Equal("This user already has a discount card.", exception.Message);
         }
 
         [Fact]
         public void Remove_DiscountCard_Successfully()
         {
-            var card = new DiscountCard("1234567890123", "Trush", "Maryna", 0.5, DateTime.Now);
+            var card = new DiscountCard("Trush", "Maryna", Discounts.Five, DateTime.Now);
             var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
             pharmacist.Cards?.Add(card);
 
@@ -49,16 +48,21 @@ namespace UnitTests
         [Fact]
         public void Calculate_Discount_With_Orders()
         {
-            var card = new DiscountCard("1234567890123", "Trush", "Maryna", null, DateTime.Now);
+            var card = new DiscountCard("Trush", "Maryna", Discounts.Five, DateTime.Now);
 
-            string json = File.ReadAllText("products.json");
+            string json = File.ReadAllText("Json/products.json");
             var productDataList = JsonConvert.DeserializeObject<List<Product>>(json);
 
-            var orders = productDataList?.Select(data =>
-                new Product(data.Name, data.Description, data.Price, data.Quantity, data.Status, data.Category, data.TotalDiscount, null)
-            ).ToList();
+            var orderBaskets = new List<OrderBasket>();
+            var orderBasket = new OrderBasket("Address", DeliveryMethods.SelfPickup, card);
+            foreach (var data in productDataList)
+            {
+                var product = new Product(data.Name, data.Description, data.Price, data.Quantity, data.Status, data.Category, data.TotalDiscount, null);
+                orderBasket.AddProducts(product);
+            }
+            orderBaskets.Add(orderBasket);
 
-            DiscountCard.CalculateDiscount(orders);
+            card.CalculateDiscount(orderBaskets);
 
             var discount = card.UserDiscount;
 
@@ -69,7 +73,7 @@ namespace UnitTests
         [Fact]
         public void Calculate_Discount_With_No_Orders()
         {
-            var card = new DiscountCard("1234567890123", "Trush", "Maryna", null, DateTime.Now);
+            var card = new DiscountCard("Trush", "Maryna", Discounts.Five, DateTime.Now);
 
             var discount = card.UserDiscount;
 
