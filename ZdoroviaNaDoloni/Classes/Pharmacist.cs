@@ -53,6 +53,8 @@ namespace ZdoroviaNaDoloni.Classes
         public List<DiscountCard>? Cards { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
 
+        public Pharmacist() { }
+
         public Pharmacist(string uniquePhoneNumber, string uniquePass, Roles role, Genders gender) 
             : base(uniquePhoneNumber, uniquePass, role, gender)
         {

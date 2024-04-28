@@ -4,7 +4,7 @@ namespace ZdoroviaNaDoloni.Classes.Interfaces
 {
     public interface IRegistration
     {
-        bool IsRegistered(string phonenumber, string password, bool confidentmark);
+        bool Register(int phonenumber, string password, bool confidentmark);
         void IsInRole(string phonenumber, Roles role);
     }
 }

@@ -1,8 +1,9 @@
 ﻿using ZdoroviaNaDoloni.Classes.Enums;
+using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {
-    public class Guest : User
+    public class Guest : User, ISearchableProducts
     {
         private static int id = 1;
 
@@ -13,27 +14,19 @@ namespace ZdoroviaNaDoloni.Classes
             Role = Roles.Guest;
         }
 
-        public bool FindProduct(List<Product> products)
+        public List<Product> SearchProductsByName(List<Product> products, string query)
         {
-            if (products == null || !products.Any())
-            {
-                throw new InvalidOperationException("The product list is empty.");
-            }
+            List<Product> results = new List<Product>();
 
             foreach (var product in products)
             {
-                if (string.IsNullOrWhiteSpace(product.Name))
+                if (product.Name.ToLower().Contains(query))
                 {
-                    throw new ArgumentException("The product name cannot be empty.");
-                }
-
-                if (product.Status == Statuses.InStock)
-                {
-                    return true;
+                    results.Add(product);
                 }
             }
 
-            return false;
+            return results;
         }
     }
 }

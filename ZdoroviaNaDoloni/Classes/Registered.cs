@@ -57,6 +57,8 @@ namespace ZdoroviaNaDoloni.Classes
         public List<OrderBasket>? Orders { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
 
+        public Registered() { }
+
         public Registered(string phoneNumber, string password, Roles role, Genders gender) 
             : base(phoneNumber, password, role, gender)
         {

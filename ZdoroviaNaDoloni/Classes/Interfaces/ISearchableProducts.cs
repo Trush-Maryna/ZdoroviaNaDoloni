@@ -2,6 +2,6 @@
 {
     public interface ISearchableProducts
     {
-        List<Product> SearchProducts(string query);
+        List<Product> SearchProductsByName(List<Product> products, string query);
     }
 }

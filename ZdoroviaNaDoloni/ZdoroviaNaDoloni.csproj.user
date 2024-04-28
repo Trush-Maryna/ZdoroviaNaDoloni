@@ -1,8 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup>
-        <Compile Update="Form1.cs">
-            <SubType>Form</SubType>
-        </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="GUInterfaces\Categories\Beauty_Care.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Catalog_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Children_Moms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Different.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Medical_Equipment_Devices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Sport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Vitamins_Minerals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\First_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Categories_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Guest_GUI\Autorization_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Guest_GUI\Guest_Home_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Guest_GUI\Guest_Home_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Medicine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Guest_GUI\Registration_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Guest_GUI\Search_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Home_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Product_GUI\Info_Guest_Product_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Product_GUI\Info_Product_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Product_GUI\Info_Product_Warning_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\OrderBascet_GUI\Order_Bascet_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Registered_GUI\Registered_Home_1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Registered_GUI\Registered_Home_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Registered_GUI\Registered_Info_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

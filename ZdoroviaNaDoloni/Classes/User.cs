@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using MySql.Data.MySqlClient;
+using System.Data;
+using System.Text.RegularExpressions;
 using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
 
@@ -6,9 +8,7 @@ namespace ZdoroviaNaDoloni.Classes
 {
     public abstract class User : IAuthorization, IRegistration, ISearchableProducts
     {
-        public static readonly int MinPassLength = 6;
-        public static readonly int MaxPassLength = 20;
-        public static readonly int MinPhoneNumbLength = 9;
+        private MySqlConnection connectDB = Constants.connection;
 
         private Roles role;
         private Genders? gender;
@@ -27,6 +27,11 @@ namespace ZdoroviaNaDoloni.Classes
             get => gender;
             set => gender = value;
         }
+
+        public bool IsAuthorized { get; private set; }
+        public bool IsRegistered { get; private set; }
+
+        protected bool IsLoggedInOrSignIn { get; set; }
 
         protected string PhoneNumber 
         {
@@ -55,7 +60,7 @@ namespace ZdoroviaNaDoloni.Classes
             get => password;
             set
             {
-                if (!string.IsNullOrWhiteSpace(value) && value.Length >= MinPassLength && value.Length <= MaxPassLength && ContainsNumber(value) && ContainsUppercase(value))
+                if (!string.IsNullOrWhiteSpace(value) && value.Length >= Constants.MinPassLength && value.Length <= Constants.MaxPassLength && ContainsNumber(value) && ContainsUppercase(value))
                     password = value;
                 else
                     throw new ArgumentException("Invalid password format.");
@@ -90,7 +95,9 @@ namespace ZdoroviaNaDoloni.Classes
             Gender = gender;
         }
 
-        public event Action Registered = delegate { };
+        public event Action<User> UserAuthorized = user => { };
+        public event Action<User> UserRegistered = user => { };
+
         public event Action AccountDeleted = delegate { };
 
         public static bool ValidatePhoneNumb(string phoneNumber) 
@@ -105,23 +112,104 @@ namespace ZdoroviaNaDoloni.Classes
 
         public static string EncryptPass(string password) => Regex.Replace(password, @"\d", "*");
 
-        public bool IsAuthorized(string phonenumber, string password, string email) => (PhoneNumber == phonenumber || Email == email) && Password == password;
-
-        public void Authorized(string phonenumber, string password, string email)
+        public void openConnectionDB() 
         {
-            throw new NotImplementedException(); //db
+            if (connectDB.State == ConnectionState.Closed)
+            {
+                connectDB.Open();
+            }
         }
 
-        public bool IsRegistered(string phonenumber, string password, bool confidentmark) => PhoneNumber == phonenumber && Password == password && confidentmark;
-
-        public void Register(string phonenumber, string password, bool confidentmark)
+        public void closeConnectionDB()
         {
-            PhoneNumber = phonenumber;
-            Password = password;
-            if (confidentmark)
-                Registered?.Invoke();
+            if (connectDB.State == ConnectionState.Open)
+            {
+                connectDB.Close();
+            }
+        }
+
+        public MySqlConnection getConnection()
+        {
+            return connectDB;
+        }
+
+        public bool Authorized(int phonenumber, string password)
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `phone_number` = @pn AND `pass` = @p", getConnection());
+            command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phonenumber;
+            command.Parameters.Add("@p", MySqlDbType.VarChar).Value = password;
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            if (table.Rows.Count > 0)
+            {
+                IsAuthorized = true;
+                UserAuthorized?.Invoke(this);
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
+        public bool Authorized(int phonenumber, string password, string email)
+        {
+            //db
+            return true;
+        }
+
+        public bool Register(int phonenumber, string password, bool confidentmark)
+        {
+            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`phone_number`, `pass`, `CheckButtonClicked`) VALUES (@pn, @p, @cbc)", getConnection());
+            command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phonenumber;
+            command.Parameters.Add("@p", MySqlDbType.VarChar).Value = password;
+            command.Parameters.Add("@cbc", MySqlDbType.Bit).Value = confidentmark;
+
+            openConnectionDB();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                closeConnectionDB();
+                IsRegistered = true;
+                UserRegistered?.Invoke(this);
+                return true;
+            }
             else
-                throw new ArgumentException("Confident mark is required for registration.");
+            {
+                closeConnectionDB();
+                return false;
+            }
+        }
+
+        public bool isUserExists(int phoneNumber)
+        {
+            DataTable table = new DataTable();
+            MySqlDataAdapter adapter = new MySqlDataAdapter();
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `phone_number` = @pn", getConnection());
+            command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phoneNumber;
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+            if (table.Rows.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void CheckAuthorizationStatus()
+        {
+            IsAuthorized = true;
+            UserAuthorized?.Invoke(this);
+        }
+
+        public void CheckRegistrationStatus()
+        {
+            IsRegistered = true;
+            UserRegistered?.Invoke(this);
         }
 
         public void IsInRole(string phonenumber, string email, Roles role)
@@ -136,6 +224,19 @@ namespace ZdoroviaNaDoloni.Classes
                 throw new UnauthorizedAccessException("User is not in the specified role.");
         }
 
-        public List<Product> SearchProducts(string query) => Products?.Where(p => p.Name.Contains(query, StringComparison.OrdinalIgnoreCase)).ToList() ?? new List<Product>();
+        public List<Product> SearchProductsByName(List<Product> products, string query)
+        {
+            List<Product> results = new List<Product>();
+
+            foreach (var product in products)
+            {
+                if (product.Name.ToLower().Contains(query))
+                {
+                    results.Add(product);
+                }
+            }
+
+            return results;
+        }
     }
 }

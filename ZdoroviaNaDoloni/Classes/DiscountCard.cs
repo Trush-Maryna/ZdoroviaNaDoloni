@@ -5,6 +5,7 @@ namespace ZdoroviaNaDoloni.Classes
     public class DiscountCard
     {
         private string code;
+        private Guid cardId;
         private string ownerName;
         private string ownerSurname;
         private Discounts userDiscount;
@@ -20,6 +21,11 @@ namespace ZdoroviaNaDoloni.Classes
                 else
                     throw new ArgumentException("Invalid code. It must be a non-empty string with length 13 and unique characters.");
             }
+        }
+        public Guid CardId
+        {
+            get => cardId;
+            private set => cardId = value;
         }
         public string OwnerName
         {
@@ -52,16 +58,20 @@ namespace ZdoroviaNaDoloni.Classes
 
         public DiscountCard(string ownerName, string ownerSurname, Discounts userDiscount, DateTime creationDate)
         {
-            Code = GenerateDiscountCardCode();
             OwnerName = ownerName;
             OwnerSurname = ownerSurname;
             UserDiscount = userDiscount;
             CreationDate = creationDate;
+            Code = GenerateDiscountCardCode();
+            CardId = Guid.NewGuid();
         }
 
         private string GenerateDiscountCardCode()
         {
-            return Guid.NewGuid().ToString().Substring(0, 13);
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 13)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         public void CalculateDiscount(List<OrderBasket> orders)
