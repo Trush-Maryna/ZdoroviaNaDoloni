@@ -1,4 +1,5 @@
-﻿using ZdoroviaNaDoloni.Classes;
+﻿using System.Diagnostics;
+using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Registered_GUI;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
@@ -8,12 +9,10 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private Point previousLocation;
         private bool isEyeButtonClicked = false;
         private bool isCheckButtonClicked = false;
-        private Registered loggedInSignedInUser;
 
         public Registration_Form()
         {
             InitializeComponent();
-            loggedInSignedInUser = new Registered();
         }
 
         private Registration_Form GetLocation() => this;
@@ -114,64 +113,63 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             string phoneNumberTxt = Phone_Numder_txt.Text;
             string password = Pass_txt.Text;
 
-            if (phoneNumberTxt == "_ _ _ _  _ _  _ _ _")
+            try
             {
-                MessageBox.Show("Введіть номер телефону!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Phone_Numder_txt.ForeColor = Color.Red;
-                return;
-            }
-
-            if (password == "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _")
-            {
-                MessageBox.Show("Введіть пароль!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Pass_txt.ForeColor = Color.Red;
-                return;
-            }
-
-            int phoneNumber = int.Parse(phoneNumberTxt);
-            if (!int.TryParse(phoneNumberTxt, out phoneNumber))
-            {
-                MessageBox.Show("Номер телефону повинен містити тільки цифри!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!isCheckButtonClicked)
-            {
-                Registered registeredUser = new Registered();
-                if (registeredUser.isUserExists(phoneNumber))
+                Registered regist = new Registered();
+                regist.PhoneNumber = phoneNumberTxt;
+                regist.Password = password;
+                int phoneNumber = int.Parse(phoneNumberTxt);
+                if (!isCheckButtonClicked)
                 {
-                    MessageBox.Show("Акаунт з таким номером телефону вже існує!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                else
-                {
-                    if (registeredUser.Register(phoneNumber, password, !isCheckButtonClicked))
+                    if (regist.isUserExists(phoneNumber))
                     {
-                        MessageBox.Show("Акаунт створено.");
-                        loggedInSignedInUser = registeredUser;
-                        registeredUser.CheckRegistrationStatus();
-                        previousLocation = GetLocation().Location;
-                        Hide();
-                        Registered_Home_1 registered_home_1_Form = new()
-                        {
-                            StartPosition = FormStartPosition.Manual,
-                            Location = previousLocation
-                        };
-                        registered_home_1_Form.Show();
+                        MessageBox.Show("Акаунт з таким номером телефону вже існує!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     else
                     {
-                        MessageBox.Show("Акаунт не створено!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        if (regist.Register(phoneNumber, password, !isCheckButtonClicked))
+                        {
+                            MessageBox.Show("Акаунт створено.");
+                            previousLocation = GetLocation().Location;
+                            Hide();
+                            Registered_Home_1 registered_home_1_Form = new()
+                            {
+                                StartPosition = FormStartPosition.Manual,
+                                Location = previousLocation
+                            };
+                            registered_home_1_Form.Show();
+                            return;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Акаунт не створено!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Підтвердіть Умови та Правила!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Підтвердіть Умови та Правила!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+        }
+
+        private void conditions_rules_txt_Click(object sender, EventArgs e)
+        {
+            conditions_rules_txt.BackColor = Color.Blue;
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = Constants.ConditionsRulesLink,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
     }
 }

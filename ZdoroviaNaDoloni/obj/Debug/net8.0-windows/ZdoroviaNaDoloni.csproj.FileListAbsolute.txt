@@ -41,7 +41,6 @@ D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-wind
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Guest_GUI.Search_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Guest_GUI.Autorization_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Guest_GUI.Registration_Form.resources
-D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Product_GUI.Info_Product_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Product_GUI.Info_Product_Warning_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Categories.Beauty_Care.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Categories.Catalog_Form.resources
@@ -54,8 +53,12 @@ D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-wind
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\MySql.Data.dll
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\net8.0-windows\MySql.Data.xml
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Registered_Home_1.resources
-D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Order_Bascet_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI.Pharmacist_Home_1.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Product_GUI.Info_Guest_Product_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Registered_Home_2.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Registered_Info_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI.Pharmacist_Home_2.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Product_GUI.Info_Pharm_Product_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Product_GUI.Info_Registered_Product_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Order_Basket_Register_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Feedback.Add_Feedback_Register_Form.resources

@@ -22,6 +22,9 @@
     <Compile Update="GUInterfaces\Categories\Vitamins_Minerals.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUInterfaces\Feedback\Add_Feedback_Register_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUInterfaces\First_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -49,16 +52,22 @@
     <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Home_1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Home_2.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUInterfaces\Product_GUI\Info_Guest_Product_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\Product_GUI\Info_Product_Form.cs">
+    <Compile Update="GUInterfaces\Product_GUI\Info_Pharm_Product_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Product_GUI\Info_Registered_Product_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Product_GUI\Info_Product_Warning_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\OrderBascet_GUI\Order_Bascet_Form.cs">
+    <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Registered_GUI\Registered_Home_1.cs">

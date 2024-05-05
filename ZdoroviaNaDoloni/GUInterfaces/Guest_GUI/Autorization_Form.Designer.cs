@@ -36,8 +36,6 @@
             Btn_pass = new Button();
             Btn_Sign_In = new Button();
             Btn_Log_In = new Button();
-            Btn_Google = new Button();
-            Btn_Facebook = new Button();
             X = new Label();
             SuspendLayout();
             // 
@@ -142,32 +140,6 @@
             Btn_Log_In.UseVisualStyleBackColor = false;
             Btn_Log_In.Click += Btn_Log_In_Click;
             // 
-            // Btn_Google
-            // 
-            Btn_Google.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_Google.BackgroundImage = (Image)resources.GetObject("Btn_Google.BackgroundImage");
-            Btn_Google.Cursor = Cursors.Hand;
-            Btn_Google.FlatAppearance.BorderSize = 0;
-            Btn_Google.FlatStyle = FlatStyle.Flat;
-            Btn_Google.Location = new Point(42, 701);
-            Btn_Google.Name = "Btn_Google";
-            Btn_Google.Size = new Size(309, 63);
-            Btn_Google.TabIndex = 28;
-            Btn_Google.UseVisualStyleBackColor = false;
-            // 
-            // Btn_Facebook
-            // 
-            Btn_Facebook.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_Facebook.BackgroundImage = (Image)resources.GetObject("Btn_Facebook.BackgroundImage");
-            Btn_Facebook.Cursor = Cursors.Hand;
-            Btn_Facebook.FlatAppearance.BorderSize = 0;
-            Btn_Facebook.FlatStyle = FlatStyle.Flat;
-            Btn_Facebook.Location = new Point(42, 770);
-            Btn_Facebook.Name = "Btn_Facebook";
-            Btn_Facebook.Size = new Size(309, 63);
-            Btn_Facebook.TabIndex = 29;
-            Btn_Facebook.UseVisualStyleBackColor = false;
-            // 
             // X
             // 
             X.AutoSize = true;
@@ -188,8 +160,6 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(392, 852);
             Controls.Add(X);
-            Controls.Add(Btn_Facebook);
-            Controls.Add(Btn_Google);
             Controls.Add(Btn_Log_In);
             Controls.Add(Btn_Sign_In);
             Controls.Add(Pass_txt);
@@ -213,8 +183,6 @@
         private Button Btn_pass;
         private Button Btn_Sign_In;
         private Button Btn_Log_In;
-        private Button Btn_Google;
-        private Button Btn_Facebook;
         private Label X;
     }
 }

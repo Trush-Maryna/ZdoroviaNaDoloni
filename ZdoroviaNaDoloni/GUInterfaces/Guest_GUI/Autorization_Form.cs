@@ -8,12 +8,10 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
     {
         private Point previousLocation;
         private bool isEyeButtonClicked = false;
-        private User loggedInSignedInUser;
 
         public Autorization_Form()
         {
             InitializeComponent();
-            loggedInSignedInUser = new Registered();
         }
 
         private Autorization_Form GetLocation() => this;
@@ -100,62 +98,65 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             string phoneNumberTxt = Phone_Numder_txt.Text;
             string password = Pass_txt.Text;
 
-            int phoneNumber;
-            if (!int.TryParse(phoneNumberTxt, out phoneNumber))
+            try
             {
-                MessageBox.Show("Номер телефону повинен містити тільки цифри!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Pharmacist pharm = new Pharmacist();
+                pharm.PhoneNumber = phoneNumberTxt;
+                pharm.Password = password;
+
+                int phoneNumber = int.Parse(phoneNumberTxt);
+                if (phoneNumber == Constants.pharm1phone ||
+                    phoneNumber == Constants.pharm2phone ||
+                    phoneNumber == Constants.pharm3phone)
+                {
+                    if (pharm.Authorized(phoneNumber, password))
+                    {
+                        MessageBox.Show("Ви успішно авторизувалися як провізор.");
+                        previousLocation = GetLocation().Location;
+                        Hide();
+                        Pharmacist_Home_1 pharm_home_1_Form = new()
+                        {
+                            StartPosition = FormStartPosition.Manual,
+                            Location = previousLocation
+                        };
+                        pharm_home_1_Form.Show();
+                        return;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Помилка авторизації!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                else
+                {
+                    Registered regist = new Registered();
+                    regist.PhoneNumber = phoneNumberTxt;
+                    regist.Password = password;
+
+                    if (regist.Authorized(phoneNumber, password))
+                    {
+                        MessageBox.Show("Ви успішно авторизувалися як зареєстрований користувач.");
+                        previousLocation = GetLocation().Location;
+                        Hide();
+                        Registered_Home_1 registered_home_1_Form = new()
+                        {
+                            StartPosition = FormStartPosition.Manual,
+                            Location = previousLocation
+                        };
+                        registered_home_1_Form.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Помилка авторизації!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }
-
-            if (phoneNumber == Constants.pharm1phone ||
-                phoneNumber == Constants.pharm2phone ||
-                phoneNumber == Constants.pharm3phone)
-            {
-                Pharmacist pharmacistUser = new Pharmacist();
-                if (pharmacistUser.Authorized(phoneNumber, password))
-                {
-                    MessageBox.Show("Ви успішно авторизувалися як провізор.");
-                    loggedInSignedInUser = pharmacistUser;
-                    pharmacistUser.CheckAuthorizationStatus();
-                    previousLocation = GetLocation().Location;
-                    Hide();
-                    Pharmacist_Home_1 pharm_home_1_Form = new()
-                    {
-                        StartPosition = FormStartPosition.Manual,
-                        Location = previousLocation
-                    };
-                    pharm_home_1_Form.Show();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("Помилка авторизації!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-            }
-            else
-            {
-                Registered registeredUser = new Registered();
-                if (registeredUser.Authorized(phoneNumber, password))
-                {
-                    MessageBox.Show("Ви успішно авторизувалися як зареєстрований користувач.");
-                    loggedInSignedInUser = registeredUser;
-                    registeredUser.CheckAuthorizationStatus();
-
-                    previousLocation = GetLocation().Location;
-                    Hide();
-                    Registered_Home_1 registered_home_1_Form = new()
-                    {
-                        StartPosition = FormStartPosition.Manual,
-                        Location = previousLocation
-                    };
-                    registered_home_1_Form.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Помилка авторизації!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
@@ -14,15 +15,6 @@ namespace ZdoroviaNaDoloni
         public int Quantity { get; set; }
         public string Image { get; set; }
         public string Developer { get; set; }
-
-        public Statuses Status { get; set; }
-
-        public Product(Statuses status)
-        {
-            Status = status;
-        }
-
-        public Categories Category { get; set; }
         public Discounts TotalDiscount { get; set; }
         public bool Confirmation { get; private set; }
 
@@ -49,10 +41,8 @@ namespace ZdoroviaNaDoloni
             Quantity = quantity;
         }
 
-        public Product(int id, string name, string description, decimal price, int quantity, Statuses status, Categories category, Discounts totalDiscount, bool confirmation, List<Feedback>? feedbacks) : this(id, name, description, price, quantity)
+        public Product(int id, string name, string description, decimal price, int quantity, Discounts totalDiscount, bool confirmation, List<Feedback>? feedbacks) : this(id, name, description, price, quantity)
         {
-            Status = status;
-            Category = category;
             TotalDiscount = totalDiscount;
             Confirmation = confirmation;
             Feedbacks = feedbacks;
@@ -71,6 +61,15 @@ namespace ZdoroviaNaDoloni
             public int quantity { get; set; }
             public string image { get; set; }
             public string developer { get; set; }
+        }
+
+        public string GetProductInfo()
+        {
+            return $"Назва: {Name}\n" +
+                   $"Опис: {Description}\n" +
+                   $"Виробник: {Developer}\n" +
+                   $"Ціна: {Price} ₴\n" +
+                   $"Кількість на складі: {Quantity} шт.\n";
         }
 
         public void StockUpdated(int newQuantity)
@@ -106,6 +105,14 @@ namespace ZdoroviaNaDoloni
             }
 
             return products;
+        }
+
+        public List<Product> FilterProducts(int minId, int maxId)
+        {
+            string jsonFilePath = Constants.productspath;
+            List<Product> products = LoadProducts(jsonFilePath);
+            List<Product> filteredProducts = products.Where(p => p.ID >= minId && p.ID <= maxId).ToList();
+            return filteredProducts;
         }
 
         public int CompareTo(Product other)

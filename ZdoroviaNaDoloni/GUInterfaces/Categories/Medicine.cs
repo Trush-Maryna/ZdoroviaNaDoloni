@@ -6,7 +6,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
     {
         private Point previousLocation;
         private Medicine GetLocation() => this;
-        private List<Product> products;
+        private Product product = new Product();
 
         public Medicine()
         {
@@ -51,24 +51,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
 
         private void Btn_Categor_1_Click(object sender, EventArgs e)
         {
-            Product product = new Product();
-            products = product.LoadProducts(Constants.productsSmallpath);
-            List<Product> filteredProducts = products.Where(p => p.ID >= 1 && p.ID <= 6).ToList();
-            previousLocation = GetLocation().Location;
-            Hide();
-            Catalog_Form catalog_form = new Catalog_Form(filteredProducts)
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            catalog_form.Show();
+            List<Product> filteredProducts = product.FilterProducts(1, 6);
+            OpenCatalogForm(filteredProducts);
         }
 
         private void Btn_Categor_2_Click(object sender, EventArgs e)
         {
-            Product product = new Product();
-            products = product.LoadProducts(Constants.productsSmallpath);
-            List<Product> filteredProducts = products.Where(p => p.ID >= 7 && p.ID <= 12).ToList();
+            List<Product> filteredProducts = product.FilterProducts(7, 12);
+            OpenCatalogForm(filteredProducts);
+        }
+
+        private void OpenCatalogForm(List<Product> filteredProducts)
+        {
             previousLocation = GetLocation().Location;
             Hide();
             Catalog_Form catalog_form = new Catalog_Form(filteredProducts)

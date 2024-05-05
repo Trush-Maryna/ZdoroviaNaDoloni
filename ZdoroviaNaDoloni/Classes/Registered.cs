@@ -59,36 +59,16 @@ namespace ZdoroviaNaDoloni.Classes
 
         public Registered() { }
 
-        public Registered(string phoneNumber, string password, Roles role, Genders gender) 
-            : base(phoneNumber, password, role, gender)
+        public Registered(string phoneNumber, string password, Genders gender) 
+            : base(phoneNumber, password, gender)
         {
             Orders = new List<OrderBasket>();
             Feedbacks = new List<Feedback>();
             Card = null;
         }
 
-        public Registered(string email) 
-            : base(email)
-        {
-            Orders = new List<OrderBasket>();
-            Feedbacks = new List<Feedback>();
-            Card = null;
-        }
-
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks, Roles role, Genders gender) 
-            : base(phoneNumber, password, role, gender)
-        {
-            Name = name;
-            Surname = surname;
-            BirthDate = birthDate;
-            City = city;
-            Card = card;
-            Orders = orders ?? new List<OrderBasket>();
-            Feedbacks = feedbacks ?? new List<Feedback>();
-        }
-
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string email, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
-            : this(email)
+        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks, Genders gender) 
+            : base(phoneNumber, password, gender)
         {
             Name = name;
             Surname = surname;
@@ -101,28 +81,6 @@ namespace ZdoroviaNaDoloni.Classes
 
         public delegate void ProductFoundEventHandler(Product product);
         public event ProductFoundEventHandler ProductFound;
-
-        public void FindProduct(List<Product> products)
-        {
-            //List<Product> productsFromJson = LoadProduct("Json/products.json");
-
-            //foreach (var product in products)
-            //{
-            //    var foundProducts = productsFromJson.Where(p => p.Name.Contains(product.Name)).ToList();
-
-            //    if (foundProducts.Any())
-            //    {
-            //        foreach (var foundProduct in foundProducts)
-            //        {
-            //            ProductFound?.Invoke(foundProduct);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        throw new InvalidOperationException($"Product {product.Name} not found.");
-            //    }
-            //}
-        }
 
         public void OrderProducts(List<Product> products)
         {
@@ -137,7 +95,7 @@ namespace ZdoroviaNaDoloni.Classes
                 }
             }
 
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(PhoneNumber))
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(PhoneNumber))
             {
                 throw new InvalidOperationException("Required fields are missing.");
             }

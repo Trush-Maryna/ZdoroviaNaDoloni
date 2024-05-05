@@ -6,6 +6,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
     public partial class Guest_Home_2 : Form
     {
         private Point previousLocation;
+        private Guest_Home_2 GetLocation() => this;
 
         public Guest_Home_2()
         {
@@ -31,8 +32,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             };
             guestForm1.Show();
         }
-
-        private Guest_Home_2 GetLocation() => this;
 
         private void btn_search_Click(object sender, EventArgs e)
         {
@@ -73,6 +72,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void Txt_Sign_in_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,

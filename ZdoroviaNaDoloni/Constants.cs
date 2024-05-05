@@ -7,6 +7,7 @@ namespace ZdoroviaNaDoloni
         public const int xCoord = 20;
         public const int yCoord = 20;
         public const string TelegramLink = "https://t.me/ZdoroviaNaDoloni_Bot";
+        public const string ConditionsRulesLink = "https://policies.google.com/terms?hl=uk";
 
         public const string SlideImgUrl1 = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\First_Form\Img_Show_1.jpg";
         public const string SlideImgUrl2 = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\First_Form\Img_Show_2.jpg";
@@ -29,12 +30,14 @@ namespace ZdoroviaNaDoloni
         public const string EyeHideUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Eye_Btn_Hide.jpg";
         public const string CheckOpenUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Registration_Form\Check_Open.jpg";
         public const string CheckHideUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Registration_Form\Check_Hide.jpg";
+        public const string StarOpenURL = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Feedback\Btn_Star_Check.jpg";
+        public const string StarHideURL = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Feedback\Btn_Star_Hide.jpg";
 
         public const string productspath = @"Classes\Json\products.json";
-        public const string productsSmallpath = @"Classes\Json\products_small.json";
+        public const string feedbackspath = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\feedbacks.json";
 
         public static readonly int MinPassLength = 6;
-        public static readonly int MaxPassLength = 20;
+        public static readonly int MaxPassLength = 15;
         public static readonly int MinPhoneNumbLength = 9;
 
         public static MySqlConnection connection = new MySqlConnection("server=localhost;port=3306;username=root;password=08mar040;database=zdorovianadoloni");

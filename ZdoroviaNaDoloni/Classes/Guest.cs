@@ -9,24 +9,6 @@ namespace ZdoroviaNaDoloni.Classes
 
         public static int ID => id++;
 
-        public Guest()
-        {
-            Role = Roles.Guest;
-        }
-
-        public List<Product> SearchProductsByName(List<Product> products, string query)
-        {
-            List<Product> results = new List<Product>();
-
-            foreach (var product in products)
-            {
-                if (product.Name.ToLower().Contains(query))
-                {
-                    results.Add(product);
-                }
-            }
-
-            return results;
-        }
+        public Guest() {}
     }
 }

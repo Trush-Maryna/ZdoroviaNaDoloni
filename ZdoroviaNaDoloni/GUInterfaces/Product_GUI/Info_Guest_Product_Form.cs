@@ -20,7 +20,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
 
         private Info_Guest_Product_Form GetLocation() => this;
 
-        private void Info_Product_Form_Load(object sender, EventArgs e)
+        private void Info_Guest_Product_Form_Load(object sender, EventArgs e)
         {
             Name_Product.Text = product.Name;
             Developer_Product.Text = product.Developer;
@@ -32,12 +32,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Search_Form searchForm = new()
+            Guest_Home_1 guest_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
-            searchForm.Show(); 
+            guest_Home_1.Show();
         }
 
         private void btn_search_Click(object sender, EventArgs e)
@@ -91,6 +91,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Sign_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
@@ -121,6 +122,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
                 Location = previousLocation
             };
             info_product_warning_Form.Show();
+        }
+
+        private void Detailed_Descr_Btn_Click(object sender, EventArgs e)
+        {
+            string productInfo = product.GetProductInfo();
+            MessageBox.Show(productInfo, "Детальна інформація про товар");
         }
     }
 }

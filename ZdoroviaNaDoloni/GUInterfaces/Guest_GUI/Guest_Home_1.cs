@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
+﻿using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 
 namespace ZdoroviaNaDoloni
 {
@@ -7,6 +6,7 @@ namespace ZdoroviaNaDoloni
     {
         private Point previousLocation;
         private int currentImageIndex = 0;
+
         private readonly string[] imagePaths =
         {
             Constants.InfoShowUrl1,
@@ -14,6 +14,8 @@ namespace ZdoroviaNaDoloni
             Constants.InfoShowUrl3,
             Constants.InfoShowUrl4
         };
+
+        private Guest_Home_1 GetLocation() => this;
 
         public Guest_Home_1()
         {
@@ -31,8 +33,6 @@ namespace ZdoroviaNaDoloni
             };
             guestForm2.Show();
         }
-
-        private Guest_Home_1 GetLocation() => this;
 
         private void btn_search_Click(object sender, EventArgs e)
         {

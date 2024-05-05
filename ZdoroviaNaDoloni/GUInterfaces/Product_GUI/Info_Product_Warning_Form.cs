@@ -17,6 +17,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Sign_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
@@ -75,19 +76,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
 
         private void Btn_tg_Click(object sender, EventArgs e)
         {
-            try
+            ProcessStartInfo psi = new ProcessStartInfo
             {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = Constants.TelegramLink,
-                    UseShellExecute = true
-                };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Помилка відкриття посилання: " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                FileName = Constants.TelegramLink,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
     }
 }

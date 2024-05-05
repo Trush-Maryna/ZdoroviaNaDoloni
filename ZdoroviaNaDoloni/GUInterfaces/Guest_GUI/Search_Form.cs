@@ -9,10 +9,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private Point previousLocation;
         private List<Product> products;
         private Product selectedProduct;
+        private Search_Form GetLocation() => this;
 
         public Search_Form()
         {
             InitializeComponent();
+            Classes.User.UserAuthorized += OnUserAuthorized;
+            Classes.User.UserRegistered += OnUserRegistered;
         }
 
         private void Search_Form_Load(object sender, EventArgs e)
@@ -33,33 +36,24 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             guestForm1.Show();
         }
 
-        private Search_Form GetLocation() => this;
-
         private void Btn_tg_Click(object sender, EventArgs e)
         {
-            try
+            ProcessStartInfo psi = new ProcessStartInfo
             {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {
-                    FileName = Constants.TelegramLink,
-                    UseShellExecute = true
-                };
-                Process.Start(psi);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Помилка відкриття посилання!" + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                FileName = Constants.TelegramLink,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void Txt_Search_TextChanged(object sender, EventArgs e)
         {
             string query = Txt_Search.Text.ToLower();
-            List<Product> searchResults = new Guest().SearchProductsByName(products, query);
-            if (searchResults.Count > 0)
+            List<Product> searchResultsGuest = new Guest().SearchProductsByName(products, query);
+            if (searchResultsGuest.Count > 0)
             {
                 SearchResults.Items.Clear();
-                foreach (var product in searchResults)
+                foreach (var product in searchResultsGuest)
                 {
                     SearchResults.Items.Add(product.Name);
                 }
@@ -93,15 +87,75 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             if (searchResults.Count == 1)
             {
                 selectedProduct = searchResults[0];
-                previousLocation = GetLocation().Location;
-                Hide();
-                Info_Guest_Product_Form info_product_Form = new(selectedProduct)
+                if (!Classes.User.IsRegistered && !Classes.User.IsAuthorized)
                 {
-                    StartPosition = FormStartPosition.Manual,
-                    Location = previousLocation
-                };
-                info_product_Form.Show();
+                    previousLocation = GetLocation().Location;
+                    Hide();
+                    Info_Guest_Product_Form infoGuestProductForm = new(selectedProduct)
+                    {
+                        StartPosition = FormStartPosition.Manual,
+                        Location = previousLocation
+                    };
+                    infoGuestProductForm.Show();
+                }
+                else if (Classes.User.IsRegistered)
+                {
+                    OnUserRegistered(Classes.User.CurrentUser);
+                }
+                else if (Classes.User.IsAuthorized)
+                {
+                    OnUserAuthorized(Classes.User.CurrentUser);
+                }
             }
+        }
+
+        private void OnUserRegistered(Classes.User user)
+        {
+            if (user != null)
+            {
+                Classes.User.IsRegistered = true;
+                OpenInfoRegisterProductForm(selectedProduct);
+            }
+        }
+
+        private void OnUserAuthorized(Classes.User user)
+        {
+            if (user != null)
+            {
+                Classes.User.IsAuthorized = true;
+                if (user is Pharmacist)
+                {
+                    OpenInfoPharmProductForm(selectedProduct);
+                }
+                else
+                {
+                    OpenInfoRegisterProductForm(selectedProduct);
+                }
+            }
+        }
+
+        private void OpenInfoRegisterProductForm(Product selectedProduct)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Info_Registered_Product_Form infoProductForm = new(selectedProduct)
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            infoProductForm.Show();
+        }
+
+        private void OpenInfoPharmProductForm(Product selectedProduct)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Info_Pharm_Product_Form infoProductForm = new(selectedProduct)
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            infoProductForm.Show();
         }
     }
 }

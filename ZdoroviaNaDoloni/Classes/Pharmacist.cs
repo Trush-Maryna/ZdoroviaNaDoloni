@@ -7,7 +7,6 @@ namespace ZdoroviaNaDoloni.Classes
     {
         private string? name;
         private string? surname;
-        private string uniqueEmail;
         private string uniquePhoneNumber;
         private string uniquePass;
 
@@ -33,16 +32,13 @@ namespace ZdoroviaNaDoloni.Classes
                     throw new ArgumentException("Surname cannot be empty.");
             }
         }
-        public string UniqueEmail
-        {
-            get => uniqueEmail;
-            set => uniqueEmail = value;
-        }
+
         public string UniquePhoneNumber
         {
             get => uniquePhoneNumber;
             set => uniquePhoneNumber = value;
         }
+
         public string UniquePass
         {
             get => uniquePass;
@@ -55,8 +51,8 @@ namespace ZdoroviaNaDoloni.Classes
 
         public Pharmacist() { }
 
-        public Pharmacist(string uniquePhoneNumber, string uniquePass, Roles role, Genders gender) 
-            : base(uniquePhoneNumber, uniquePass, role, gender)
+        public Pharmacist(string uniquePhoneNumber, string uniquePass, Genders gender) 
+            : base(uniquePhoneNumber, uniquePass, gender)
         {
             UniquePhoneNumber = uniquePhoneNumber;
             UniquePass = uniquePass;
@@ -65,16 +61,8 @@ namespace ZdoroviaNaDoloni.Classes
             Cards = new List<DiscountCard>();
         }
 
-        public Pharmacist(string uniqueEmail) 
-            : base(uniqueEmail)
-        {
-            Orders = new List<OrderBasket>();
-            Feedbacks = new List<Feedback>();
-            Cards = new List<DiscountCard>();
-        }
-
-        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, Roles role, Genders gender, List<OrderBasket>? orders, List<DiscountCard>? cards, List<Feedback>? feedbacks) 
-            : this(uniquePhoneNumber, uniquePass, role, gender)
+        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, Genders gender, List<OrderBasket>? orders, List<DiscountCard>? cards, List<Feedback>? feedbacks) 
+            : this(uniquePhoneNumber, uniquePass, gender)
         {
             Name = name;
             Surname = surname;
@@ -83,9 +71,19 @@ namespace ZdoroviaNaDoloni.Classes
             Feedbacks = feedbacks ?? new List<Feedback>();
         }
 
-        public void FindProduct(List<Product> products)
+        public List<Product> SearchProductsByName(List<Product> products, string query)
         {
-            throw new NotImplementedException(); // json
+            List<Product> results = new List<Product>();
+
+            foreach (var product in products)
+            {
+                if (product.Name.ToLower().Contains(query))
+                {
+                    results.Add(product);
+                }
+            }
+
+            return results;
         }
 
         public int ReceiveOrderCount()
@@ -117,7 +115,7 @@ namespace ZdoroviaNaDoloni.Classes
                 }
             }
 
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(UniqueEmail) || string.IsNullOrEmpty(UniquePhoneNumber))
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(UniquePhoneNumber))
             {
                 throw new InvalidOperationException("Required fields are missing.");
             }

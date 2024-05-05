@@ -38,6 +38,7 @@
             Phone_Numder_txt = new TextBox();
             Pass_txt = new TextBox();
             X = new Label();
+            conditions_rules_txt = new Label();
             SuspendLayout();
             // 
             // btn_number
@@ -168,12 +169,27 @@
             X.Text = "X";
             X.Click += X_Click;
             // 
+            // conditions_rules_txt
+            // 
+            conditions_rules_txt.AutoSize = true;
+            conditions_rules_txt.BackColor = Color.FromArgb(120, 120, 184);
+            conditions_rules_txt.Cursor = Cursors.Hand;
+            conditions_rules_txt.Font = new Font("Segoe UI", 7F, FontStyle.Underline);
+            conditions_rules_txt.ForeColor = Color.White;
+            conditions_rules_txt.Location = new Point(85, 357);
+            conditions_rules_txt.Name = "conditions_rules_txt";
+            conditions_rules_txt.Size = new Size(139, 15);
+            conditions_rules_txt.TabIndex = 23;
+            conditions_rules_txt.Text = "Умовами та Правилами";
+            conditions_rules_txt.Click += conditions_rules_txt_Click;
+            // 
             // Registration_Form
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(392, 852);
+            Controls.Add(conditions_rules_txt);
             Controls.Add(X);
             Controls.Add(Pass_txt);
             Controls.Add(Phone_Numder_txt);
@@ -201,5 +217,6 @@
         private TextBox Phone_Numder_txt;
         private TextBox Pass_txt;
         private Label X;
+        private Label conditions_rules_txt;
     }
 }

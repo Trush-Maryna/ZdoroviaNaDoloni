@@ -1,23 +1,16 @@
-﻿namespace ZdoroviaNaDoloni.Classes
+﻿using Newtonsoft.Json;
+
+namespace ZdoroviaNaDoloni.Classes
 {
     public class Feedback
     {
-        private static int id = 1;
-        private string textFeedback;
+        private static int id = 0;
         private int grade;
 
         public static int ID => id++;
-        public int IDProduct { get;}
-        public string TextFeedback
-        {
-            get => textFeedback;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value) || value.Length < 1)
-                    throw new ArgumentException("Text feedback cannot be empty.");
-                textFeedback = value;
-            }
-        }
+        public int IDFeedback { get; }
+        public int IDProduct { get; set; }
+        public string TextFeedback { get; set; }
         public int Grade
         {
             get => grade;
@@ -28,14 +21,24 @@
                 grade = value;
             }
         }
-        public DateTime CreationDate { get; set; }
+        public string CreationDate { get; set; } 
+        public string UserName { get; set; }
 
-        public Feedback(string textFeedback, int grade, DateTime creationDate, Product product)
+        public Feedback()
         {
+            if (IDFeedback == 0)
+            {
+                IDFeedback = ID;
+            }
+        }
+
+        public Feedback(string textFeedback, int grade, DateTime creationDate, string userName)
+        {
+            IDFeedback = ID;
             TextFeedback = textFeedback;
             Grade = grade;
-            CreationDate = creationDate;
-            IDProduct = product.ID;
+            CreationDate = creationDate.ToString("yyyy-MM-dd HH:mm:ss");
+            UserName = userName;
         }
 
         public static double? CalculateAverageGrade(List<Feedback> feedbacks)
@@ -44,6 +47,36 @@
                 return null;
 
             return feedbacks.Average(f => f.Grade);
+        }
+
+        public string AddFeedbackToJsonFile(string filePath, string userName)
+        {
+            try
+            {
+                List<Feedback> existingFeedbacks = new List<Feedback>();
+                if (File.Exists(filePath))
+                {
+                    string feedbacksJson = File.ReadAllText(filePath);
+                    existingFeedbacks = JsonConvert.DeserializeObject<List<Feedback>>(feedbacksJson);
+                }
+
+                Feedback newFeedback = new Feedback
+                {
+                    UserName = userName,
+                    TextFeedback = TextFeedback,
+                    CreationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                    Grade = Grade
+                };
+
+                existingFeedbacks.Add(newFeedback);
+                string newJsonFeedbacks = JsonConvert.SerializeObject(existingFeedbacks, Formatting.Indented);
+                File.WriteAllText(filePath, newJsonFeedbacks);
+                return "success";
+            }
+            catch (Exception ex)
+            {
+                return $"error: {ex.Message}";
+            }
         }
     }
 }

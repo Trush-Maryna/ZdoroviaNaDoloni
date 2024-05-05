@@ -215,8 +215,9 @@
             Detailed_Descr_Btn.Size = new Size(393, 58);
             Detailed_Descr_Btn.TabIndex = 26;
             Detailed_Descr_Btn.UseVisualStyleBackColor = false;
+            Detailed_Descr_Btn.Click += Detailed_Descr_Btn_Click;
             // 
-            // Info_Product_Form
+            // Info_Guest_Product_Form
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -236,9 +237,9 @@
             Controls.Add(btn_search);
             Controls.Add(btn_open_home);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "Info_Product_Form";
+            Name = "Info_Guest_Product_Form";
             Text = "Info_Product_Form";
-            Load += Info_Product_Form_Load;
+            Load += Info_Guest_Product_Form_Load;
             ((System.ComponentModel.ISupportInitialize)Img_Product_Box).EndInit();
             ResumeLayout(false);
             PerformLayout();

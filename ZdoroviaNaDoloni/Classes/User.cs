@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
-using System.Text.RegularExpressions;
 using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
 
@@ -9,65 +8,48 @@ namespace ZdoroviaNaDoloni.Classes
     public abstract class User : IAuthorization, IRegistration, ISearchableProducts
     {
         private MySqlConnection connectDB = Constants.connection;
-
-        private Roles role;
-        private Genders? gender;
+        protected List<Product>? Products { get; set; }
 
         private string phoneNumber;
-        private string email;
         private string password;
+        private Genders? gender;
 
-        public Roles Role
+        public string PhoneNumber
         {
-            get => role;
-            set => role = value;
+            get => phoneNumber;
+            set
+            {
+                if (!ValidatePhoneNumber(value))
+                    throw new Exception("Невірний формат номеру телефону. Перевірте, щоб рядок складався з 9 цифр та спробуйте знову.");
+                phoneNumber = value;
+            }
         }
+
+        public string Password
+        {
+            get => password;
+            set
+            {
+                if (!ValidatePass(value))
+                    throw new Exception("Невірний формат паролю. Перевірте, щоб рядок складався від 6 до 15 символів та містив хоча б одну велику літеру.");
+                password = value;
+            }
+        }
+
         public Genders? Gender
         {
             get => gender;
             set => gender = value;
         }
 
-        public bool IsAuthorized { get; private set; }
-        public bool IsRegistered { get; private set; }
+        public static bool IsAuthorized;
+        public static bool IsRegistered;
+        public static bool IsDeleted;
+        public static User? CurrentUser { get; private set; }
 
-        protected bool IsLoggedInOrSignIn { get; set; }
-
-        protected string PhoneNumber 
-        {
-            get => phoneNumber;
-            set 
-            {
-                if (!string.IsNullOrWhiteSpace(value) && ValidatePhoneNumb(value))
-                    phoneNumber = value;
-                else
-                    throw new ArgumentException("Invalid phone number format.");
-            }
-        }
-        protected string Email 
-        {
-            get => email;
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value) && value.Contains("@"))
-                    email = value;
-                else
-                    throw new ArgumentException("Invalid email format.");
-            }
-        }
-        protected string Password 
-        {
-            get => password;
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value) && value.Length >= Constants.MinPassLength && value.Length <= Constants.MaxPassLength && ContainsNumber(value) && ContainsUppercase(value))
-                    password = value;
-                else
-                    throw new ArgumentException("Invalid password format.");
-            }
-        }
-
-        protected List<Product>? Products { get; set; }
+        public static event Action<User> UserAuthorized = user => { };
+        public static event Action<User> UserRegistered = user => { };
+        public static event Action<User> AccountDeleted = user => { };
 
         public User() { }
 
@@ -77,40 +59,33 @@ namespace ZdoroviaNaDoloni.Classes
             Password = password;
         }
 
-        public User(string email) => Email = email;
-
-        public User(string phoneNumber, string password, Roles role, Genders gender) : this(phoneNumber, password)
+        public User(string phoneNumber, string password, Genders gender) : this(phoneNumber, password)
         {
-            if (string.IsNullOrWhiteSpace(phoneNumber))
-                throw new ArgumentException("Phone number cannot be empty.");
-
-            Role = role;
             Gender = gender;
         }
 
-        public User(string email, Roles role, Genders gender) 
-            : this(email)
+        private bool ValidatePhoneNumber(string value)
         {
-            Role = role;
-            Gender = gender;
+            if (!string.IsNullOrWhiteSpace(value) && value.Length == Constants.MinPhoneNumbLength)
+            {
+                foreach (char c in value)
+                {
+                    if (!char.IsDigit(c))
+                    {
+                        return false; 
+                    }
+                }
+                return true; 
+            }
+            return false;
         }
 
-        public event Action<User> UserAuthorized = user => { };
-        public event Action<User> UserRegistered = user => { };
-
-        public event Action AccountDeleted = delegate { };
-
-        public static bool ValidatePhoneNumb(string phoneNumber) 
+        private bool ValidatePass(string value)
         {
-            string strippedNumber = Regex.Replace(phoneNumber, @"\s+", "");
-            return Regex.IsMatch(strippedNumber, @"^\d{9}$");
+            bool isValidLength = value.Length > Constants.MinPassLength && value.Length <= Constants.MaxPassLength;
+            bool hasUpperCase = value.Any(char.IsUpper);
+            return isValidLength && hasUpperCase;
         }
-
-        public static bool ContainsNumber(string input) => input.Any(char.IsDigit);
-
-        public static bool ContainsUppercase(string input) => input.Any(char.IsUpper);
-
-        public static string EncryptPass(string password) => Regex.Replace(password, @"\d", "*");
 
         public void openConnectionDB() 
         {
@@ -145,6 +120,7 @@ namespace ZdoroviaNaDoloni.Classes
             if (table.Rows.Count > 0)
             {
                 IsAuthorized = true;
+                CurrentUser = this;
                 UserAuthorized?.Invoke(this);
                 return true;
             }
@@ -154,24 +130,18 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public bool Authorized(int phonenumber, string password, string email)
-        {
-            //db
-            return true;
-        }
-
         public bool Register(int phonenumber, string password, bool confidentmark)
         {
             MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`phone_number`, `pass`, `CheckButtonClicked`) VALUES (@pn, @p, @cbc)", getConnection());
             command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phonenumber;
             command.Parameters.Add("@p", MySqlDbType.VarChar).Value = password;
             command.Parameters.Add("@cbc", MySqlDbType.Bit).Value = confidentmark;
-
             openConnectionDB();
             if (command.ExecuteNonQuery() == 1)
             {
                 closeConnectionDB();
                 IsRegistered = true;
+                CurrentUser = this;
                 UserRegistered?.Invoke(this);
                 return true;
             }
@@ -200,34 +170,61 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public void CheckAuthorizationStatus()
+        public static void Logout()
         {
-            IsAuthorized = true;
-            UserAuthorized?.Invoke(this);
+            IsAuthorized = false;
+            IsRegistered = false;
+            CurrentUser = null;
         }
 
-        public void CheckRegistrationStatus()
+        public string DeleteUserFromDatabase(User currentUser)
         {
-            IsRegistered = true;
-            UserRegistered?.Invoke(this);
-        }
+            try
+            {
+                if (currentUser != null)
+                {
+                    AccountDeleted?.Invoke(this);
+                    MySqlCommand command = new MySqlCommand("DELETE FROM `users` WHERE `phone_number` = @pn", getConnection());
+                    command.Parameters.AddWithValue("@pn", currentUser.PhoneNumber);
 
-        public void IsInRole(string phonenumber, string email, Roles role)
-        {
-            if (Role != role || (PhoneNumber != phonenumber && Email != email))
-                throw new UnauthorizedAccessException("User is not in the specified role.");
-        }
+                    openConnectionDB();
+                    int rowsAffected = command.ExecuteNonQuery();
 
-        public void IsInRole(string phonenumber, Roles role)
-        {
-            if (Role != role || PhoneNumber != phonenumber)
-                throw new UnauthorizedAccessException("User is not in the specified role.");
+                    MySqlCommand getMaxIdCommand = new MySqlCommand("SELECT MAX(id) FROM users", getConnection());
+                    int maxId = Convert.ToInt32(getMaxIdCommand.ExecuteScalar());
+
+                    MySqlCommand updateAutoIncrementCommand = new MySqlCommand($"ALTER TABLE users AUTO_INCREMENT = {maxId + 1}", getConnection());
+                    updateAutoIncrementCommand.ExecuteNonQuery();
+
+                    closeConnectionDB();
+
+                    if (rowsAffected > 0)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return "Не вдалося видалити користувача";
+                    }
+                }
+                else
+                {
+                    return "Користувач не зареєстрований у БД";
+                }
+            }
+            catch (MySqlException ex)
+            {
+                return "Помилка: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                return "Не вдалося видалити користувача: " + ex.Message;
+            }
         }
 
         public List<Product> SearchProductsByName(List<Product> products, string query)
         {
             List<Product> results = new List<Product>();
-
             foreach (var product in products)
             {
                 if (product.Name.ToLower().Contains(query))
@@ -235,7 +232,6 @@ namespace ZdoroviaNaDoloni.Classes
                     results.Add(product);
                 }
             }
-
             return results;
         }
     }

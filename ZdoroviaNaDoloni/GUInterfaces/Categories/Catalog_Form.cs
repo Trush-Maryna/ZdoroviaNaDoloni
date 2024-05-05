@@ -1,24 +1,21 @@
 ﻿using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 using ZdoroviaNaDoloni.GUInterfaces.Product_GUI;
-using ZdoroviaNaDoloniUser = ZdoroviaNaDoloni.Classes.User;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Categories
 {
     public partial class Catalog_Form : Form
     {
         private Point previousLocation;
-        private Catalog_Form GetLocation() => this;
         private List<Product> products;
-        private ZdoroviaNaDoloniUser loggedInSignedInUser;
         private Product selectedProduct;
+        private Catalog_Form GetLocation() => this;
 
         public Catalog_Form()
         {
             InitializeComponent();
-            this.loggedInSignedInUser = loggedInSignedInUser;
-            loggedInSignedInUser.UserAuthorized += OnUserAuthorized;
-            loggedInSignedInUser.UserRegistered += OnUserRegistered;
+            Classes.User.UserAuthorized += OnUserAuthorized;
+            Classes.User.UserRegistered += OnUserRegistered;
         }
 
         public Catalog_Form(List<Product> products)
@@ -76,7 +73,15 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Categories
                 Label priceLabel = (Label)Controls.Find($"Product_Price_{i + 1}", true)[0];
                 Button buyButton = (Button)Controls.Find($"Btn_Buy_{i + 1}", true)[0];
 
-                pictureBox.Image = Image.FromFile(products[i].Image);
+                Image originalImage = pictureBox.Image = Image.FromFile(products[i].Image);
+
+                float ratio = (float)originalImage.Height / pictureBox.Height;
+                int newWidth = (int)(originalImage.Width / ratio);
+                Image resizedImage = new Bitmap(originalImage, newWidth, pictureBox.Height);
+                pictureBox.Image = resizedImage;
+                originalImage.Dispose();
+                pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
                 nameLabel.Text = products[i].Name;
                 developerLabel.Text = products[i].Developer;
                 priceLabel.Text = $"{products[i].Price}";
@@ -89,15 +94,9 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Categories
         {
             Button button = sender as Button;
             int index = int.Parse(button.Tag.ToString());
-            Product product = new Product();
-            products = product.LoadProducts(Constants.productspath);
             selectedProduct = products[index];
 
-            if (loggedInSignedInUser is Registered || loggedInSignedInUser is Pharmacist)
-            {
-                OpenInfoProductForm(selectedProduct);
-            }
-            else 
+            if (!Classes.User.IsRegistered && !Classes.User.IsAuthorized)
             {
                 previousLocation = GetLocation().Location;
                 Hide();
@@ -108,29 +107,58 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Categories
                 };
                 infoGuestProductForm.Show();
             }
-        }
-
-        private void OnUserAuthorized(Classes.User user)
-        {
-            if (user is Registered || user is Pharmacist)
+            else if (Classes.User.IsRegistered)
             {
-                OpenInfoProductForm(selectedProduct);
+                OnUserRegistered(Classes.User.CurrentUser);
+            }
+            else if (Classes.User.IsAuthorized)
+            {
+                OnUserAuthorized(Classes.User.CurrentUser);
             }
         }
 
         private void OnUserRegistered(Classes.User user)
         {
-            if (user is Registered)
+            if (user != null)
             {
-                OpenInfoProductForm(selectedProduct);
+                Classes.User.IsRegistered = true;
+                OpenInfoRegisterProductForm(selectedProduct);
             }
         }
 
-        private void OpenInfoProductForm(Product selectedProduct)
+        private void OnUserAuthorized(Classes.User user)
+        {
+            if (user != null)
+            {
+                Classes.User.IsAuthorized = true;
+                if (user is Pharmacist)
+                {
+                    OpenInfoPharmProductForm(selectedProduct);
+                }
+                else
+                {
+                    OpenInfoRegisterProductForm(selectedProduct);
+                }
+            }
+        }
+
+        private void OpenInfoRegisterProductForm(Product selectedProduct)
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Info_Product_Form infoProductForm = new(selectedProduct)
+            Info_Registered_Product_Form infoProductForm = new(selectedProduct)
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            infoProductForm.Show();
+        }
+
+        private void OpenInfoPharmProductForm(Product selectedProduct)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Info_Pharm_Product_Form infoProductForm = new(selectedProduct)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
