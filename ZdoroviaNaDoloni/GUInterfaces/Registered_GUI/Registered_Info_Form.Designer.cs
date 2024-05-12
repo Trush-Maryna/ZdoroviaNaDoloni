@@ -156,6 +156,7 @@
             Btn_FAQ.Size = new Size(393, 100);
             Btn_FAQ.TabIndex = 32;
             Btn_FAQ.UseVisualStyleBackColor = false;
+            Btn_FAQ.Click += Btn_FAQ_Click;
             // 
             // Btn_Close_Profile
             // 

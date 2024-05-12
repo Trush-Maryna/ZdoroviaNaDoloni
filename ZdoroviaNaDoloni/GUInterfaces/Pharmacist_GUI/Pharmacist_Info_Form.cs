@@ -1,16 +1,16 @@
 ﻿using System.Diagnostics;
 using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
+using ZdoroviaNaDoloni.GUInterfaces.Registered_GUI;
 
-namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
+namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
 {
-    public partial class Registered_Info_Form : Form
+    public partial class Pharmacist_Info_Form : Form
     {
         private Point previousLocation;
+        private Pharmacist_Info_Form GetLocation() => this;
 
-        private Registered_Info_Form GetLocation() => this;
-
-        public Registered_Info_Form()
+        public Pharmacist_Info_Form()
         {
             InitializeComponent();
         }
@@ -64,43 +64,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             guestHome1Form.Show();
         }
 
-        private void Btn_Delete_Profile_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Ви впевнені, що хочете видалити свій профіль?", "Підтвердження видалення", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                string? deleteResult = User.CurrentUser.DeleteUserFromDatabase(User.CurrentUser);
-                if (deleteResult == null)
-                {
-                    MessageBox.Show("Профіль успішно видалено.");
-                    User.Logout();
-                    previousLocation = GetLocation().Location;
-                    Hide();
-                    Guest_Home_1 guestHome1Form = new()
-                    {
-                        StartPosition = FormStartPosition.Manual,
-                        Location = previousLocation
-                    };
-                    guestHome1Form.Show();
-                }
-                else
-                {
-                    MessageBox.Show("Помилка: " + deleteResult);
-                }
-            }
-        }
-
-        private void Btn_User_Info_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Hide();
-            Registered_Info_User_Form registeredInfoUserForm = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            registeredInfoUserForm.Show();
-        }
-
         private void Btn_FAQ_Click(object sender, EventArgs e)
         {
             ProcessStartInfo psi = new ProcessStartInfo
@@ -109,6 +72,31 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
                 UseShellExecute = true
             };
             Process.Start(psi);
+        }
+
+        private void Btn_Orders_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Pharmacist_Orders_Form pharmOrdersForm = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            pharmOrdersForm.Show();
+        }
+
+        private void Btn_Close_Profile_Click_1(object sender, EventArgs e)
+        {
+            User.Logout();
+            previousLocation = GetLocation().Location;
+            Hide();
+            Guest_Home_1 guestHome1Form = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            guestHome1Form.Show();
         }
     }
 }

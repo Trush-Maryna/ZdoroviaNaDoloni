@@ -36,6 +36,7 @@ namespace ZdoroviaNaDoloni
         public const string productspath = @"Classes\Json\products.json";
         public const string feedbackspath = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\Classes\Json\feedbacks.json";
         public const string panelspath = @"Classes\Json\panel_state.json";
+        public const string receiptpath = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug";
 
         public static readonly int MinPassLength = 6;
         public static readonly int MaxPassLength = 15;

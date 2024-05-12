@@ -242,9 +242,8 @@
             Star_Lbl.Font = new Font("Segoe UI", 8F);
             Star_Lbl.Location = new Point(3, 29);
             Star_Lbl.Name = "Star_Lbl";
-            Star_Lbl.Size = new Size(73, 19);
+            Star_Lbl.Size = new Size(0, 19);
             Star_Lbl.TabIndex = 2;
-            Star_Lbl.Text = " ★★★★★";
             // 
             // User_or_phone
             // 
@@ -252,9 +251,8 @@
             User_or_phone.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             User_or_phone.Location = new Point(8, 9);
             User_or_phone.Name = "User_or_phone";
-            User_or_phone.Size = new Size(101, 20);
+            User_or_phone.Size = new Size(0, 20);
             User_or_phone.TabIndex = 1;
-            User_or_phone.Text = "User_or_phone";
             // 
             // Feedback_txt
             // 
@@ -262,9 +260,8 @@
             Feedback_txt.Font = new Font("Segoe UI", 7F, FontStyle.Bold);
             Feedback_txt.Location = new Point(8, 51);
             Feedback_txt.Name = "Feedback_txt";
-            Feedback_txt.Size = new Size(67, 15);
+            Feedback_txt.Size = new Size(0, 15);
             Feedback_txt.TabIndex = 0;
-            Feedback_txt.Text = "Feedback1";
             // 
             // Add_feedback_btn
             // 

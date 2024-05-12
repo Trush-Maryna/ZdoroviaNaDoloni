@@ -1,9 +1,8 @@
 ﻿using ZdoroviaNaDoloni.Classes.Enums;
-using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {
-    public class Registered : User, ISearchableCities
+    public class Registered : User
     {
         private string? name;
         private string? surname;
@@ -52,8 +51,6 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public DiscountCard? Card { get; set; }
-
         public List<OrderBasket>? Orders { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
 
@@ -64,17 +61,15 @@ namespace ZdoroviaNaDoloni.Classes
         {
             Orders = new List<OrderBasket>();
             Feedbacks = new List<Feedback>();
-            Card = null;
         }
 
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, DiscountCard? card, List<OrderBasket>? orders, List<Feedback>? feedbacks, Genders gender) 
+        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, List<OrderBasket>? orders, List<Feedback>? feedbacks, Genders gender) 
             : base(phoneNumber, password, gender)
         {
             Name = name;
             Surname = surname;
             BirthDate = birthDate;
             City = city;
-            Card = card;
             Orders = orders ?? new List<OrderBasket>();
             Feedbacks = feedbacks ?? new List<Feedback>();
         }
@@ -101,26 +96,6 @@ namespace ZdoroviaNaDoloni.Classes
             Orders.Add(new OrderBasket(products));
         }
 
-        public DiscountCard AddDiscountCard(string ownerName, string ownerSurname, Discounts userDiscount, DateTime creationDate)
-        {
-            if (Card == null)
-            {
-                string code = GenerateDiscountCardCode();
-                var card = new DiscountCard(ownerName, ownerSurname, userDiscount, creationDate);
-                Card = card;
-                return card;
-            }
-            else
-            {
-                throw new InvalidOperationException("This user already has a discount card.");
-            }
-        }
-
-        private string GenerateDiscountCardCode()
-        {
-            return Guid.NewGuid().ToString().Substring(0, 13);
-        }
-
         public void AddFeedback(Feedback feedback)
         {
             Feedbacks?.Add(feedback);
@@ -132,14 +107,8 @@ namespace ZdoroviaNaDoloni.Classes
             Surname = null;
             BirthDate = null;
             City = null;
-            Card = null;
             Orders = null;
             Feedbacks = null;
-        }
-
-        public List<string> SearchCities(string query)
-        {
-            return new List<string>();
         }
     }
 }

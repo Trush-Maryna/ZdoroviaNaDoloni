@@ -14,7 +14,6 @@ namespace ZdoroviaNaDoloni
         public int Quantity { get; set; }
         public string Image { get; set; }
         public string Developer { get; set; }
-        public Discounts TotalDiscount { get; set; }
         public bool Confirmation { get; private set; }
 
         public List<Feedback>? Feedbacks { get; set; }
@@ -40,9 +39,8 @@ namespace ZdoroviaNaDoloni
             Quantity = quantity;
         }
 
-        public Product(int id, string name, string description, decimal price, int quantity, Discounts totalDiscount, bool confirmation, List<Feedback>? feedbacks) : this(id, name, description, price, quantity)
+        public Product(int id, string name, string description, decimal price, int quantity, bool confirmation, List<Feedback>? feedbacks) : this(id, name, description, price, quantity)
         {
-            TotalDiscount = totalDiscount;
             Confirmation = confirmation;
             Feedbacks = feedbacks;
         }
@@ -74,7 +72,7 @@ namespace ZdoroviaNaDoloni
             string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;
             string productsJsonPath = Path.Combine(projectDirectory, jsonFilePath);
             string productsJson = File.ReadAllText(productsJsonPath);
-            List<Product> productsData = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+            List<Product> ? productsData = JsonConvert.DeserializeObject<List<Product>>(productsJson);
 
             List<Product> products = new List<Product>();
 

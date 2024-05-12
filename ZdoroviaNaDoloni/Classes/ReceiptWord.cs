@@ -1,5 +1,4 @@
 ﻿using Microsoft.Office.Interop.Word;
-using static ZdoroviaNaDoloni.Classes.OrderBasket;
 using Document = Microsoft.Office.Interop.Word.Document;
 
 namespace ZdoroviaNaDoloni.Classes
@@ -112,6 +111,50 @@ namespace ZdoroviaNaDoloni.Classes
             string finalFileName = Path.Combine(projectDirectory, fileName + "_" + count + fileExtension);
             doc.SaveAs2(finalFileName);
             return finalFileName;
+        }
+
+        public static List<string> GetExistingOrderReceiptFiles(string directoryPath)
+        {
+            try
+            {
+                DirectoryInfo directory = new DirectoryInfo(directoryPath);
+                FileInfo[] files = directory.GetFiles("OrderReceipt*.docx");
+                List<string> existingFiles = files.Select(file => file.Name).ToList();
+                return existingFiles;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка при отриманні списку файлів: {ex.Message}");
+            }
+        }
+
+        public static void OpenReceiptFile(string filePath)
+        {
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    throw new FileNotFoundException("Файл не знайдено", filePath);
+                }
+
+                var wordApp = new Microsoft.Office.Interop.Word.Application();
+                wordApp.Visible = true;
+                var doc = wordApp.Documents.Open(filePath);
+
+                wordApp.DocumentBeforeClose += (Document doc, ref bool cancel) =>
+                {
+                    doc.Close();
+                    wordApp.Quit();
+                };
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine($"Помилка: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Помилка при відкритті файлу: {ex.Message}");
+            }
         }
     }
 }

@@ -177,7 +177,7 @@ namespace ZdoroviaNaDoloni.Classes
             CurrentUser = null;
         }
 
-        public string DeleteUserFromDatabase(User currentUser)
+        public string? DeleteUserFromDatabase(User currentUser)
         {
             try
             {
@@ -225,6 +225,7 @@ namespace ZdoroviaNaDoloni.Classes
         public List<Product> SearchProductsByName(List<Product> products, string query)
         {
             List<Product> results = new List<Product>();
+
             foreach (var product in products)
             {
                 if (product.Name.ToLower().Contains(query))
@@ -232,6 +233,7 @@ namespace ZdoroviaNaDoloni.Classes
                     results.Add(product);
                 }
             }
+
             return results;
         }
     }

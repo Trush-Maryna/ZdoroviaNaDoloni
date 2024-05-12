@@ -42,7 +42,12 @@
             pharm_categor_btn = new Button();
             btn_search = new Button();
             btn_open_home = new Button();
+            panel1 = new Panel();
+            Star_Lbl = new Label();
+            User_or_phone = new Label();
+            Feedback_txt = new Label();
             ((System.ComponentModel.ISupportInitialize)Img_Product_Box).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pharm_user_info_btn
@@ -58,6 +63,7 @@
             pharm_user_info_btn.Size = new Size(75, 75);
             pharm_user_info_btn.TabIndex = 52;
             pharm_user_info_btn.UseVisualStyleBackColor = false;
+            pharm_user_info_btn.Click += pharm_user_info_btn_Click;
             // 
             // pharm_cart_btn
             // 
@@ -216,12 +222,51 @@
             btn_open_home.UseVisualStyleBackColor = false;
             btn_open_home.Click += btn_open_home_Click;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.Transparent;
+            panel1.Controls.Add(Star_Lbl);
+            panel1.Controls.Add(User_or_phone);
+            panel1.Controls.Add(Feedback_txt);
+            panel1.Location = new Point(96, 622);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(194, 84);
+            panel1.TabIndex = 53;
+            // 
+            // Star_Lbl
+            // 
+            Star_Lbl.AutoSize = true;
+            Star_Lbl.Font = new Font("Segoe UI", 8F);
+            Star_Lbl.Location = new Point(3, 29);
+            Star_Lbl.Name = "Star_Lbl";
+            Star_Lbl.Size = new Size(0, 19);
+            Star_Lbl.TabIndex = 2;
+            // 
+            // User_or_phone
+            // 
+            User_or_phone.AutoSize = true;
+            User_or_phone.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            User_or_phone.Location = new Point(8, 9);
+            User_or_phone.Name = "User_or_phone";
+            User_or_phone.Size = new Size(0, 20);
+            User_or_phone.TabIndex = 1;
+            // 
+            // Feedback_txt
+            // 
+            Feedback_txt.AutoSize = true;
+            Feedback_txt.Font = new Font("Segoe UI", 7F, FontStyle.Bold);
+            Feedback_txt.Location = new Point(8, 51);
+            Feedback_txt.Name = "Feedback_txt";
+            Feedback_txt.Size = new Size(0, 15);
+            Feedback_txt.TabIndex = 0;
+            // 
             // Info_Pharm_Product_Form
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(392, 852);
+            Controls.Add(panel1);
             Controls.Add(pharm_user_info_btn);
             Controls.Add(pharm_cart_btn);
             Controls.Add(Detailed_Descr_Btn);
@@ -240,6 +285,8 @@
             Text = "Info_Pharm_Product_Form";
             Load += Info_Pharm_Product_Form_Load;
             ((System.ComponentModel.ISupportInitialize)Img_Product_Box).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -259,5 +306,9 @@
         private Button pharm_categor_btn;
         private Button btn_search;
         private Button btn_open_home;
+        private Panel panel1;
+        private Label Star_Lbl;
+        private Label User_or_phone;
+        private Label Feedback_txt;
     }
 }

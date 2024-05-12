@@ -17,14 +17,12 @@ namespace ZdoroviaNaDoloni.Classes
         protected Dictionary<int, Product> products = new Dictionary<int, Product>();
         public List<Product> CartItems => products.Values.ToList();
 
-        public DiscountCard? DiscountCard { get; set; }
-
         public OrderBasket()
         {
             orders = new List<Product>();
         }
 
-        public OrderBasket(List<Product>? Orders)
+        public OrderBasket(List<Product> Orders)
         {
             orders = Orders;
         }
@@ -33,12 +31,6 @@ namespace ZdoroviaNaDoloni.Classes
         {
             DeliveryAddress = !string.IsNullOrWhiteSpace(deliveryAddress) ? deliveryAddress : throw new ArgumentException("Delivery address cannot be empty.");
             orders = new List<Product>();
-        }
-
-        public OrderBasket(string deliveryAddress, DiscountCard? discountCard)
-            : this(deliveryAddress)
-        {
-            DiscountCard = discountCard;
         }
 
         public event Action OrderCompleted = delegate { };
@@ -73,7 +65,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonPath))
                 {
                     string existingJson = File.ReadAllText(jsonPath);
-                    PanelAndProductsData existingData = JsonConvert.DeserializeObject<PanelAndProductsData>(existingJson);
+                    PanelAndProductsData ? existingData = JsonConvert.DeserializeObject<PanelAndProductsData>(existingJson);
                     existingData.PanelDataList.AddRange(panelDataList);
                     data = existingData;
                 }
@@ -102,7 +94,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonPath))
                 {
                     string json = File.ReadAllText(jsonPath);
-                    PanelAndProductsData panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
+                    PanelAndProductsData? panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
 
                     HideAllProductPanels(productPanels);
 
@@ -210,12 +202,12 @@ namespace ZdoroviaNaDoloni.Classes
         public class Feedback
         {
             public bool PanelVisible { get; set; }
-            public Product Product { get; set; }
+            public Product? Product { get; set; }
         }
 
         public class PanelAndProductsData
         {
-            public List<Feedback> PanelDataList { get; set; }
+            public List<Feedback>? PanelDataList { get; set; }
         }
 
         public bool IsProductAdd(string jsonFilePath, Product product)
@@ -227,7 +219,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonPath))
                 {
                     string json = File.ReadAllText(jsonPath);
-                    PanelAndProductsData panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
+                    PanelAndProductsData ? panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
 
                     if (panelAndProductsData.PanelDataList.Any(panelData => panelData.Product.Name == product.Name && panelData.Product.ID == product.ID))
                     {
@@ -253,7 +245,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonPath))
                 {
                     string json = File.ReadAllText(jsonPath);
-                    PanelAndProductsData panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
+                    PanelAndProductsData ? panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
 
                     products.Remove(productId);
 
@@ -292,7 +284,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonPath))
                 {
                     string json = File.ReadAllText(jsonPath);
-                    PanelAndProductsData panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
+                    PanelAndProductsData? panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
 
                     if (panelIndex < panelAndProductsData.PanelDataList.Count)
                     {
@@ -327,7 +319,7 @@ namespace ZdoroviaNaDoloni.Classes
             if (File.Exists(jsonPath))
             {
                 string jsonContent = File.ReadAllText(jsonPath);
-                PanelAndProductsData panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(jsonContent);
+                PanelAndProductsData ? panelAndProductsData = JsonConvert.DeserializeObject<PanelAndProductsData>(jsonContent);
 
                 if (index < panelAndProductsData.PanelDataList.Count)
                 {
@@ -349,7 +341,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (File.Exists(jsonFilePath))
                 {
                     string json = File.ReadAllText(jsonFilePath);
-                    PanelAndProductsData data = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
+                    PanelAndProductsData ? data = JsonConvert.DeserializeObject<PanelAndProductsData>(json);
                     panelDataList = data.PanelDataList;
                 }
                 else

@@ -67,3 +67,5 @@ D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-wind
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.csproj.ResolveComReference.cache
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI.Order_Basket_Register_Delivery_Form.resources
 D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Registered_GUI.Registered_Info_User_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI.Pharmacist_Info_Form.resources
+D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\obj\Debug\net8.0-windows\ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI.Pharmacist_Orders_Form.resources

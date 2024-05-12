@@ -1,9 +1,8 @@
 ﻿using ZdoroviaNaDoloni.Classes.Enums;
-using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {
-    public class Pharmacist : User, ISearchableCities
+    public class Pharmacist : User
     {
         private string? name;
         private string? surname;
@@ -46,7 +45,6 @@ namespace ZdoroviaNaDoloni.Classes
         }
 
         public List<OrderBasket>? Orders { get; set; }
-        public List<DiscountCard>? Cards { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
 
         public Pharmacist() { }
@@ -58,32 +56,15 @@ namespace ZdoroviaNaDoloni.Classes
             UniquePass = uniquePass;
             Orders = new List<OrderBasket>();
             Feedbacks = new List<Feedback>();
-            Cards = new List<DiscountCard>();
         }
 
-        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, Genders gender, List<OrderBasket>? orders, List<DiscountCard>? cards, List<Feedback>? feedbacks) 
+        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, Genders gender, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
             : this(uniquePhoneNumber, uniquePass, gender)
         {
             Name = name;
             Surname = surname;
             Orders = orders ?? new List<OrderBasket>();
-            Cards = cards;
             Feedbacks = feedbacks ?? new List<Feedback>();
-        }
-
-        public List<Product> SearchProductsByName(List<Product> products, string query)
-        {
-            List<Product> results = new List<Product>();
-
-            foreach (var product in products)
-            {
-                if (product.Name.ToLower().Contains(query))
-                {
-                    results.Add(product);
-                }
-            }
-
-            return results;
         }
 
         public int ReceiveOrderCount()
@@ -123,25 +104,6 @@ namespace ZdoroviaNaDoloni.Classes
             Orders ??= new List<OrderBasket>();
             Orders.Add(new OrderBasket(products));
         }
-
-        public DiscountCard AddDiscountCard(string ownerName, string ownerSurname, Discounts userDiscount, DateTime creationDate)
-        {
-            string code = GenerateDiscountCardCode();
-            var card = new DiscountCard(ownerName, ownerSurname, userDiscount, creationDate);
-
-            if (Cards == null)
-                Cards = new List<DiscountCard>();
-
-            Cards.Add(card);
-            return card;
-        }
-
-        private string GenerateDiscountCardCode()
-        {
-            return Guid.NewGuid().ToString().Substring(0, 13);
-        }
-
-        public void RemoveDiscountCard(DiscountCard card) => Cards?.Remove(card);
 
         public void AddFeedback(Feedback feedback)
         {
@@ -185,10 +147,7 @@ namespace ZdoroviaNaDoloni.Classes
             Name = null;
             Surname = null;
             Orders = null;
-            Cards = null;
             Feedbacks = null;
         }
-
-        public List<string> SearchCities(string query) => throw new NotImplementedException();
     }
 }
