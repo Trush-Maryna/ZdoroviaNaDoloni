@@ -34,7 +34,8 @@ namespace ZdoroviaNaDoloni
         public const string StarHideURL = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Feedback\Btn_Star_Hide.jpg";
 
         public const string productspath = @"Classes\Json\products.json";
-        public const string feedbackspath = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\feedbacks.json";
+        public const string feedbackspath = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\ZdoroviaNaDoloni\bin\Debug\Classes\Json\feedbacks.json";
+        public const string panelspath = @"Classes\Json\panel_state.json";
 
         public static readonly int MinPassLength = 6;
         public static readonly int MaxPassLength = 15;

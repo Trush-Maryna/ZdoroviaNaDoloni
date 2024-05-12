@@ -32,6 +32,15 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
+        public Feedback(int idProduct)
+        {
+            IDProduct = idProduct;
+            if (IDFeedback == 0)
+            {
+                IDFeedback = ID;
+            }
+        }
+
         public Feedback(string textFeedback, int grade, DateTime creationDate, string userName)
         {
             IDFeedback = ID;
@@ -49,34 +58,85 @@ namespace ZdoroviaNaDoloni.Classes
             return feedbacks.Average(f => f.Grade);
         }
 
-        public string AddFeedbackToJsonFile(string filePath, string userName)
+        public static string GetJsonFilePath(string jsonFilePath)
+        {
+            string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;
+            return Path.Combine(projectDirectory, jsonFilePath);
+        }
+
+        public static void SaveFeedbackToJson(string jsonFilePath, Feedback feedback)
         {
             try
             {
-                List<Feedback> existingFeedbacks = new List<Feedback>();
-                if (File.Exists(filePath))
+                string jsonPath = GetJsonFilePath(jsonFilePath);
+                List<Feedback> feedbackList = new List<Feedback>();
+
+                if (File.Exists(jsonPath))
                 {
-                    string feedbacksJson = File.ReadAllText(filePath);
-                    existingFeedbacks = JsonConvert.DeserializeObject<List<Feedback>>(feedbacksJson);
+                    string json = File.ReadAllText(jsonPath);
+                    feedbackList = JsonConvert.DeserializeObject<List<Feedback>>(json);
                 }
 
-                Feedback newFeedback = new Feedback
-                {
-                    UserName = userName,
-                    TextFeedback = TextFeedback,
-                    CreationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    Grade = Grade
-                };
+                feedbackList.Add(feedback);
 
-                existingFeedbacks.Add(newFeedback);
-                string newJsonFeedbacks = JsonConvert.SerializeObject(existingFeedbacks, Formatting.Indented);
-                File.WriteAllText(filePath, newJsonFeedbacks);
-                return "success";
+                string updatedJson = JsonConvert.SerializeObject(feedbackList, Formatting.Indented);
+                File.WriteAllText(jsonFilePath, updatedJson);
             }
             catch (Exception ex)
             {
-                return $"error: {ex.Message}";
+                throw new Exception($"Помилка при збереженні фідбеку у JSON: {ex.Message}");
             }
         }
+
+        public static List<Feedback> LoadFeedbackFromJson(string jsonFilePath)
+        {
+            try
+            {
+                if (File.Exists(jsonFilePath))
+                {
+                    string json = File.ReadAllText(jsonFilePath);
+                    List<Feedback> feedbackList = JsonConvert.DeserializeObject<List<Feedback>>(json);
+                    return feedbackList;
+                }
+                else
+                {
+                    throw new FileNotFoundException("JSON файл не знайдено.", jsonFilePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка при завантаженні фідбеку з JSON: {ex.Message}");
+            }
+        }
+
+        //public string AddFeedbackToJsonFile(string filePath, string userName, int idProduct)
+        //{
+        //    try
+        //    {
+        //        List<Feedback> existingFeedbacks = new List<Feedback>();
+        //        if (File.Exists(filePath))
+        //        {
+        //            string feedbacksJson = File.ReadAllText(filePath);
+        //            existingFeedbacks = JsonConvert.DeserializeObject<List<Feedback>>(feedbacksJson);
+        //        }
+
+        //        Feedback newFeedback = new Feedback(idProduct)
+        //        {
+        //            UserName = userName,
+        //            TextFeedback = TextFeedback,
+        //            CreationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+        //            Grade = Grade
+        //        };
+
+        //        existingFeedbacks.Add(newFeedback);
+        //        string newJsonFeedbacks = JsonConvert.SerializeObject(existingFeedbacks, Formatting.Indented);
+        //        File.WriteAllText(filePath, newJsonFeedbacks);
+        //        return "success";
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return $"error: {ex.Message}";
+        //    }
+        //}
     }
 }

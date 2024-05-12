@@ -7,6 +7,9 @@
     <Compile Update="GUInterfaces\Categories\Catalog_Form.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUInterfaces\Categories\Categories_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUInterfaces\Categories\Children_Moms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -14,6 +17,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Categories\Medical_Equipment_Devices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Categories\Medicine.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Categories\Sport.cs">
@@ -28,9 +34,6 @@
     <Compile Update="GUInterfaces\First_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\Categories\Categories_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="GUInterfaces\Guest_GUI\Autorization_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -40,13 +43,19 @@
     <Compile Update="GUInterfaces\Guest_GUI\Guest_Home_2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\Categories\Medicine.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="GUInterfaces\Guest_GUI\Registration_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Guest_GUI\Search_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_Delivery_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_SelfPickup_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Home_1.cs">
@@ -61,13 +70,10 @@
     <Compile Update="GUInterfaces\Product_GUI\Info_Pharm_Product_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\Product_GUI\Info_Registered_Product_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="GUInterfaces\Product_GUI\Info_Product_Warning_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_Form.cs">
+    <Compile Update="GUInterfaces\Product_GUI\Info_Registered_Product_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Registered_GUI\Registered_Home_1.cs">
@@ -77,6 +83,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Registered_GUI\Registered_Info_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Registered_GUI\Registered_Info_User_Form.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

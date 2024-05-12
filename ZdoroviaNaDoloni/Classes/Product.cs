@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Diagnostics;
 using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
@@ -52,17 +51,6 @@ namespace ZdoroviaNaDoloni
         {
         }
 
-        private class ProductData
-        {
-            public int id { get; set; }
-            public string name { get; set; }
-            public string descr { get; set; }
-            public decimal price { get; set; }
-            public int quantity { get; set; }
-            public string image { get; set; }
-            public string developer { get; set; }
-        }
-
         public string GetProductInfo()
         {
             return $"Назва: {Name}\n" +
@@ -86,7 +74,7 @@ namespace ZdoroviaNaDoloni
             string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;
             string productsJsonPath = Path.Combine(projectDirectory, jsonFilePath);
             string productsJson = File.ReadAllText(productsJsonPath);
-            List<ProductData> productsData = JsonConvert.DeserializeObject<List<ProductData>>(productsJson);
+            List<Product> productsData = JsonConvert.DeserializeObject<List<Product>>(productsJson);
 
             List<Product> products = new List<Product>();
 
@@ -94,13 +82,13 @@ namespace ZdoroviaNaDoloni
             {
                 products.Add(new Product
                 {
-                    ID = productData.id,
-                    Name = productData.name,
-                    Description = productData.descr,
-                    Price = productData.price,
-                    Quantity = productData.quantity,
-                    Image = productData.image,
-                    Developer = productData.developer
+                    ID = productData.ID,
+                    Name = productData.Name,
+                    Description = productData.Description,
+                    Price = productData.Price,
+                    Quantity = productData.Quantity,
+                    Image = productData.Image,
+                    Developer = productData.Developer
                 });
             }
 

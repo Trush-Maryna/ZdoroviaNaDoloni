@@ -1,6 +1,7 @@
 ﻿using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 using ZdoroviaNaDoloni.GUInterfaces.Product_GUI;
+using ZdoroviaNaDoloni.GUInterfaces.Registered_GUI;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Categories
 {

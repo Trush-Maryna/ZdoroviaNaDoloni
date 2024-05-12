@@ -11,7 +11,7 @@ namespace ZdoroviaNaDoloni.Classes
         private GMapControl gMapControl;
         private List<Pharmacy> pharmacies;
 
-        private class Pharmacy
+        public class Pharmacy
         {
             public string Name { get; set; }
             public double Latitude { get; set; }
@@ -26,6 +26,8 @@ namespace ZdoroviaNaDoloni.Classes
                 Information = information;
             }
         }
+
+        public event Action<string, double, double, string> InfoMarkClicked;
 
         public MapManager(GMapControl gMapControl)
         {
@@ -78,6 +80,7 @@ namespace ZdoroviaNaDoloni.Classes
             {
                 Pharmacy pharmacy = (Pharmacy)item.Tag;
                 MessageBox.Show(pharmacy.Information, pharmacy.Name);
+                InfoMarkClicked?.Invoke(pharmacy.Name, pharmacy.Latitude, pharmacy.Longitude, pharmacy.Information);
             }
         }
     }

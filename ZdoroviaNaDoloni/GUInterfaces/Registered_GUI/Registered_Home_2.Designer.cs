@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Registered_Home_2));
             Name_User = new Label();
-            Btn_No = new Button();
-            Btn_Yes = new Button();
             Logo_User = new Button();
             register_user_info_btn = new Button();
             register_cart_btn = new Button();
@@ -52,35 +50,9 @@
             Name_User.ForeColor = Color.White;
             Name_User.Location = new Point(125, 35);
             Name_User.Name = "Name_User";
-            Name_User.Size = new Size(105, 35);
+            Name_User.Size = new Size(172, 35);
             Name_User.TabIndex = 36;
-            Name_User.Text = "User 👋";
-            // 
-            // Btn_No
-            // 
-            Btn_No.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_No.BackgroundImage = (Image)resources.GetObject("Btn_No.BackgroundImage");
-            Btn_No.Cursor = Cursors.Hand;
-            Btn_No.FlatAppearance.BorderSize = 0;
-            Btn_No.FlatStyle = FlatStyle.Flat;
-            Btn_No.Location = new Point(195, 102);
-            Btn_No.Name = "Btn_No";
-            Btn_No.Size = new Size(63, 23);
-            Btn_No.TabIndex = 35;
-            Btn_No.UseVisualStyleBackColor = false;
-            // 
-            // Btn_Yes
-            // 
-            Btn_Yes.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_Yes.BackgroundImage = (Image)resources.GetObject("Btn_Yes.BackgroundImage");
-            Btn_Yes.Cursor = Cursors.Hand;
-            Btn_Yes.FlatAppearance.BorderSize = 0;
-            Btn_Yes.FlatStyle = FlatStyle.Flat;
-            Btn_Yes.Location = new Point(142, 102);
-            Btn_Yes.Name = "Btn_Yes";
-            Btn_Yes.Size = new Size(42, 23);
-            Btn_Yes.TabIndex = 34;
-            Btn_Yes.UseVisualStyleBackColor = false;
+            Name_User.Text = "Registered 👋";
             // 
             // Logo_User
             // 
@@ -212,8 +184,6 @@
             ClientSize = new Size(392, 852);
             Controls.Add(mapBox);
             Controls.Add(Name_User);
-            Controls.Add(Btn_No);
-            Controls.Add(Btn_Yes);
             Controls.Add(Logo_User);
             Controls.Add(register_user_info_btn);
             Controls.Add(register_cart_btn);
@@ -233,8 +203,6 @@
         #endregion
 
         private Label Name_User;
-        private Button Btn_No;
-        private Button Btn_Yes;
         private Button Logo_User;
         private Button register_user_info_btn;
         private Button register_cart_btn;

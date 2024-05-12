@@ -25,6 +25,7 @@ namespace ZdoroviaNaDoloni
         private void Txt_map_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Guest_Home_2 guestForm2 = new()
             {
@@ -37,6 +38,7 @@ namespace ZdoroviaNaDoloni
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Search_Form searchForm = new()
             {
@@ -49,6 +51,7 @@ namespace ZdoroviaNaDoloni
         private void guest_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Categories_Form categorForm = new()
             {
@@ -61,6 +64,7 @@ namespace ZdoroviaNaDoloni
         private void Txt_Log_in_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Registration_Form registrationForm = new()
             {
@@ -73,6 +77,7 @@ namespace ZdoroviaNaDoloni
         private void Txt_Sign_in_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Autorization_Form autorizationForm = new()
             {

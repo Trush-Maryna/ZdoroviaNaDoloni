@@ -9,6 +9,8 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private Point previousLocation;
         private readonly Product product;
         private Order_Basket_Register_Form orderBasketRegisterForm;
+        private Add_Feedback_Register_Form feedbackRegisterForm;
+
         private Info_Registered_Product_Form GetLocation() => this;
 
         public Info_Registered_Product_Form()
@@ -41,10 +43,41 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
                     StartPosition = FormStartPosition.Manual,
                     Location = previousLocation
                 };
+                orderBasketRegisterForm.AddProductToPanel(product);
+                orderBasketRegisterForm.Show();
             }
+        }
 
-            orderBasketRegisterForm.AddProductToBasket(product);
-            orderBasketRegisterForm.Show();
+        private void Btn_Map_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Registered_Home_2 registered_Home_2 = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            registered_Home_2.Show();
+        }
+
+        private void Detailed_Descr_Btn_Click(object sender, EventArgs e)
+        {
+            string productInfo = product.GetProductInfo();
+            MessageBox.Show(productInfo, "Детальна інформація про товар");
+        }
+
+        private void Add_feedback_btn_Click(object sender, EventArgs e)
+        {
+            Product product = new Product();
+            previousLocation = GetLocation().Location;
+            Hide();
+            Add_Feedback_Register_Form feedbackForm = new(product)
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            feedbackRegisterForm.AddProductToFeedback(product);
+            feedbackForm.Show();
         }
 
         private void btn_open_home_Click(object sender, EventArgs e)
@@ -117,36 +150,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
                 Location = previousLocation
             };
             registered_Info_Form.Show();
-        }
-
-        private void Btn_Map_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Hide();
-            Registered_Home_2 registered_Home_2 = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            registered_Home_2.Show();
-        }
-
-        private void Detailed_Descr_Btn_Click(object sender, EventArgs e)
-        {
-            string productInfo = product.GetProductInfo();
-            MessageBox.Show(productInfo, "Детальна інформація про товар");
-        }
-
-        private void Add_feedback_btn_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Hide();
-            Add_Feedback_Register_Form feedback_form = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            feedback_form.Show();
         }
     }
 }

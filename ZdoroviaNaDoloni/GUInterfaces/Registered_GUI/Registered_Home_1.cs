@@ -61,7 +61,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Order_Bascet_Form orderBascetForm = new()
+            Order_Basket_Register_Form orderBascetForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation

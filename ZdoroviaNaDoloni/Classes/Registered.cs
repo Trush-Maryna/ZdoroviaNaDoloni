@@ -79,9 +79,6 @@ namespace ZdoroviaNaDoloni.Classes
             Feedbacks = feedbacks ?? new List<Feedback>();
         }
 
-        public delegate void ProductFoundEventHandler(Product product);
-        public event ProductFoundEventHandler ProductFound;
-
         public void OrderProducts(List<Product> products)
         {
             if (Orders == null)

@@ -39,8 +39,6 @@
             register_cart_btn = new Button();
             register_user_info_btn = new Button();
             Logo_User = new Button();
-            Btn_Yes = new Button();
-            Btn_No = new Button();
             Name_User = new Label();
             timer_img = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)infoBox).BeginInit();
@@ -167,32 +165,6 @@
             Logo_User.TabIndex = 22;
             Logo_User.UseVisualStyleBackColor = false;
             // 
-            // Btn_Yes
-            // 
-            Btn_Yes.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_Yes.BackgroundImage = (Image)resources.GetObject("Btn_Yes.BackgroundImage");
-            Btn_Yes.Cursor = Cursors.Hand;
-            Btn_Yes.FlatAppearance.BorderSize = 0;
-            Btn_Yes.FlatStyle = FlatStyle.Flat;
-            Btn_Yes.Location = new Point(142, 102);
-            Btn_Yes.Name = "Btn_Yes";
-            Btn_Yes.Size = new Size(42, 23);
-            Btn_Yes.TabIndex = 23;
-            Btn_Yes.UseVisualStyleBackColor = false;
-            // 
-            // Btn_No
-            // 
-            Btn_No.BackColor = Color.FromArgb(192, 192, 255);
-            Btn_No.BackgroundImage = (Image)resources.GetObject("Btn_No.BackgroundImage");
-            Btn_No.Cursor = Cursors.Hand;
-            Btn_No.FlatAppearance.BorderSize = 0;
-            Btn_No.FlatStyle = FlatStyle.Flat;
-            Btn_No.Location = new Point(195, 102);
-            Btn_No.Name = "Btn_No";
-            Btn_No.Size = new Size(63, 23);
-            Btn_No.TabIndex = 24;
-            Btn_No.UseVisualStyleBackColor = false;
-            // 
             // Name_User
             // 
             Name_User.AutoSize = true;
@@ -201,9 +173,9 @@
             Name_User.ForeColor = Color.White;
             Name_User.Location = new Point(125, 35);
             Name_User.Name = "Name_User";
-            Name_User.Size = new Size(105, 35);
+            Name_User.Size = new Size(172, 35);
             Name_User.TabIndex = 25;
-            Name_User.Text = "User 👋";
+            Name_User.Text = "Registered 👋";
             // 
             // timer_img
             // 
@@ -216,8 +188,6 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(392, 852);
             Controls.Add(Name_User);
-            Controls.Add(Btn_No);
-            Controls.Add(Btn_Yes);
             Controls.Add(Logo_User);
             Controls.Add(register_user_info_btn);
             Controls.Add(register_cart_btn);
@@ -247,8 +217,6 @@
         private Button register_cart_btn;
         private Button register_user_info_btn;
         private Button Logo_User;
-        private Button Btn_Yes;
-        private Button Btn_No;
         private Label Name_User;
         private System.Windows.Forms.Timer timer_img;
     }

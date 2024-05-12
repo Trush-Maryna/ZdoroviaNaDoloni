@@ -34,6 +34,7 @@ namespace ZdoroviaNaDoloni
         private void first_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            timer_img.Stop();
             Hide();
             Guest_Home_1 guestForm1 = new()
             {

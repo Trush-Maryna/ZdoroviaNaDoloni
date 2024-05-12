@@ -63,12 +63,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Order_Bascet_Form orderBascetForm = new()
+            Order_Basket_Register_Form orderBasketForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
-            orderBascetForm.Show();
+            orderBasketForm.Show();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
