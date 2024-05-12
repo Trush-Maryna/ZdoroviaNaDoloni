@@ -8,8 +8,8 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
     {
         private Point previousLocation;
         private readonly Product product;
+        private string jsonPath = Constants.feedbackspath;
         private Order_Basket_Register_Form orderBasketRegisterForm;
-        private Add_Feedback_Register_Form feedbackRegisterForm;
 
         private Info_Registered_Product_Form GetLocation() => this;
 
@@ -22,6 +22,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             InitializeComponent();
             this.product = product;
+            DisplayFeedback();
         }
 
         private void Info_Registered_Product_Form_Load(object sender, EventArgs e)
@@ -30,6 +31,32 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
             Developer_Product.Text = product.Developer;
             Product_Price.Text = product.Price.ToString();
             Img_Product_Box.Image = Image.FromFile(product.Image);
+        }
+
+        private void DisplayFeedback()
+        {
+            try
+            {
+                string jsonFilePath = jsonPath;
+                Classes.Feedback feedback = Classes.Feedback.GetRandomFeedbackFromJson(jsonFilePath);
+
+                if (feedback != null)
+                {
+                    User_or_phone.Text = feedback.UserName;
+                    Star_Lbl.Text = Classes.Feedback.GetStarsString(feedback.Grade);
+                    Feedback_txt.Text = feedback.TextFeedback;
+                }
+                else
+                {
+                    User_or_phone.Text = "Відгуків немає";
+                    Star_Lbl.Text = "";
+                    Feedback_txt.Text = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Помилка: {ex.Message}", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Btn_Buy_Click(object sender, EventArgs e)
@@ -68,15 +95,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
 
         private void Add_feedback_btn_Click(object sender, EventArgs e)
         {
-            Product product = new Product();
             previousLocation = GetLocation().Location;
             Hide();
-            Add_Feedback_Register_Form feedbackForm = new(product)
+            Add_Feedback_Register_Form feedbackForm = new Add_Feedback_Register_Form(product)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
-            feedbackRegisterForm.AddProductToFeedback(product);
             feedbackForm.Show();
         }
 

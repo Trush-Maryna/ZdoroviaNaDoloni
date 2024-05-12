@@ -7,7 +7,6 @@ namespace ZdoroviaNaDoloni.Classes
         private static int id = 0;
         private int grade;
 
-        public static int ID => id++;
         public int IDFeedback { get; }
         public int IDProduct { get; set; }
         public string TextFeedback { get; set; }
@@ -21,33 +20,33 @@ namespace ZdoroviaNaDoloni.Classes
                 grade = value;
             }
         }
-        public string CreationDate { get; set; } 
+        public string CreationDate { get; set; }
         public string UserName { get; set; }
 
         public Feedback()
         {
-            if (IDFeedback == 0)
-            {
-                IDFeedback = ID;
-            }
+            IDFeedback = ++id;
         }
 
         public Feedback(int idProduct)
         {
             IDProduct = idProduct;
-            if (IDFeedback == 0)
-            {
-                IDFeedback = ID;
-            }
+            IDFeedback = ++id;
         }
 
-        public Feedback(string textFeedback, int grade, DateTime creationDate, string userName)
+        public Feedback(int idProduct, string textFeedback, int grade, DateTime creationDate, string userName)
         {
-            IDFeedback = ID;
+            IDProduct = idProduct;
+            IDFeedback = ++id;
             TextFeedback = textFeedback;
             Grade = grade;
             CreationDate = creationDate.ToString("yyyy-MM-dd HH:mm:ss");
             UserName = userName;
+        }
+
+        public static string GetStarsString(int grade)
+        {
+            return new string('★', grade);
         }
 
         public static double? CalculateAverageGrade(List<Feedback> feedbacks)
@@ -80,7 +79,7 @@ namespace ZdoroviaNaDoloni.Classes
                 feedbackList.Add(feedback);
 
                 string updatedJson = JsonConvert.SerializeObject(feedbackList, Formatting.Indented);
-                File.WriteAllText(jsonFilePath, updatedJson);
+                File.WriteAllText(jsonPath, updatedJson);
             }
             catch (Exception ex)
             {
@@ -88,15 +87,24 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public static List<Feedback> LoadFeedbackFromJson(string jsonFilePath)
+        public static Feedback GetRandomFeedbackFromJson(string jsonFilePath)
         {
             try
             {
                 if (File.Exists(jsonFilePath))
                 {
-                    string json = File.ReadAllText(jsonFilePath);
+                    string jsonPath = GetJsonFilePath(jsonFilePath);
+                    string json = File.ReadAllText(jsonPath);
                     List<Feedback> feedbackList = JsonConvert.DeserializeObject<List<Feedback>>(json);
-                    return feedbackList;
+
+                    if (feedbackList == null || feedbackList.Count == 0)
+                    {
+                        throw new Exception("Список фідбеків порожній.");
+                    }
+
+                    Random random = new Random();
+                    int randomIndex = random.Next(0, feedbackList.Count);
+                    return feedbackList[randomIndex];
                 }
                 else
                 {
@@ -108,35 +116,5 @@ namespace ZdoroviaNaDoloni.Classes
                 throw new Exception($"Помилка при завантаженні фідбеку з JSON: {ex.Message}");
             }
         }
-
-        //public string AddFeedbackToJsonFile(string filePath, string userName, int idProduct)
-        //{
-        //    try
-        //    {
-        //        List<Feedback> existingFeedbacks = new List<Feedback>();
-        //        if (File.Exists(filePath))
-        //        {
-        //            string feedbacksJson = File.ReadAllText(filePath);
-        //            existingFeedbacks = JsonConvert.DeserializeObject<List<Feedback>>(feedbacksJson);
-        //        }
-
-        //        Feedback newFeedback = new Feedback(idProduct)
-        //        {
-        //            UserName = userName,
-        //            TextFeedback = TextFeedback,
-        //            CreationDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-        //            Grade = Grade
-        //        };
-
-        //        existingFeedbacks.Add(newFeedback);
-        //        string newJsonFeedbacks = JsonConvert.SerializeObject(existingFeedbacks, Formatting.Indented);
-        //        File.WriteAllText(filePath, newJsonFeedbacks);
-        //        return "success";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return $"error: {ex.Message}";
-        //    }
-        //}
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Info_Registered_Product_Form));
-            Answer_Feedback = new Button();
             Detailed_Descr_Btn = new Button();
             Btn_Map = new Button();
             Btn_Buy = new Button();
@@ -44,26 +43,13 @@
             register_user_info_btn = new Button();
             register_cart_btn = new Button();
             panel1 = new Panel();
-            label1 = new Label();
+            Star_Lbl = new Label();
             User_or_phone = new Label();
             Feedback_txt = new Label();
             Add_feedback_btn = new Button();
             ((System.ComponentModel.ISupportInitialize)Img_Product_Box).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // Answer_Feedback
-            // 
-            Answer_Feedback.BackColor = Color.FromArgb(192, 192, 255);
-            Answer_Feedback.BackgroundImage = (Image)resources.GetObject("Answer_Feedback.BackgroundImage");
-            Answer_Feedback.Cursor = Cursors.Hand;
-            Answer_Feedback.FlatAppearance.BorderSize = 0;
-            Answer_Feedback.FlatStyle = FlatStyle.Flat;
-            Answer_Feedback.Location = new Point(294, 673);
-            Answer_Feedback.Name = "Answer_Feedback";
-            Answer_Feedback.Size = new Size(81, 20);
-            Answer_Feedback.TabIndex = 10;
-            Answer_Feedback.UseVisualStyleBackColor = false;
             // 
             // Detailed_Descr_Btn
             // 
@@ -242,7 +228,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
-            panel1.Controls.Add(label1);
+            panel1.Controls.Add(Star_Lbl);
             panel1.Controls.Add(User_or_phone);
             panel1.Controls.Add(Feedback_txt);
             panel1.Location = new Point(96, 622);
@@ -250,15 +236,15 @@
             panel1.Size = new Size(194, 84);
             panel1.TabIndex = 40;
             // 
-            // label1
+            // Star_Lbl
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 8F);
-            label1.Location = new Point(3, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(73, 19);
-            label1.TabIndex = 2;
-            label1.Text = " ★★★★★";
+            Star_Lbl.AutoSize = true;
+            Star_Lbl.Font = new Font("Segoe UI", 8F);
+            Star_Lbl.Location = new Point(3, 29);
+            Star_Lbl.Name = "Star_Lbl";
+            Star_Lbl.Size = new Size(73, 19);
+            Star_Lbl.TabIndex = 2;
+            Star_Lbl.Text = " ★★★★★";
             // 
             // User_or_phone
             // 
@@ -315,7 +301,6 @@
             Controls.Add(register_categor_btn);
             Controls.Add(btn_search);
             Controls.Add(btn_open_home);
-            Controls.Add(Answer_Feedback);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Info_Registered_Product_Form";
             Text = "Info_Product_Form";
@@ -328,8 +313,6 @@
         }
 
         #endregion
-
-        private Button Answer_Feedback;
         private Button Detailed_Descr_Btn;
         private Button Btn_Map;
         private Button Btn_Buy;
@@ -346,7 +329,7 @@
         private Panel panel1;
         private Label User_or_phone;
         private Label Feedback_txt;
-        private Label label1;
+        private Label Star_Lbl;
         private Button Add_feedback_btn;
     }
 }
