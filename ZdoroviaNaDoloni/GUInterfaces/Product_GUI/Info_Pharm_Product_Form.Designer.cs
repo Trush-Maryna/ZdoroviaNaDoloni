@@ -69,7 +69,7 @@
             // 
             pharm_cart_btn.BackColor = Color.Transparent;
             pharm_cart_btn.BackgroundImage = (Image)resources.GetObject("pharm_cart_btn.BackgroundImage");
-            pharm_cart_btn.Cursor = Cursors.Hand;
+            pharm_cart_btn.Cursor = Cursors.No;
             pharm_cart_btn.FlatAppearance.BorderSize = 0;
             pharm_cart_btn.FlatStyle = FlatStyle.Flat;
             pharm_cart_btn.Font = new Font("Segoe UI", 8F);

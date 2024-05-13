@@ -91,6 +91,7 @@
             Btn_Categor_3.Size = new Size(296, 44);
             Btn_Categor_3.TabIndex = 29;
             Btn_Categor_3.UseVisualStyleBackColor = false;
+            Btn_Categor_3.Click += Btn_Categor_3_Click;
             // 
             // Btn_Categor_2
             // 

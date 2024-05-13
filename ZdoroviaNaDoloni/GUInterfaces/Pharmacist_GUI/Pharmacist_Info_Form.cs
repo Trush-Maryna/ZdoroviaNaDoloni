@@ -15,19 +15,19 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
             InitializeComponent();
         }
 
-        private void register_home_btn_Click(object sender, EventArgs e)
+        private void pharmacist_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Registered_Home_1 registerForm1 = new()
+            Pharmacist_Home_1 pharmacistForm1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
-            registerForm1.Show();
+            pharmacistForm1.Show();
         }
 
-        private void register_categor_btn_Click(object sender, EventArgs e)
+        private void pharmacist_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             Hide();
@@ -37,18 +37,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
                 Location = previousLocation
             };
             categorForm.Show();
-        }
-
-        private void register_OrderBask_btn_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Hide();
-            Order_Basket_Register_Form orderBasketForm = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            orderBasketForm.Show();
         }
 
         private void Btn_Close_Profile_Click(object sender, EventArgs e)
@@ -97,6 +85,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
                 Location = previousLocation
             };
             guestHome1Form.Show();
+        }
+
+        private void Btn_List_Orders_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Pharmacist_Products_Form pharmProductsForm = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            pharmProductsForm.Show();
         }
     }
 }

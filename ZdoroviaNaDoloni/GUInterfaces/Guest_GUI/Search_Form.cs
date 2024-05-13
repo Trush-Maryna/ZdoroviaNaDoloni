@@ -9,6 +9,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private Point previousLocation;
         private List<Product> products;
         private Product selectedProduct;
+        private string json = Constants.productspath;
         private Search_Form GetLocation() => this;
 
         public Search_Form()
@@ -20,30 +21,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
 
         private void Search_Form_Load(object sender, EventArgs e)
         {
-            Product product = new Product();
-            products = product.LoadProducts(Constants.productspath);
-        }
-
-        private void btn_open_home_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Hide();
-            Guest_Home_1 guestForm1 = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            guestForm1.Show();
-        }
-
-        private void Btn_tg_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = Constants.TelegramLink,
-                UseShellExecute = true
-            };
-            Process.Start(psi);
+            products = Product.LoadProducts(json);
         }
 
         private void Txt_Search_TextChanged(object sender, EventArgs e)
@@ -156,6 +134,68 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
                 Location = previousLocation
             };
             infoProductForm.Show();
+        }
+
+        private void Btn_1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Product> products = Product.LoadProducts(json);
+                Product selectedProduct = products.FirstOrDefault(p => p.ID == 13);
+
+                if (selectedProduct != null)
+                {
+                    if (!Classes.User.IsRegistered && !Classes.User.IsAuthorized)
+                    {
+                        previousLocation = GetLocation().Location;
+                        Hide();
+                        Info_Guest_Product_Form infoGuestProductForm = new(selectedProduct)
+                        {
+                            StartPosition = FormStartPosition.Manual,
+                            Location = previousLocation
+                        };
+                        infoGuestProductForm.Show();
+                    }
+                    else if (Classes.User.IsRegistered)
+                    {
+                        OnUserRegistered(Classes.User.CurrentUser);
+                    }
+                    else if (Classes.User.IsAuthorized)
+                    {
+                        OnUserAuthorized(Classes.User.CurrentUser);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Продукт з не знайдено.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Сталася помилка: {ex.Message}");
+            }
+        }
+
+        private void Btn_tg_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = Constants.TelegramLink,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
+        }
+
+        private void btn_open_home_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            Hide();
+            Guest_Home_1 guestForm1 = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            guestForm1.Show();
         }
     }
 }

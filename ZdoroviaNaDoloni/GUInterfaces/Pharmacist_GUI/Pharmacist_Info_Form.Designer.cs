@@ -34,10 +34,10 @@
             Btn_List_Orders = new Button();
             Btn_Orders = new Button();
             Btn_User_Info = new Button();
-            register_Info_btn = new Button();
-            register_OrderBask_btn = new Button();
-            register_home_btn = new Button();
-            register_categor_btn = new Button();
+            pharm_Info_btn = new Button();
+            pharm_OrderBask_btn = new Button();
+            pharm_home_btn = new Button();
+            pharm_categor_btn = new Button();
             SuspendLayout();
             // 
             // Btn_Close_Profile
@@ -83,6 +83,7 @@
             Btn_List_Orders.Size = new Size(393, 100);
             Btn_List_Orders.TabIndex = 40;
             Btn_List_Orders.UseVisualStyleBackColor = false;
+            Btn_List_Orders.Click += Btn_List_Orders_Click;
             // 
             // Btn_Orders
             // 
@@ -113,61 +114,63 @@
             Btn_User_Info.TabIndex = 38;
             Btn_User_Info.UseVisualStyleBackColor = false;
             // 
-            // register_Info_btn
+            // pharm_Info_btn
             // 
-            register_Info_btn.BackColor = Color.Transparent;
-            register_Info_btn.BackgroundImage = (Image)resources.GetObject("register_Info_btn.BackgroundImage");
-            register_Info_btn.Cursor = Cursors.No;
-            register_Info_btn.FlatAppearance.BorderSize = 0;
-            register_Info_btn.FlatStyle = FlatStyle.Flat;
-            register_Info_btn.Font = new Font("Segoe UI", 8F);
-            register_Info_btn.Location = new Point(300, 707);
-            register_Info_btn.Name = "register_Info_btn";
-            register_Info_btn.Size = new Size(75, 75);
-            register_Info_btn.TabIndex = 37;
-            register_Info_btn.UseVisualStyleBackColor = false;
+            pharm_Info_btn.BackColor = Color.Transparent;
+            pharm_Info_btn.BackgroundImage = (Image)resources.GetObject("pharm_Info_btn.BackgroundImage");
+            pharm_Info_btn.Cursor = Cursors.No;
+            pharm_Info_btn.FlatAppearance.BorderSize = 0;
+            pharm_Info_btn.FlatStyle = FlatStyle.Flat;
+            pharm_Info_btn.Font = new Font("Segoe UI", 8F);
+            pharm_Info_btn.Location = new Point(300, 707);
+            pharm_Info_btn.Name = "pharm_Info_btn";
+            pharm_Info_btn.Size = new Size(75, 75);
+            pharm_Info_btn.TabIndex = 37;
+            pharm_Info_btn.UseVisualStyleBackColor = false;
             // 
-            // register_OrderBask_btn
+            // pharm_OrderBask_btn
             // 
-            register_OrderBask_btn.BackColor = Color.Transparent;
-            register_OrderBask_btn.BackgroundImage = (Image)resources.GetObject("register_OrderBask_btn.BackgroundImage");
-            register_OrderBask_btn.Cursor = Cursors.Hand;
-            register_OrderBask_btn.FlatAppearance.BorderSize = 0;
-            register_OrderBask_btn.FlatStyle = FlatStyle.Flat;
-            register_OrderBask_btn.Font = new Font("Segoe UI", 8F);
-            register_OrderBask_btn.Location = new Point(206, 761);
-            register_OrderBask_btn.Name = "register_OrderBask_btn";
-            register_OrderBask_btn.Size = new Size(75, 75);
-            register_OrderBask_btn.TabIndex = 36;
-            register_OrderBask_btn.UseVisualStyleBackColor = false;
+            pharm_OrderBask_btn.BackColor = Color.Transparent;
+            pharm_OrderBask_btn.BackgroundImage = (Image)resources.GetObject("pharm_OrderBask_btn.BackgroundImage");
+            pharm_OrderBask_btn.Cursor = Cursors.No;
+            pharm_OrderBask_btn.FlatAppearance.BorderSize = 0;
+            pharm_OrderBask_btn.FlatStyle = FlatStyle.Flat;
+            pharm_OrderBask_btn.Font = new Font("Segoe UI", 8F);
+            pharm_OrderBask_btn.Location = new Point(206, 761);
+            pharm_OrderBask_btn.Name = "pharm_OrderBask_btn";
+            pharm_OrderBask_btn.Size = new Size(75, 75);
+            pharm_OrderBask_btn.TabIndex = 36;
+            pharm_OrderBask_btn.UseVisualStyleBackColor = false;
             // 
-            // register_home_btn
+            // pharm_home_btn
             // 
-            register_home_btn.BackColor = Color.Transparent;
-            register_home_btn.BackgroundImage = (Image)resources.GetObject("register_home_btn.BackgroundImage");
-            register_home_btn.Cursor = Cursors.Hand;
-            register_home_btn.FlatAppearance.BorderSize = 0;
-            register_home_btn.FlatStyle = FlatStyle.Flat;
-            register_home_btn.Font = new Font("Segoe UI", 8F);
-            register_home_btn.Location = new Point(18, 761);
-            register_home_btn.Name = "register_home_btn";
-            register_home_btn.Size = new Size(75, 75);
-            register_home_btn.TabIndex = 35;
-            register_home_btn.UseVisualStyleBackColor = false;
+            pharm_home_btn.BackColor = Color.Transparent;
+            pharm_home_btn.BackgroundImage = (Image)resources.GetObject("pharm_home_btn.BackgroundImage");
+            pharm_home_btn.Cursor = Cursors.Hand;
+            pharm_home_btn.FlatAppearance.BorderSize = 0;
+            pharm_home_btn.FlatStyle = FlatStyle.Flat;
+            pharm_home_btn.Font = new Font("Segoe UI", 8F);
+            pharm_home_btn.Location = new Point(18, 761);
+            pharm_home_btn.Name = "pharm_home_btn";
+            pharm_home_btn.Size = new Size(75, 75);
+            pharm_home_btn.TabIndex = 35;
+            pharm_home_btn.UseVisualStyleBackColor = false;
+            pharm_home_btn.Click += pharmacist_home_btn_Click;
             // 
-            // register_categor_btn
+            // pharm_categor_btn
             // 
-            register_categor_btn.BackColor = Color.Transparent;
-            register_categor_btn.BackgroundImage = (Image)resources.GetObject("register_categor_btn.BackgroundImage");
-            register_categor_btn.Cursor = Cursors.Hand;
-            register_categor_btn.FlatAppearance.BorderSize = 0;
-            register_categor_btn.FlatStyle = FlatStyle.Flat;
-            register_categor_btn.Font = new Font("Segoe UI", 8F);
-            register_categor_btn.Location = new Point(112, 761);
-            register_categor_btn.Name = "register_categor_btn";
-            register_categor_btn.Size = new Size(75, 75);
-            register_categor_btn.TabIndex = 34;
-            register_categor_btn.UseVisualStyleBackColor = false;
+            pharm_categor_btn.BackColor = Color.Transparent;
+            pharm_categor_btn.BackgroundImage = (Image)resources.GetObject("pharm_categor_btn.BackgroundImage");
+            pharm_categor_btn.Cursor = Cursors.Hand;
+            pharm_categor_btn.FlatAppearance.BorderSize = 0;
+            pharm_categor_btn.FlatStyle = FlatStyle.Flat;
+            pharm_categor_btn.Font = new Font("Segoe UI", 8F);
+            pharm_categor_btn.Location = new Point(112, 761);
+            pharm_categor_btn.Name = "pharm_categor_btn";
+            pharm_categor_btn.Size = new Size(75, 75);
+            pharm_categor_btn.TabIndex = 34;
+            pharm_categor_btn.UseVisualStyleBackColor = false;
+            pharm_categor_btn.Click += pharmacist_categor_btn_Click;
             // 
             // Pharmacist_Info_Form
             // 
@@ -180,10 +183,10 @@
             Controls.Add(Btn_List_Orders);
             Controls.Add(Btn_Orders);
             Controls.Add(Btn_User_Info);
-            Controls.Add(register_Info_btn);
-            Controls.Add(register_OrderBask_btn);
-            Controls.Add(register_home_btn);
-            Controls.Add(register_categor_btn);
+            Controls.Add(pharm_Info_btn);
+            Controls.Add(pharm_OrderBask_btn);
+            Controls.Add(pharm_home_btn);
+            Controls.Add(pharm_categor_btn);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Pharmacist_Info_Form";
             Text = "Pharmacist_Info_Form";
@@ -197,9 +200,9 @@
         private Button Btn_List_Orders;
         private Button Btn_Orders;
         private Button Btn_User_Info;
-        private Button register_Info_btn;
-        private Button register_OrderBask_btn;
-        private Button register_home_btn;
-        private Button register_categor_btn;
+        private Button pharm_Info_btn;
+        private Button pharm_OrderBask_btn;
+        private Button pharm_home_btn;
+        private Button pharm_categor_btn;
     }
 }

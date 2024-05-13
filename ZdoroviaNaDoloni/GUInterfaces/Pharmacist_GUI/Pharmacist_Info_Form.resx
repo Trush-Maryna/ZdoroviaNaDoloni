@@ -343,7 +343,7 @@
   <data name="Btn_FAQ.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAYkAAABkCAIAAAD8ElsCAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAG/FJREFUeF7tnflzG8eVx8nBRfGmSFEiqIP3JVEUT1siJfGQCEoWSVE8xEsEeAEE
+        DAAACwwBP0AiyAAAG/FJREFUeF7tnflzG8eVx8nBRfGmSFEiqIP3JVEUT1siJfGQCEoWSVE8xEsEeAEE
         SMlXEh+VbLzrOMmWbdlRnNgbJZHj+MzasWPLR3yQtlL7827t/gf7h6z22/NmGoMBCEIkCMKqh/oU1POm
         u6e7Z953XjeGo5S76ud//vt/r7/4n48+9h9LS98yDMMkDL//O3wHfCL90vX/ev/9z0iUhDb9+sYbntlP
         KJ/PHyzDMAyTYOZnb7/y6z8Lbbp169b01HtyB2sTwzA7CxRpbW0tZXLqEWwgrKLIimEYJpH4/f9Qv4X+
@@ -948,7 +948,7 @@
   <data name="Btn_User_Info.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAYkAAABkCAIAAAD8ElsCAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAH15JREFUeF7tnYd/FNe1x6VV2VVbCRBYFVRAEkUIoYKFKhgjIVQRArTqq7JIjkvy
+        DAAACwwBP0AiyAAAH15JREFUeF7tnYd/FNe1x6VV2VVbCRBYFVRAEkUIoYKFKhgjIVQRArTqq7JIjkvy
         iuO8kmLs+MVOKC8vfomdkOTzEpdUG3DixBax8n+Z9zv3zNy9O1u0ApUNnPl8We7cNnfOvfc3587OjpIe
         qO3+/fvjYy+2t881NM40N83iUxAEYbNpCg1P+F66ffv2l19+CVEibXr9u28NDtwIBO4vLX1x9erq1at/
         EwRB2AKWAyw4K+pzFSrU03MNikTaBJXq7n6NEzi3IAjC1qD8oeBuYIk+4SphJZcEJ8pMEwRB2ELYY3Lu
@@ -1085,10 +1085,10 @@
         Bw/+H0BjpRbgp7bPAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="register_Info_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pharm_Info_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAFIJJREFUeF6lW4l/VEW27j9NEkQl4IyS4KggysimIuLgkOTJEpbRBEF9EEYkAUQB
+        DAAACwwBP0AiyAAAFIJJREFUeF6lW4l/VEW27j9NEkQl4IyS4KggysimIuLgkOTJEpbRBEF9EEYkAUQB
         gWdCOvu+b510MBsJuyCYjejIw9FBw3vfqa/u6erbSxK9v8/y3KpTVeerU3Wq6nYI/N8ffWbs/6Ofhw9/
         +eH7exPf3Rq7feObqyM3Lg1eHuobGei9bHBl+OKNkf7b1y/fuXVtauzO/97/1y8//2RrmueRgffE70Ke
         GUcrwZOM4aNHSevHFM7MzIDV2J2bIAAyyseFL19frwyGr48OgPD976cfPfrNtug9riWzWBXz/HEf4pn5
@@ -1179,10 +1179,10 @@
         rkJggg==
 </value>
   </data>
-  <data name="register_OrderBask_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pharm_OrderBask_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DgAACw4BQL7hQQAAE5xJREFUeF6tW/tzV8d11w/J2K6dCSQWCCGEJAuBAL1A7/f3K+G0CDKxLRG7jcY0
+        DAAACwwBP0AiyAAAE5xJREFUeF6tW/tzV8d11w/J2K6dCSQWCCGEJAuBAL1A7/f3K+G0CDKxLRG7jcY0
         mQy0qUtp00piRjhIorHAxiSAUl4G10ANrvVEIAmhB0ISeroCj03y1/Sz+9l77n7v9yWBZz6zc3b37Nlz
         7jl7dvd+7zemsXEgHJqaBhubBpua7tqNRxoHUTY03WFV9YINdIPhxKiGxoHWtqFLF8Y7b03c7nn4cPzR
         /PTc4/n5bx8v/vnxPPB4YRYt4/emB/unbl57+Kezo+3t9x2BkGaEs6pbXMLuwkR2S0iEtVBsCAeZGCVn
@@ -1269,7 +1269,7 @@
         OJoAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="register_home_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pharm_home_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAEz9JREFUeF7FW/lzVceV1g+pCbZYJJBAG6AVJAzCEhJoR+9JODEidhJL2CZWhSxj
@@ -1357,7 +1357,7 @@
         7deGwIr/WuJ5GJTkDxJSPiHqu/8BMMT+LoqLwIIAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="register_categor_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="pharm_categor_btn.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAIAAAC3LO29AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         DAAACwwBP0AiyAAAElVJREFUeF61W+lzV9UZ/n2wdSFA9gXUARQwCgioyJrVLwW0M5pQdcxIp+3gh3Yo

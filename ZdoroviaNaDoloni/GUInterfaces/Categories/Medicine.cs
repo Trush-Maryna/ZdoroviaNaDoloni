@@ -61,6 +61,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             OpenCatalogForm(filteredProducts);
         }
 
+        private void Btn_Categor_3_Click(object sender, EventArgs e)
+        {
+            List<Product> filteredProducts = product.FilterProducts(13, 18);
+            OpenCatalogForm(filteredProducts);
+        }
+
         private void OpenCatalogForm(List<Product> filteredProducts)
         {
             previousLocation = GetLocation().Location;

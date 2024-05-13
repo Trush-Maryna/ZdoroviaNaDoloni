@@ -62,6 +62,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Btn_Buy_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             if (orderBasketRegisterForm == null || orderBasketRegisterForm.IsDisposed)
             {
@@ -78,6 +79,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Btn_Map_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Registered_Home_2 registered_Home_2 = new()
             {
@@ -96,6 +98,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Add_feedback_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Add_Feedback_Register_Form feedbackForm = new Add_Feedback_Register_Form(product)
             {
@@ -105,9 +108,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
             feedbackForm.Show();
         }
 
+        private void ClearForm()
+        {
+            Name_Product.Text = "";
+            Developer_Product.Text = "";
+            Product_Price.Text = "";
+            Img_Product_Box.Image = null;
+        }
+
         private void btn_open_home_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Registered_Home_1 registered_Home_1 = new()
             {
@@ -120,6 +132,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Search_Form searchForm = new()
             {
@@ -132,6 +145,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Registered_Home_1 registered_Home_1 = new()
             {
@@ -144,6 +158,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Categories_Form categorForm = new()
             {
@@ -156,6 +171,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void register_cart_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Order_Basket_Register_Form order_Basket_Register_Form = new()
             {
@@ -168,6 +184,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Registered_Info_Form registered_Info_Form = new()
             {

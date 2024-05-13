@@ -2,6 +2,7 @@
 {
     public interface IProductManagement
     {
-        List<Product> LoadProducts(string jsonFilePath);
+        List<Product> FilterProducts(int minId, int maxId);
+        int CompareTo(Product other);
     }
 }

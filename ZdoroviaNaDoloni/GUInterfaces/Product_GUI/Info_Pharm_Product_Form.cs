@@ -10,11 +10,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private string jsonPath = Constants.feedbackspath;
         private Info_Pharm_Product_Form GetLocation() => this;
 
-        public Info_Pharm_Product_Form()
-        {
-            InitializeComponent();
-        }
-
         public Info_Pharm_Product_Form(Product product)
         {
             InitializeComponent();
@@ -59,6 +54,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Btn_Map_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Pharmacist_Home_2 pharmacist_Home_2 = new()
             {
@@ -74,9 +70,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
             MessageBox.Show(productInfo, "Детальна інформація про товар");
         }
 
+        private void ClearForm()
+        {
+            Name_Product.Text = "";
+            Developer_Product.Text = "";
+            Product_Price.Text = "";
+            Img_Product_Box.Image = null;
+        }
+
         private void btn_open_home_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Pharmacist_Home_1 pharm_Home_1 = new()
             {
@@ -89,6 +94,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Search_Form searchForm = new()
             {
@@ -101,6 +107,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void pharm_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Pharmacist_Home_1 pharm_Home_1 = new()
             {
@@ -113,6 +120,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void pharm_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Categories_Form categorForm = new()
             {
@@ -125,6 +133,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void pharm_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
+            ClearForm();
             Hide();
             Pharmacist_Info_Form pharmacist_info_form = new()
             {

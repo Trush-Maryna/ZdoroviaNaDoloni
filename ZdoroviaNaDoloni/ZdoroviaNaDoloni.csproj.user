@@ -58,6 +58,9 @@
     <Compile Update="GUInterfaces\OrderBasket_GUI\Order_Basket_Register_SelfPickup_Form.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Add_Product_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Home_1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +71,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Orders_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUInterfaces\Pharmacist_GUI\Pharmacist_Products_Form.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUInterfaces\Product_GUI\Info_Guest_Product_Form.cs">

@@ -98,6 +98,7 @@
             Btn_1.Size = new Size(107, 46);
             Btn_1.TabIndex = 3;
             Btn_1.UseVisualStyleBackColor = false;
+            Btn_1.Click += Btn_1_Click;
             // 
             // Btn_2
             // 
