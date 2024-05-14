@@ -339,30 +339,30 @@
             // 
             Product_Quantity_1.AutoSize = true;
             Product_Quantity_1.BackColor = Color.Transparent;
-            Product_Quantity_1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            Product_Quantity_1.Location = new Point(215, 45);
+            Product_Quantity_1.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            Product_Quantity_1.Location = new Point(215, 50);
             Product_Quantity_1.Name = "Product_Quantity_1";
-            Product_Quantity_1.Size = new Size(0, 23);
+            Product_Quantity_1.Size = new Size(0, 19);
             Product_Quantity_1.TabIndex = 52;
             // 
             // Product_Quantity_2
             // 
             Product_Quantity_2.AutoSize = true;
             Product_Quantity_2.BackColor = Color.Transparent;
-            Product_Quantity_2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            Product_Quantity_2.Location = new Point(215, 48);
+            Product_Quantity_2.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            Product_Quantity_2.Location = new Point(215, 53);
             Product_Quantity_2.Name = "Product_Quantity_2";
-            Product_Quantity_2.Size = new Size(0, 23);
+            Product_Quantity_2.Size = new Size(0, 19);
             Product_Quantity_2.TabIndex = 53;
             // 
             // Product_Quantity_3
             // 
             Product_Quantity_3.AutoSize = true;
             Product_Quantity_3.BackColor = Color.Transparent;
-            Product_Quantity_3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            Product_Quantity_3.Location = new Point(215, 51);
+            Product_Quantity_3.Font = new Font("Segoe UI", 8F, FontStyle.Bold);
+            Product_Quantity_3.Location = new Point(215, 56);
             Product_Quantity_3.Name = "Product_Quantity_3";
-            Product_Quantity_3.Size = new Size(0, 23);
+            Product_Quantity_3.Size = new Size(0, 19);
             Product_Quantity_3.TabIndex = 54;
             // 
             // Total_Count_Product

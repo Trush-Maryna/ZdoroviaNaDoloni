@@ -64,7 +64,7 @@ namespace ZdoroviaNaDoloni.Classes
             Gender = gender;
         }
 
-        private bool ValidatePhoneNumber(string value)
+        public bool ValidatePhoneNumber(string value)
         {
             if (!string.IsNullOrWhiteSpace(value) && value.Length == Constants.MinPhoneNumbLength)
             {
@@ -80,7 +80,7 @@ namespace ZdoroviaNaDoloni.Classes
             return false;
         }
 
-        private bool ValidatePass(string value)
+        public bool ValidatePass(string value)
         {
             bool isValidLength = value.Length > Constants.MinPassLength && value.Length <= Constants.MaxPassLength;
             bool hasUpperCase = value.Any(char.IsUpper);

@@ -61,15 +61,6 @@ namespace ZdoroviaNaDoloni
                    $"Кількість на складі: {Quantity} шт.\n";
         }
 
-        public void StockUpdated(int newQuantity)
-        {
-            if (newQuantity <= 0)
-                throw new ArgumentException("Кількість має бути більше нуля.");
-
-            Quantity = newQuantity;
-            Confirmation = true;
-        }
-
         public static string GetJsonFilePath(string jsonFilePath)
         {
             string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;

@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
+using System.Xml.Linq;
 using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
 {
@@ -9,10 +12,26 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         private Point previousLocation;
 
         private Registered_Info_Form GetLocation() => this;
-
+        private string nameUser;
+        private string regionUser;
+        private string cityUser;
+        private string numTelUser;
+        private int numNPUser;
+        private OrderBasket userInfo;
         public Registered_Info_Form()
         {
             InitializeComponent();
+        }
+
+        public Registered_Info_Form(string name, string region, string city, string numTel, int numNP, OrderBasket userinfo)
+        {
+            InitializeComponent();
+            this.nameUser = name;
+            this.regionUser = region;
+            this.cityUser = city;
+            this.numTelUser = numTel;
+            this.numNPUser = numNP;
+            this.userInfo = userinfo;
         }
 
         private void register_home_btn_Click(object sender, EventArgs e)
@@ -93,7 +112,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         {
             previousLocation = GetLocation().Location;
             Hide();
-            Registered_Info_User_Form registeredInfoUserForm = new()
+            Registered_Info_User_Form registeredInfoUserForm = new(nameUser, regionUser, cityUser, numTelUser, numNPUser, userInfo)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation

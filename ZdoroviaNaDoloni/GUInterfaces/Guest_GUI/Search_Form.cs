@@ -21,7 +21,10 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
 
         private void Search_Form_Load(object sender, EventArgs e)
         {
-            products = Product.LoadProducts(json);
+            if (products != null)
+            {
+                products = Product.LoadProducts(json);
+            }
         }
 
         private void Txt_Search_TextChanged(object sender, EventArgs e)

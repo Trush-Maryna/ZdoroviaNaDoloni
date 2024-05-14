@@ -30,6 +30,8 @@ namespace ZdoroviaNaDoloni
         public const string EyeHideUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Eye_Btn_Hide.jpg";
         public const string CheckOpenUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Registration_Form\Check_Open.jpg";
         public const string CheckHideUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Guest\Registration_Form\Check_Hide.jpg";
+        public const string CheckInfoOpenUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Registered\Registered_Info_User\Check_Open.jpg";
+        public const string CheckInfoCloseUrl = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Registered\Registered_Info_User\Check_Close.jpg";
         public const string StarOpenURL = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Feedback\Btn_Star_Check.jpg";
         public const string StarHideURL = @"D:\VS Community\C#.NET_2\ZdoroviaNaDoloni\Images\Feedback\Btn_Star_Hide.jpg";
 

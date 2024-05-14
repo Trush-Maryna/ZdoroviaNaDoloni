@@ -5,15 +5,13 @@ namespace ZdoroviaNaDoloni.Classes
 {
     public class ReceiptWord
     {
-        public static object CreateReceipt(List<OrderBasket.Feedback> panelDataList, decimal totalPrice, int totalCount, List<MapManager.Pharmacy> pharmacyMarks)
+        public static object CreateReceiptSelfPickup(List<OrderBasket.Feedback> panelDataList, decimal totalPrice, int totalCount, List<MapManager.Pharmacy> pharmacyMarks)
         {
             try
             {
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
                 wordApp.Visible = true;
-
                 Document doc = wordApp.Documents.Add();
-
                 AddTitle(doc);
                 AddProductsInfo(doc, panelDataList);
                 AddTotalInfo(doc, totalPrice, totalCount);
@@ -21,7 +19,26 @@ namespace ZdoroviaNaDoloni.Classes
                 {
                     AddPharmaciesInfo(doc, pharmacyMarks);
                 }
+                string finalFileName = SaveDocument(doc);
+                return finalFileName;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Помилка при створенні документа: {ex.Message}");
+            }
+        }
 
+        public static object CreateReceiptDelivery(List<OrderBasket.Feedback> panelDataList, decimal totalPrice, int totalCount, OrderBasket userinfo)
+        {
+            try
+            {
+                Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                wordApp.Visible = true;
+                Document doc = wordApp.Documents.Add();
+                AddTitle(doc);
+                AddUserInfo(doc, userinfo);
+                AddProductsInfo(doc, panelDataList);
+                AddTotalInfo(doc, totalPrice, totalCount);
                 string finalFileName = SaveDocument(doc);
                 return finalFileName;
             }
@@ -40,6 +57,26 @@ namespace ZdoroviaNaDoloni.Classes
             title.Range.Font.Bold = 1;
             title.Format.SpaceAfter = 10;
             title.Range.InsertParagraphAfter();
+        }
+
+        private static void AddUserInfo(Document doc, OrderBasket userinfo) 
+        {
+            Paragraph userHeader = doc.Content.Paragraphs.Add();
+            userHeader.Format.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+            userHeader.Range.Font.Size = 16;
+            userHeader.Range.Font.Italic = 0;
+            userHeader.Range.Text = $"Користувач: { userinfo.Name}";
+            userHeader.Range.Text += $"Номер телефону: {userinfo.NumTel}";
+            userHeader.Range.Font.Size = 14;
+            userHeader.Range.Font.Italic = 1;
+            userHeader.Range.InsertParagraphAfter();
+            userHeader.Range.Text += $"Область: {userinfo.Region}";
+            userHeader.Range.Text += $"Місто: {userinfo.City}";
+            userHeader.Range.Text += $"Відділення: {userinfo.NumNP}\n";
+            userHeader.Range.Font.Size = 14;
+            userHeader.Range.Font.Italic = 0;
+            userHeader.Range.Font.Bold = 1;
+            userHeader.Range.InsertParagraphAfter();
         }
 
         private static void AddProductsInfo(Document doc, List<OrderBasket.Feedback> panelDataList)
@@ -86,7 +123,6 @@ namespace ZdoroviaNaDoloni.Classes
             pharmaciesInfo.Range.InsertParagraphAfter();
             pharmaciesInfo.Range.Text = "Забрати у аптеці:";
             pharmaciesInfo.Range.Font.Bold = 1;
-
             foreach (var pharmacy in pharmacyMarks)
             {
                 string pharmacyInfo = $"Назва: {pharmacy.Name}, \nLat: {pharmacy.Latitude}, \nLong: {pharmacy.Longitude}, \nІнформація: {pharmacy.Information}";
@@ -102,12 +138,10 @@ namespace ZdoroviaNaDoloni.Classes
             string fileName = "OrderReceipt";
             string fileExtension = ".docx";
             int count = 1;
-
             while (File.Exists(Path.Combine(projectDirectory, fileName + "_" + count + fileExtension)))
             {
                 count++;
             }
-
             string finalFileName = Path.Combine(projectDirectory, fileName + "_" + count + fileExtension);
             doc.SaveAs2(finalFileName);
             return finalFileName;
@@ -136,11 +170,9 @@ namespace ZdoroviaNaDoloni.Classes
                 {
                     throw new FileNotFoundException("Файл не знайдено", filePath);
                 }
-
                 var wordApp = new Microsoft.Office.Interop.Word.Application();
                 wordApp.Visible = true;
                 var doc = wordApp.Documents.Open(filePath);
-
                 wordApp.DocumentBeforeClose += (Document doc, ref bool cancel) =>
                 {
                     doc.Close();

@@ -4,5 +4,6 @@
     {
         List<Product> FilterProducts(int minId, int maxId);
         int CompareTo(Product other);
+        string GetProductInfo();
     }
 }

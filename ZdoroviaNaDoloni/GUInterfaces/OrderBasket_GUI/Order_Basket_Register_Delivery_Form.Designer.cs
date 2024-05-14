@@ -102,6 +102,7 @@
             Btn_Confirm.Size = new Size(357, 36);
             Btn_Confirm.TabIndex = 79;
             Btn_Confirm.UseVisualStyleBackColor = false;
+            Btn_Confirm.Click += Btn_Confirm_Click;
             // 
             // Btn_Check_Delivery
             // 

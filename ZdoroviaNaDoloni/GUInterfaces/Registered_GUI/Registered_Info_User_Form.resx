@@ -283,7 +283,7 @@
         WTnWxGIr1ZSq169WbcqlWpKU5PrZJLlcnJ3fZJJJJJLZJLRJdEj/2Q==
 </value>
   </data>
-  <data name="Btn_Check_Delivery.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Btn_Check_Male.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAgEASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
         AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
@@ -327,10 +327,10 @@
         2Q==
 </value>
   </data>
-  <data name="Btn_Check_Self_Pickup.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="Btn_Check_Female.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAAA8tJREFUSEudVjlPm0EQtQlI8UHABTQpMAUFKCg4CCOhYHzQQCpiS1GKXEoDylHg
+        DAAACwwBP0AiyAAAA8tJREFUSEudVjlPm0EQtQlI8UHABTQpMAUFKCg4CCOhYHzQQCpiS1GKXEoDylHg
         NtAEJKpcKIkUhTQEYxpy/IAofyCpY/xn8mbe7rC2G+zVaL/5dnfe22t2JnJ83FBptoq0HHz5u7V1uLL6
         IJ2eSiQGI0GJx65MTWVXVh5Vqx9rtX8YX6s7K/zWamcepCEEJzUB1RHSTehK5SlQHF5QotGo03wZHbla
         qTzff/vbQAnFXxC4VulQ5vv3Xjjovuhwajo9fmcm83Jh4VOh+A1SLH1HfTN3NJPZmZh4nBwcVxahWd/Y

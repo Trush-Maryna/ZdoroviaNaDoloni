@@ -49,7 +49,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
             try
             {
                 List<OrderBasket.Feedback> panelDataList = orderBasket.RestoreFileJson(jsonfilePath);
-                object fileName = ReceiptWord.CreateReceipt(panelDataList, priceTotal, countTotal, pharmacyMarks);
+                object fileName = ReceiptWord.CreateReceiptSelfPickup(panelDataList, priceTotal, countTotal, pharmacyMarks);
                 MessageBox.Show("Дякуємо за замовлення! \nОсь ваш чек:");
                 orderBasket.ClearJsonFile(jsonfilePath);
             }

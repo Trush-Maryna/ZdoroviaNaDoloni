@@ -5,7 +5,7 @@ using ZdoroviaNaDoloni.Classes.Enums;
 
 namespace ZdoroviaNaDoloni.Classes
 {
-    public class OrderBasket : IEnumerable<Product>
+    public class OrderBasket : User, IEnumerable<Product>
     {
         protected List<Product> orders;
         public static int CounterOrders => CounterOrders;
@@ -13,6 +13,23 @@ namespace ZdoroviaNaDoloni.Classes
         public decimal TotalCost { get; private set; }
         public List<Product> Orders => orders;
         public static int СurrentProductBlock { get; set; } = 0;
+
+        public string Name { get; set; }
+        public string Region { get; set; }
+        public string City { get; set; }
+        public int NumNP { get; set; }
+        private string numTel;
+        public string NumTel
+        {
+            get => numTel;
+            set
+            {
+                if (!ValidatePhoneNumber(value))
+                    throw new Exception("Невірний формат номеру телефону. Перевірте, щоб рядок складався з 9 цифр та спробуйте знову.");
+                numTel = value;
+            }
+        }
+        public Genders Gender { get; set; }
 
         protected Dictionary<int, Product> products = new Dictionary<int, Product>();
         public List<Product> CartItems => products.Values.ToList();
@@ -27,10 +44,13 @@ namespace ZdoroviaNaDoloni.Classes
             orders = Orders;
         }
 
-        public OrderBasket(string deliveryAddress)
+        public OrderBasket(string name, string region, string city, string numTel, int numNP)
         {
-            DeliveryAddress = !string.IsNullOrWhiteSpace(deliveryAddress) ? deliveryAddress : throw new ArgumentException("Delivery address cannot be empty.");
-            orders = new List<Product>();
+            Name = name;
+            Region = region;
+            City = city;
+            NumTel = numTel;
+            NumNP = numNP;
         }
 
         public event Action OrderCompleted = delegate { };
@@ -140,6 +160,11 @@ namespace ZdoroviaNaDoloni.Classes
                 var quantityLabel = (Label)quantityLabelArray[0];
                 var priceLabel = (Label)priceLabelArray[0];
 
+                string quantityText = product.Quantity == 0 ? "Немає в наявності" : product.Quantity.ToString();
+                Statuses productStatus = product.Quantity == 0 ? Statuses.OutOfStock : Statuses.InStock;
+                quantityLabel.Text = quantityText;
+                quantityLabel.ForeColor = productStatus == Statuses.OutOfStock ? Color.Red : Color.Black;
+
                 Image originalImage = pictureBox.Image = Image.FromFile(product.Image);
                 float ratio = (float)originalImage.Height / pictureBox.Height;
                 int newWidth = (int)(originalImage.Width / ratio);
@@ -149,7 +174,6 @@ namespace ZdoroviaNaDoloni.Classes
                 pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
 
                 nameLabel.Text = product.Name;
-                quantityLabel.Text = product.Quantity.ToString();
                 priceLabel.Text = product.Price.ToString();
 
                 nextPanel.Visible = true;

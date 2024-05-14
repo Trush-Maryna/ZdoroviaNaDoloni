@@ -35,8 +35,8 @@
             Region_txt_box = new TextBox();
             Name_txt_box = new TextBox();
             Btn_Confirm = new Button();
-            Btn_Check_Delivery = new Button();
-            Btn_Check_Self_Pickup = new Button();
+            Btn_Check_Male = new Button();
+            Btn_Check_Female = new Button();
             Btn_OrderBask = new Button();
             register_home_btn = new Button();
             register_user_info_btn = new Button();
@@ -111,40 +111,43 @@
             Btn_Confirm.Size = new Size(357, 36);
             Btn_Confirm.TabIndex = 95;
             Btn_Confirm.UseVisualStyleBackColor = false;
+            Btn_Confirm.Click += Btn_Confirm_Click;
             // 
-            // Btn_Check_Delivery
+            // Btn_Check_Male
             // 
-            Btn_Check_Delivery.BackColor = Color.Transparent;
-            Btn_Check_Delivery.BackgroundImage = (Image)resources.GetObject("Btn_Check_Delivery.BackgroundImage");
-            Btn_Check_Delivery.Cursor = Cursors.Hand;
-            Btn_Check_Delivery.FlatAppearance.BorderSize = 0;
-            Btn_Check_Delivery.FlatStyle = FlatStyle.Flat;
-            Btn_Check_Delivery.Font = new Font("Segoe UI", 8F);
-            Btn_Check_Delivery.Location = new Point(162, 539);
-            Btn_Check_Delivery.Name = "Btn_Check_Delivery";
-            Btn_Check_Delivery.Size = new Size(32, 32);
-            Btn_Check_Delivery.TabIndex = 94;
-            Btn_Check_Delivery.UseVisualStyleBackColor = false;
+            Btn_Check_Male.BackColor = Color.Transparent;
+            Btn_Check_Male.BackgroundImage = (Image)resources.GetObject("Btn_Check_Male.BackgroundImage");
+            Btn_Check_Male.Cursor = Cursors.Hand;
+            Btn_Check_Male.FlatAppearance.BorderSize = 0;
+            Btn_Check_Male.FlatStyle = FlatStyle.Flat;
+            Btn_Check_Male.Font = new Font("Segoe UI", 8F);
+            Btn_Check_Male.Location = new Point(162, 539);
+            Btn_Check_Male.Name = "Btn_Check_Male";
+            Btn_Check_Male.Size = new Size(32, 32);
+            Btn_Check_Male.TabIndex = 94;
+            Btn_Check_Male.UseVisualStyleBackColor = false;
+            Btn_Check_Male.Click += Btn_Check_Male_Click;
             // 
-            // Btn_Check_Self_Pickup
+            // Btn_Check_Female
             // 
-            Btn_Check_Self_Pickup.BackColor = Color.Transparent;
-            Btn_Check_Self_Pickup.BackgroundImage = (Image)resources.GetObject("Btn_Check_Self_Pickup.BackgroundImage");
-            Btn_Check_Self_Pickup.Cursor = Cursors.Hand;
-            Btn_Check_Self_Pickup.FlatAppearance.BorderSize = 0;
-            Btn_Check_Self_Pickup.FlatStyle = FlatStyle.Flat;
-            Btn_Check_Self_Pickup.Font = new Font("Segoe UI", 8F);
-            Btn_Check_Self_Pickup.Location = new Point(40, 539);
-            Btn_Check_Self_Pickup.Name = "Btn_Check_Self_Pickup";
-            Btn_Check_Self_Pickup.Size = new Size(32, 32);
-            Btn_Check_Self_Pickup.TabIndex = 93;
-            Btn_Check_Self_Pickup.UseVisualStyleBackColor = false;
+            Btn_Check_Female.BackColor = Color.Transparent;
+            Btn_Check_Female.BackgroundImage = (Image)resources.GetObject("Btn_Check_Female.BackgroundImage");
+            Btn_Check_Female.Cursor = Cursors.Hand;
+            Btn_Check_Female.FlatAppearance.BorderSize = 0;
+            Btn_Check_Female.FlatStyle = FlatStyle.Flat;
+            Btn_Check_Female.Font = new Font("Segoe UI", 8F);
+            Btn_Check_Female.Location = new Point(40, 539);
+            Btn_Check_Female.Name = "Btn_Check_Female";
+            Btn_Check_Female.Size = new Size(32, 32);
+            Btn_Check_Female.TabIndex = 93;
+            Btn_Check_Female.UseVisualStyleBackColor = false;
+            Btn_Check_Female.Click += Btn_Check_Female_Click;
             // 
             // Btn_OrderBask
             // 
             Btn_OrderBask.BackColor = Color.Transparent;
             Btn_OrderBask.BackgroundImage = (Image)resources.GetObject("Btn_OrderBask.BackgroundImage");
-            Btn_OrderBask.Cursor = Cursors.No;
+            Btn_OrderBask.Cursor = Cursors.Hand;
             Btn_OrderBask.FlatAppearance.BorderSize = 0;
             Btn_OrderBask.FlatStyle = FlatStyle.Flat;
             Btn_OrderBask.Font = new Font("Segoe UI", 8F);
@@ -212,8 +215,8 @@
             Controls.Add(Region_txt_box);
             Controls.Add(Name_txt_box);
             Controls.Add(Btn_Confirm);
-            Controls.Add(Btn_Check_Delivery);
-            Controls.Add(Btn_Check_Self_Pickup);
+            Controls.Add(Btn_Check_Male);
+            Controls.Add(Btn_Check_Female);
             Controls.Add(Btn_OrderBask);
             Controls.Add(register_home_btn);
             Controls.Add(register_user_info_btn);
@@ -221,6 +224,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Registered_Info_User_Form";
             Text = "Registered_Info_User_Form";
+            Load += Registered_Info_User_Form_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -233,8 +237,8 @@
         private TextBox Region_txt_box;
         private TextBox Name_txt_box;
         private Button Btn_Confirm;
-        private Button Btn_Check_Delivery;
-        private Button Btn_Check_Self_Pickup;
+        private Button Btn_Check_Male;
+        private Button Btn_Check_Female;
         private Button Btn_OrderBask;
         private Button register_home_btn;
         private Button register_user_info_btn;

@@ -10,6 +10,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private string jsonPath = Constants.feedbackspath;
         private Info_Pharm_Product_Form GetLocation() => this;
 
+        public Info_Pharm_Product_Form()
+        {
+            InitializeComponent();
+            DisplayFeedback();
+        }
+
         public Info_Pharm_Product_Form(Product product)
         {
             InitializeComponent();
@@ -19,10 +25,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
 
         private void Info_Pharm_Product_Form_Load(object sender, EventArgs e)
         {
-            Name_Product.Text = product.Name;
-            Developer_Product.Text = product.Developer;
-            Product_Price.Text = product.Price.ToString();
-            Img_Product_Box.Image = Image.FromFile(product.Image);
+            if (product != null)
+            {
+                Name_Product.Text = product.Name;
+                Developer_Product.Text = product.Developer;
+                Product_Price.Text = product.Price.ToString();
+                Img_Product_Box.Image = Image.FromFile(product.Image);
+            }
         }
 
         private void DisplayFeedback()

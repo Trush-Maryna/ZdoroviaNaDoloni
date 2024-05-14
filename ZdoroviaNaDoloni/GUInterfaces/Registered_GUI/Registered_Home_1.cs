@@ -21,6 +21,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             InitializeComponent();
         }
 
+        private void Registered_Home_1_Load(object sender, EventArgs e)
+        {
+            timer_img.Interval = Constants.SlideTimerInterval;
+            timer_img.Start();
+        }
+
+        private void timer_img_Tick(object sender, EventArgs e)
+        {
+            currentImageIndex = (currentImageIndex + 1) % imagePaths.Length;
+            infoBox.Image = Image.FromFile(imagePaths[currentImageIndex]);
+        }
+
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
@@ -79,18 +91,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
                 Location = previousLocation
             };
             registerInfoForm.Show();
-        }
-
-        private void Registered_Home_1_Load(object sender, EventArgs e)
-        {
-            timer_img.Interval = Constants.SlideTimerInterval;
-            timer_img.Start();
-        }
-
-        private void timer_img_Tick(object sender, EventArgs e)
-        {
-            currentImageIndex = (currentImageIndex + 1) % imagePaths.Length;
-            infoBox.Image = Image.FromFile(imagePaths[currentImageIndex]);
         }
     }
 }

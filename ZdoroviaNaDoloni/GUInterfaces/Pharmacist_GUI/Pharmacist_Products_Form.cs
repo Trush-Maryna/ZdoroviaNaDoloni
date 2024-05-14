@@ -17,7 +17,10 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
 
         private void Pharmacist_Products_Form_Load(object sender, EventArgs e)
         {
-            products = Product.LoadProducts(json);
+            if (products != null)
+            {
+                products = Product.LoadProducts(json);
+            }
         }
 
         private void Txt_Search_TextChanged(object sender, EventArgs e)

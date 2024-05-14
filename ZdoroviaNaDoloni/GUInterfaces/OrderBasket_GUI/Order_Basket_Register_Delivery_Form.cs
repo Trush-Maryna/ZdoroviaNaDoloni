@@ -1,4 +1,5 @@
-﻿using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
+﻿using ZdoroviaNaDoloni.Classes;
+using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 using ZdoroviaNaDoloni.GUInterfaces.Registered_GUI;
 using static ZdoroviaNaDoloni.Classes.OrderBasket;
 
@@ -12,6 +13,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
         decimal priceTotal;
         int countTotal;
         private List<Panel> productsPanels = new List<Panel>();
+        private OrderBasket orderBasket = new OrderBasket();
         private Order_Basket_Register_Delivery_Form GetLocation() => this;
 
         public Order_Basket_Register_Delivery_Form(decimal totalPrice, int totalCount, string jsonFilePath, List<Panel> productPanels)
@@ -24,6 +26,36 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
             jsonPath = jsonFilePath;
             jsonfilePath = GetJsonFilePath(jsonPath);
             productsPanels = productPanels;
+        }
+
+        private void Btn_Confirm_Click(object sender, EventArgs e)
+        {
+            string name = Name_txt_box.Text;
+            string region = Region_txt_box.Text;
+            string city = City_txt_box.Text;
+            string numTel = NumTel_txt_box.Text;
+            int numNP = int.Parse(Num_NP_txt_box.Text);
+            try
+            {
+                OrderBasket userinfo = new OrderBasket(name, region, city, numTel, numNP);
+                List<OrderBasket.Feedback> panelDataList = orderBasket.RestoreFileJson(jsonfilePath);
+                object fileName = ReceiptWord.CreateReceiptDelivery(panelDataList, priceTotal, countTotal, userinfo);
+                MessageBox.Show("Дякуємо за замовлення! \nОсь ваш чек:");
+                Registered_Info_User_Form registuserinfoform = new(name, region, city, numTel, numNP, userinfo);
+                Registered_Info_Form registuserform = new(name, region, city, numTel, numNP, userinfo);
+                orderBasket.ClearJsonFile(jsonfilePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            orderBasket.HideAllProductPanels(productsPanels);
+
+            Name_txt_box.Text = "";
+            Region_txt_box.Text = "";
+            City_txt_box.Text = "";
+            NumTel_txt_box.Text = "";
+            Num_NP_txt_box.Text = "";
         }
 
         private void Btn_Check_Self_Pickup_Click(object sender, EventArgs e)
