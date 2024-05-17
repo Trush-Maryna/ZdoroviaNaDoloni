@@ -8,24 +8,23 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
     {
         private Point previousLocation;
         private bool isEyeButtonClicked = false;
+        private Autorization_Form GetLocation() => this;
 
         public Autorization_Form()
         {
             InitializeComponent();
         }
 
-        private Autorization_Form GetLocation() => this;
-
         private void Btn_Log_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registration_Form registrationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registrationForm.Show();
+            Hide();
         }
 
         private void Phone_Numder_txt_Enter(object sender, EventArgs e)
@@ -70,13 +69,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             if (!isEyeButtonClicked)
             {
                 Pass_txt.PasswordChar = '\0';
-                Btn_Eye.BackgroundImage = Image.FromFile(Constants.EyeOpenUrl);
+                Btn_Eye.BackgroundImage = Image.FromFile(Constants.Instance.EyeOpenUrl);
                 isEyeButtonClicked = true;
             }
             else
             {
                 Pass_txt.PasswordChar = '*';
-                Btn_Eye.BackgroundImage = Image.FromFile(Constants.EyeHideUrl);
+                Btn_Eye.BackgroundImage = Image.FromFile(Constants.Instance.EyeHideUrl);
                 isEyeButtonClicked = false;
             }
         }
@@ -84,13 +83,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void X_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Guest_Home_1 guest_home_1_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guest_home_1_Form.Show();
+            Hide();
         }
 
         private void Btn_Sign_In_Click(object sender, EventArgs e)
@@ -105,21 +104,21 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
                 pharm.Password = password;
 
                 int phoneNumber = int.Parse(phoneNumberTxt);
-                if (phoneNumber == Constants.pharm1phone ||
-                    phoneNumber == Constants.pharm2phone ||
-                    phoneNumber == Constants.pharm3phone)
+                if (phoneNumber == Constants.Instance.pharm1phone ||
+                    phoneNumber == Constants.Instance.pharm2phone ||
+                    phoneNumber == Constants.Instance.pharm3phone)
                 {
                     if (pharm.Authorized(phoneNumber, password))
                     {
                         MessageBox.Show("Ви успішно авторизувалися як провізор.");
                         previousLocation = GetLocation().Location;
-                        Hide();
                         Pharmacist_Home_1 pharm_home_1_Form = new()
                         {
                             StartPosition = FormStartPosition.Manual,
                             Location = previousLocation
                         };
                         pharm_home_1_Form.Show();
+                        Hide();
                         return;
                     }
                     else
@@ -138,13 +137,14 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
                     {
                         MessageBox.Show("Ви успішно авторизувалися як зареєстрований користувач.");
                         previousLocation = GetLocation().Location;
-                        Hide();
                         Registered_Home_1 registered_home_1_Form = new()
                         {
                             StartPosition = FormStartPosition.Manual,
                             Location = previousLocation
                         };
                         registered_home_1_Form.Show();
+                        Hide(); 
+                        return;
                     }
                     else
                     {

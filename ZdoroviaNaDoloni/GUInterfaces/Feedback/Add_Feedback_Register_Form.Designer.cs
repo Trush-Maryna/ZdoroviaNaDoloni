@@ -192,6 +192,7 @@
             Name_User.BorderStyle = BorderStyle.None;
             Name_User.Cursor = Cursors.Hand;
             Name_User.Font = new Font("Segoe UI", 12F);
+            Name_User.ForeColor = Color.White;
             Name_User.Location = new Point(30, 196);
             Name_User.Multiline = true;
             Name_User.Name = "Name_User";

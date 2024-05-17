@@ -152,5 +152,16 @@
     "Developer": "Teva",
     "Confirmation": false,
     "Feedbacks": null
+  },
+  {
+    "ID": 15,
+    "Name": "Спазмолікс",
+    "Description": "Спазмолітичні засоби в комбінації з аналгетиками. Синтетичні антихолінергічні засоби в комбінації з аналгетиками. Пітофенон і аналгетики.",
+    "Price": 119.0,
+    "Quantity": 62,
+    "Image": "D:\\VS Community\\C#.NET_2\\ZdoroviaNaDoloni\\ZdoroviaNaDoloni\\bin\\Debug\\net8.0-windows\\Img\\15.jpg",
+    "Developer": "ПАТ «Хімфармзавод «Червона зірка»",
+    "Confirmation": false,
+    "Feedbacks": null
   }
 ]

@@ -1,4 +1,4 @@
-﻿using ZdoroviaNaDoloni.Classes.Enums;
+﻿using Newtonsoft.Json;
 
 namespace ZdoroviaNaDoloni.Classes
 {
@@ -49,8 +49,8 @@ namespace ZdoroviaNaDoloni.Classes
 
         public Pharmacist() { }
 
-        public Pharmacist(string uniquePhoneNumber, string uniquePass, Genders gender) 
-            : base(uniquePhoneNumber, uniquePass, gender)
+        public Pharmacist(string uniquePhoneNumber, string uniquePass) 
+            : base(uniquePhoneNumber, uniquePass)
         {
             UniquePhoneNumber = uniquePhoneNumber;
             UniquePass = uniquePass;
@@ -58,8 +58,8 @@ namespace ZdoroviaNaDoloni.Classes
             Feedbacks = new List<Feedback>();
         }
 
-        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, Genders gender, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
-            : this(uniquePhoneNumber, uniquePass, gender)
+        public Pharmacist(string? name, string? surname, string uniquePhoneNumber, string uniquePass, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
+            : this(uniquePhoneNumber, uniquePass)
         {
             Name = name;
             Surname = surname;
@@ -111,16 +111,44 @@ namespace ZdoroviaNaDoloni.Classes
             Feedbacks.Add(feedback);
         }
 
-        public void EditFeedback(Feedback feedback, Feedback newFeedback)
+        public void DeleteFeedback(Feedback feedback) => Feedbacks?.Remove(feedback);
+
+        public static string GetJsonFilePath(string jsonFilePath)
         {
-            if (Feedbacks != null && Feedbacks.Contains(feedback))
+            string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;
+            return Path.Combine(projectDirectory, jsonFilePath);
+        }
+
+        public static void AddProductToJson(Product newProduct, string jsonFilePath)
+        {
+            string productsJsonPath = GetJsonFilePath(jsonFilePath);
+            try
             {
-                int index = Feedbacks.IndexOf(feedback);
-                Feedbacks[index] = newFeedback;
+                List<Product> products = ReadJson(productsJsonPath);
+                products.Add(newProduct);
+                string productsJson = JsonConvert.SerializeObject(products, Formatting.Indented);
+                File.WriteAllText(productsJsonPath, productsJson);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Помилка при додаванні нового продукту: {ex.Message}");
             }
         }
 
-        public void DeleteFeedback(Feedback feedback) => Feedbacks?.Remove(feedback);
+        public static List<Product> ReadJson(string jsonFilePath)
+        {
+            string productsJsonPath = GetJsonFilePath(jsonFilePath);
+            try
+            {
+                string productsJson = File.ReadAllText(productsJsonPath);
+                List<Product> products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
+                return products;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Помилка при зчитуванні даних: {ex.Message}");
+            }
+        }
 
         public void EditProduct(Product product, string newName, string newDescription, decimal newPrice)
         {
@@ -130,24 +158,6 @@ namespace ZdoroviaNaDoloni.Classes
             product.Name = newName;
             product.Description = newDescription;
             product.Price = newPrice;
-        }
-
-        public void DeleteProducts(Product product)
-        {
-            if (Orders != null && Orders.Any(order => order.Orders.Contains(product)))
-            {
-                throw new InvalidOperationException("Cannot delete product as it is present in an order.");
-            }
-
-            Products?.Remove(product);
-        }
-
-        public void DeleteAccount()
-        {
-            Name = null;
-            Surname = null;
-            Orders = null;
-            Feedbacks = null;
         }
     }
 }

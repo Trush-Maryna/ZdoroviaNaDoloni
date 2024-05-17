@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ZdoroviaNaDoloni.Classes;
+﻿using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 using ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI;
 using static ZdoroviaNaDoloni.Classes.OrderBasket;
@@ -12,7 +11,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         private List<Panel> productPanels = new List<Panel>();
         private OrderBasket orderBasket = new OrderBasket();
         private List<OrderBasket.Feedback> productsToSave = new List<OrderBasket.Feedback>();
-        private string jsonPath = Constants.panelspath;
+        private string jsonPath = Constants.Instance.panelspath;
         private Order_Basket_Register_Form GetLocation() => this;
 
         public Order_Basket_Register_Form()
@@ -31,11 +30,9 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             Product_Block_1.Tag = 1;
             Product_Block_2.Tag = 2;
             Product_Block_3.Tag = 3;
-
             productPanels.Add(Product_Block_1);
             productPanels.Add(Product_Block_2);
             productPanels.Add(Product_Block_3);
-
             orderBasket.HideAllProductPanels(productPanels);
         }
 
@@ -156,7 +153,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             {
                 priceLabel.Text = (productPrice * count).ToString();
             }
-
             UpdateTotalPriceLabel(productPanels);
         }
 
@@ -254,37 +250,37 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Home_1 registerForm1 = new Registered_Home_1()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerForm1.Show();
+            Hide();
         }
 
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Categories_Form categorForm = new Categories_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Info_Form registerInfoForm = new Registered_Info_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerInfoForm.Show();
+            Hide();
         }
 
         private void Btn_Check_Self_Pickup_Click(object sender, EventArgs e)
@@ -293,13 +289,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             int totalCount = int.Parse(Total_Count_Product.Text);
 
             previousLocation = GetLocation().Location;
-            Hide();
             Order_Basket_Register_SelfPickup_Form orderBasketSelfPickupForm = new Order_Basket_Register_SelfPickup_Form(totalPrice, totalCount, jsonPath, productPanels)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             orderBasketSelfPickupForm.Show();
+            Hide();
         }
 
         private void Btn_Check_Delivery_Click(object sender, EventArgs e)
@@ -308,13 +304,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
             int totalCount = int.Parse(Total_Count_Product.Text);
 
             previousLocation = GetLocation().Location;
-            Hide();
             Order_Basket_Register_Delivery_Form orderBasketDeliveryForm = new Order_Basket_Register_Delivery_Form(totalPrice, totalCount, jsonPath, productPanels)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             orderBasketDeliveryForm.Show();
+            Hide();
         }
     }
 }

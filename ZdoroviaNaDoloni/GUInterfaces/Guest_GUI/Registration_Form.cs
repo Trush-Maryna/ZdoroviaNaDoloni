@@ -20,13 +20,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void Btn_Sign_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             autorizationForm.Show();
+            Hide();
         }
 
         private void Phone_Numder_txt_Enter(object sender, EventArgs e)
@@ -71,13 +71,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             if (!isEyeButtonClicked)
             {
                 Pass_txt.PasswordChar = '\0';
-                Btn_Eye.BackgroundImage = Image.FromFile(Constants.EyeOpenUrl);
+                Btn_Eye.BackgroundImage = Image.FromFile(Constants.Instance.EyeOpenUrl);
                 isEyeButtonClicked = true;
             }
             else
             {
                 Pass_txt.PasswordChar = '*';
-                Btn_Eye.BackgroundImage = Image.FromFile(Constants.EyeHideUrl);
+                Btn_Eye.BackgroundImage = Image.FromFile(Constants.Instance.EyeHideUrl);
                 isEyeButtonClicked = false;
             }
         }
@@ -86,12 +86,12 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         {
             if (!isCheckButtonClicked)
             {
-                Btn_Check.BackgroundImage = Image.FromFile(Constants.CheckHideUrl);
+                Btn_Check.BackgroundImage = Image.FromFile(Constants.Instance.CheckHideUrl);
                 isCheckButtonClicked = true;
             }
             else
             {
-                Btn_Check.BackgroundImage = Image.FromFile(Constants.CheckOpenUrl);
+                Btn_Check.BackgroundImage = Image.FromFile(Constants.Instance.CheckOpenUrl);
                 isCheckButtonClicked = false;
             }
         }
@@ -99,13 +99,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void X_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Guest_Home_1 guest_home_1_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guest_home_1_Form.Show();
+            Hide();
         }
 
         private void Btn_Log_In_Click(object sender, EventArgs e)
@@ -132,13 +132,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
                         {
                             MessageBox.Show("Акаунт створено.");
                             previousLocation = GetLocation().Location;
-                            Hide();
                             Registered_Home_1 registered_home_1_Form = new()
                             {
                                 StartPosition = FormStartPosition.Manual,
                                 Location = previousLocation
                             };
                             registered_home_1_Form.Show();
+                            Hide();
                             return;
                         }
                         else
@@ -166,7 +166,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             conditions_rules_txt.BackColor = Color.Blue;
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = Constants.ConditionsRulesLink,
+                FileName = Constants.Instance.ConditionsRulesLink,
                 UseShellExecute = true
             };
             Process.Start(psi);

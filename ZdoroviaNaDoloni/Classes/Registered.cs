@@ -1,12 +1,9 @@
-﻿using ZdoroviaNaDoloni.Classes.Enums;
-
-namespace ZdoroviaNaDoloni.Classes
+﻿namespace ZdoroviaNaDoloni.Classes
 {
     public class Registered : User
     {
         private string? name;
         private string? surname;
-        private DateTime? birthDate;
         private string? city;
 
         public string? Name
@@ -33,12 +30,6 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public DateTime? BirthDate 
-        { 
-            get => birthDate; 
-            set => birthDate = value; 
-        }
-
         public string? City
         {
             get => city;
@@ -53,25 +44,33 @@ namespace ZdoroviaNaDoloni.Classes
 
         public List<OrderBasket>? Orders { get; set; }
         public List<Feedback>? Feedbacks { get; set; }
+        public int PhoneNumber1 { get; }
+        public string NumNP1 { get; }
 
         public Registered() { }
 
-        public Registered(string phoneNumber, string password, Genders gender) 
-            : base(phoneNumber, password, gender)
+        public Registered(string phoneNumber, string password) 
+            : base(phoneNumber, password)
         {
             Orders = new List<OrderBasket>();
             Feedbacks = new List<Feedback>();
         }
 
-        public Registered(string? name, string? surname, DateTime? birthDate, string? city, string phoneNumber, string password, List<OrderBasket>? orders, List<Feedback>? feedbacks, Genders gender) 
-            : base(phoneNumber, password, gender)
+        public Registered(string? name, string? surname, string? city, string phoneNumber, string password, List<OrderBasket>? orders, List<Feedback>? feedbacks) 
+            : base(phoneNumber, password)
         {
             Name = name;
             Surname = surname;
-            BirthDate = birthDate;
             City = city;
             Orders = orders ?? new List<OrderBasket>();
             Feedbacks = feedbacks ?? new List<Feedback>();
+        }
+
+        public Registered(string phoneNumber, string password, string city, int phoneNumber1, string numNP) : base(phoneNumber, password)
+        {
+            this.city = city;
+            PhoneNumber1 = phoneNumber1;
+            NumNP1 = numNP;
         }
 
         public void OrderProducts(List<Product> products)
@@ -105,7 +104,6 @@ namespace ZdoroviaNaDoloni.Classes
         {
             Name = null;
             Surname = null;
-            BirthDate = null;
             City = null;
             Orders = null;
             Feedbacks = null;

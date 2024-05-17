@@ -9,10 +9,10 @@ namespace ZdoroviaNaDoloni
 
         private readonly string[] imagePaths =
         {
-            Constants.InfoShowUrl1,
-            Constants.InfoShowUrl2,
-            Constants.InfoShowUrl3,
-            Constants.InfoShowUrl4
+            Constants.Instance.InfoShowUrl1,
+            Constants.Instance.InfoShowUrl2,
+            Constants.Instance.InfoShowUrl3,
+            Constants.Instance.InfoShowUrl4
         };
 
         private Guest_Home_1 GetLocation() => this;
@@ -22,74 +22,35 @@ namespace ZdoroviaNaDoloni
             InitializeComponent();
         }
 
-        private void Txt_map_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            timer_img.Stop();
-            Hide();
-            Guest_Home_2 guestForm2 = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            guestForm2.Show();
-        }
-
-        private void btn_search_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            timer_img.Stop();
-            Hide();
-            Search_Form searchForm = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            searchForm.Show();
-        }
-
-        private void guest_categor_btn_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            timer_img.Stop();
-            Hide();
-            Categories_Form categorForm = new()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            categorForm.Show();
-        }
-
         private void Txt_Log_in_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             timer_img.Stop();
-            Hide();
             Registration_Form registrationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registrationForm.Show();
+            Hide();
         }
 
         private void Txt_Sign_in_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             timer_img.Stop();
-            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             autorizationForm.Show();
+            Hide();
         }
 
         private void Guest_Home_1_Load(object sender, EventArgs e)
         {
-            timer_img.Interval = Constants.SlideTimerInterval;
+            timer_img.Interval = Constants.Instance.SlideTimerInterval;
             timer_img.Start();
         }
 
@@ -97,6 +58,45 @@ namespace ZdoroviaNaDoloni
         {
             currentImageIndex = (currentImageIndex + 1) % imagePaths.Length;
             infoBox.Image = Image.FromFile(imagePaths[currentImageIndex]);
+        }
+
+        private void Txt_map_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            timer_img.Stop();
+            Guest_Home_2 guestForm2 = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            guestForm2.Show();
+            Hide();
+        }
+
+        private void btn_search_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            timer_img.Stop();
+            Search_Form searchForm = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            searchForm.Show();
+            Hide();
+        }
+
+        private void guest_categor_btn_Click(object sender, EventArgs e)
+        {
+            previousLocation = GetLocation().Location;
+            timer_img.Stop();
+            Categories_Form categorForm = new()
+            {
+                StartPosition = FormStartPosition.Manual,
+                Location = previousLocation
+            };
+            categorForm.Show();
+            Hide();
         }
     }
 }

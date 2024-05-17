@@ -9,7 +9,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Feedback
         private Point previousLocation;
         private Add_Feedback_Register_Form GetLocation() => this;
         private bool isStarButtonClicked = false;
-        private string jsonPath = Constants.feedbackspath;
         private Product product;
 
         public Add_Feedback_Register_Form(Product product)
@@ -47,13 +46,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Feedback
                 int stars = (int)clickedButton.Tag;
                 if (isStarButtonClicked)
                 {
-                    clickedButton.BackgroundImage = Image.FromFile(Constants.StarHideURL);
+                    clickedButton.BackgroundImage = Image.FromFile(Constants.Instance.StarHideURL);
                     string starsString = new string('★', stars);
                     Stars_txt.Text = starsString;
                 }
                 else
                 {
-                    clickedButton.BackgroundImage = Image.FromFile(Constants.StarOpenURL);
+                    clickedButton.BackgroundImage = Image.FromFile(Constants.Instance.StarOpenURL);
                     string starsString = new string('★', stars);
                     Stars_txt.Text = starsString;
                 }
@@ -73,8 +72,8 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Feedback
                 if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(textFeedback) && grade > 0)
                 {
                     Classes.Feedback newFeedback = new Classes.Feedback(product.ID, textFeedback, grade, DateTime.Now, userName);
-                    Classes.Feedback.SaveFeedbackToJson(jsonPath, newFeedback);
-                    MessageBox.Show("Фідбек успішно збережено у JSON файлі.", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Classes.Feedback.SaveFeedbackToJson(Constants.Instance.feedbackspath, newFeedback);
+                    MessageBox.Show("Дякуємо. Ваш відгук збережено.", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -91,7 +90,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Feedback
         {
             foreach (Control control in Controls)
             {
-                if (control is Button button && button.BackgroundImage != null && AreImagesEqual(button.BackgroundImage, Image.FromFile(Constants.StarOpenURL)))
+                if (control is Button button && button.BackgroundImage != null && AreImagesEqual(button.BackgroundImage, Image.FromFile(Constants.Instance.StarOpenURL)))
                 {
                     return (int)button.Tag;
                 }
@@ -113,49 +112,49 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Feedback
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Home_1 registered_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Home_1.Show();
+            Hide();
         }
 
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Categories_Form categorForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void register_cart_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Order_Basket_Register_Form order_Basket_Register_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             order_Basket_Register_Form.Show();
+            Hide();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Info_Form registered_Info_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Info_Form.Show();
+            Hide();
         }
     }
 }

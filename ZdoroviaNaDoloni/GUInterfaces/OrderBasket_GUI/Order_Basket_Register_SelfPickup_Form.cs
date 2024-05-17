@@ -59,62 +59,56 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
             }
             orderBasket.HideAllProductPanels(productsPanels);
 
-            previousLocation = GetLocation().Location;
-            Hide();
-            Registered_Home_1 registerForm1 = new Registered_Home_1()
-            {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            registerForm1.Show();
+            Total_Price_Product.Text = "";
+            Total_Count_Product.Text = "";
         }
 
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Home_1 registerForm1 = new Registered_Home_1()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerForm1.Show();
+            Hide();
         }
 
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Categories_Form categorForm = new Categories_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Info_Form registerInfoForm = new Registered_Info_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerInfoForm.Show();
+            Hide();
         }
 
         private void Btn_Check_Delivery_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Order_Basket_Register_Delivery_Form OrderBaskerRegisterForm = new Order_Basket_Register_Delivery_Form(priceTotal, countTotal, jsonfilePath, productsPanels)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             OrderBaskerRegisterForm.Show();
+            Hide();
         }
     }
 }

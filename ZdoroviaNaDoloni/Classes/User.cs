@@ -1,18 +1,21 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
-using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {
     public abstract class User : IAuthorization, IRegistration, ISearchableProducts
     {
-        private MySqlConnection connectDB = Constants.connection;
-        protected List<Product>? Products { get; set; }
+        private MySqlConnection connectDB = Constants.Instance.connection;
+        public List<Product>? Products { get; set; }
 
         private string phoneNumber;
         private string password;
-        private Genders? gender;
+
+        public string Name { get; set; }
+        public string Region { get; set; }
+        public string City { get; set; }
+        public int NumNP { get; set; }
 
         public string PhoneNumber
         {
@@ -36,16 +39,10 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
-        public Genders? Gender
-        {
-            get => gender;
-            set => gender = value;
-        }
-
         public static bool IsAuthorized;
         public static bool IsRegistered;
         public static bool IsDeleted;
-        public static User? CurrentUser { get; private set; }
+        public static User? CurrentUser { get; set; }
 
         public static event Action<User> UserAuthorized = user => { };
         public static event Action<User> UserRegistered = user => { };
@@ -59,14 +56,17 @@ namespace ZdoroviaNaDoloni.Classes
             Password = password;
         }
 
-        public User(string phoneNumber, string password, Genders gender) : this(phoneNumber, password)
+        public User(string phoneNumber, string password, string name, string region, string city, int numNP) : this(phoneNumber, password)
         {
-            Gender = gender;
+            Name = name;
+            Region = region;
+            City = city;
+            NumNP = numNP;
         }
 
         public bool ValidatePhoneNumber(string value)
         {
-            if (!string.IsNullOrWhiteSpace(value) && value.Length == Constants.MinPhoneNumbLength)
+            if (!string.IsNullOrWhiteSpace(value) && value.Length == Constants.Instance.MinPhoneNumbLength)
             {
                 foreach (char c in value)
                 {
@@ -82,7 +82,7 @@ namespace ZdoroviaNaDoloni.Classes
 
         public bool ValidatePass(string value)
         {
-            bool isValidLength = value.Length > Constants.MinPassLength && value.Length <= Constants.MaxPassLength;
+            bool isValidLength = value.Length > Constants.Instance.MinPassLength && value.Length <= Constants.Instance.MaxPassLength;
             bool hasUpperCase = value.Any(char.IsUpper);
             return isValidLength && hasUpperCase;
         }

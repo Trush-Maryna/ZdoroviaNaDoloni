@@ -8,9 +8,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
     {
         private Point previousLocation;
         private readonly Product product;
-        private string jsonPath = Constants.feedbackspath;
         private Order_Basket_Register_Form orderBasketRegisterForm;
-
         private Info_Registered_Product_Form GetLocation() => this;
 
         public Info_Registered_Product_Form()
@@ -41,7 +39,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             try
             {
-                string jsonFilePath = jsonPath;
+                string jsonFilePath = Constants.Instance.feedbackspath;
                 Classes.Feedback feedback = Classes.Feedback.GetRandomFeedbackFromJson(jsonFilePath);
 
                 if (feedback != null)
@@ -67,7 +65,6 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             if (orderBasketRegisterForm == null || orderBasketRegisterForm.IsDisposed)
             {
                 orderBasketRegisterForm = new Order_Basket_Register_Form
@@ -78,19 +75,20 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
                 orderBasketRegisterForm.AddProductToPanel(product);
                 orderBasketRegisterForm.Show();
             }
+            Hide();
         }
 
         private void Btn_Map_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Registered_Home_2 registered_Home_2 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Home_2.Show();
+            Hide();
         }
 
         private void Detailed_Descr_Btn_Click(object sender, EventArgs e)
@@ -103,13 +101,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Add_Feedback_Register_Form feedbackForm = new Add_Feedback_Register_Form(product)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             feedbackForm.Show();
+            Hide();
         }
 
         private void ClearForm()
@@ -124,78 +122,78 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Registered_Home_1 registered_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Home_1.Show();
+            Hide();
         }
 
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Search_Form searchForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             searchForm.Show();
+            Hide();
         }
 
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Registered_Home_1 registered_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Home_1.Show();
+            Hide();
         }
 
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Categories_Form categorForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void register_cart_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Order_Basket_Register_Form order_Basket_Register_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             order_Basket_Register_Form.Show();
+            Hide();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Registered_Info_Form registered_Info_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registered_Info_Form.Show();
+            Hide();
         }
     }
 }

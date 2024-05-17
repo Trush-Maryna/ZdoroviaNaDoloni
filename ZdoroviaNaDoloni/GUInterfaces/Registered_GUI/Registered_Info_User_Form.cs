@@ -76,14 +76,14 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         private void UpdateButtonState()
         {
             if (isFemaleChecked)
-                Btn_Check_Female.BackgroundImage = Image.FromFile(Constants.CheckInfoCloseUrl);
+                Btn_Check_Female.BackgroundImage = Image.FromFile(Constants.Instance.CheckInfoCloseUrl);
             if (!isFemaleChecked)
-                Btn_Check_Female.BackgroundImage = Image.FromFile(Constants.CheckInfoOpenUrl);
+                Btn_Check_Female.BackgroundImage = Image.FromFile(Constants.Instance.CheckInfoOpenUrl);
 
             if (isMaleChecked)
-                Btn_Check_Male.BackgroundImage = Image.FromFile(Constants.CheckInfoCloseUrl);
+                Btn_Check_Male.BackgroundImage = Image.FromFile(Constants.Instance.CheckInfoCloseUrl);
             if (!isMaleChecked)
-                Btn_Check_Male.BackgroundImage = Image.FromFile(Constants.CheckInfoOpenUrl);
+                Btn_Check_Male.BackgroundImage = Image.FromFile(Constants.Instance.CheckInfoOpenUrl);
         }
 
         private void Btn_Confirm_Click(object sender, EventArgs e)
@@ -139,49 +139,49 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
         private void register_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Home_1 registerForm1 = new Registered_Home_1()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerForm1.Show();
+            Hide();
         }
 
         private void register_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Categories_Form categorForm = new Categories_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void register_OrderBask_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Order_Basket_Register_Form orderBasketForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             orderBasketForm.Show();
+            Hide();
         }
 
         private void register_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Registered_Info_Form registerInfoForm = new Registered_Info_Form()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registerInfoForm.Show();
+            Hide();
         }
     }
 }

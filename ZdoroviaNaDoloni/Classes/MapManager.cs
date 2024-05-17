@@ -41,17 +41,17 @@ namespace ZdoroviaNaDoloni.Classes
         private void InitializeMap()
         {
             gMapControl.MapProvider = GMapProviders.OpenStreetMap;
-            gMapControl.Position = new PointLatLng(Constants.KharkivCityPositionX, Constants.KharkivCityPositionY);
-            gMapControl.MinZoom = Constants.MinZoom;
-            gMapControl.MaxZoom = Constants.MaxZoom;
-            gMapControl.Zoom = Constants.Zoom;
+            gMapControl.Position = new PointLatLng(Constants.Instance.KharkivCityPositionX, Constants.Instance.KharkivCityPositionY);
+            gMapControl.MinZoom = Constants.Instance.MinZoom;
+            gMapControl.MaxZoom = Constants.Instance.MaxZoom;
+            gMapControl.Zoom = Constants.Instance.Zoom;
             gMapControl.Dock = DockStyle.Fill;
         }
 
         private void LoadPharmacies()
         {
             string projectDirectory = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName;
-            string pharmaciesJsonPath = Path.Combine(projectDirectory, Constants.pharmpath);
+            string pharmaciesJsonPath = Path.Combine(projectDirectory, Constants.Instance.pharmpath);
             pharmacies = new List<Pharmacy>();
             string pharmaciesJson = File.ReadAllText(pharmaciesJsonPath);
             pharmacies = JsonSerializer.Deserialize<List<Pharmacy>>(pharmaciesJson);

@@ -48,6 +48,7 @@
             Num_NP_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Num_NP_txt_box.BorderStyle = BorderStyle.None;
             Num_NP_txt_box.Font = new Font("Segoe UI", 12F);
+            Num_NP_txt_box.ForeColor = Color.White;
             Num_NP_txt_box.Location = new Point(34, 470);
             Num_NP_txt_box.Multiline = true;
             Num_NP_txt_box.Name = "Num_NP_txt_box";
@@ -59,6 +60,7 @@
             NumTel_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             NumTel_txt_box.BorderStyle = BorderStyle.None;
             NumTel_txt_box.Font = new Font("Segoe UI", 12F);
+            NumTel_txt_box.ForeColor = Color.White;
             NumTel_txt_box.Location = new Point(34, 398);
             NumTel_txt_box.Multiline = true;
             NumTel_txt_box.Name = "NumTel_txt_box";
@@ -70,6 +72,7 @@
             City_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             City_txt_box.BorderStyle = BorderStyle.None;
             City_txt_box.Font = new Font("Segoe UI", 12F);
+            City_txt_box.ForeColor = Color.White;
             City_txt_box.Location = new Point(34, 327);
             City_txt_box.Multiline = true;
             City_txt_box.Name = "City_txt_box";
@@ -81,6 +84,7 @@
             Region_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Region_txt_box.BorderStyle = BorderStyle.None;
             Region_txt_box.Font = new Font("Segoe UI", 12F);
+            Region_txt_box.ForeColor = Color.White;
             Region_txt_box.Location = new Point(34, 258);
             Region_txt_box.Multiline = true;
             Region_txt_box.Name = "Region_txt_box";
@@ -92,6 +96,7 @@
             Name_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Name_txt_box.BorderStyle = BorderStyle.None;
             Name_txt_box.Font = new Font("Segoe UI", 12F);
+            Name_txt_box.ForeColor = Color.White;
             Name_txt_box.Location = new Point(34, 187);
             Name_txt_box.Multiline = true;
             Name_txt_box.Name = "Name_txt_box";

@@ -26,19 +26,18 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Search_Form searchForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             searchForm.Show();
+            Hide();
         }
 
         private void Txt_suggest_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Pharmacist_Home_1 pharmForm1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
@@ -57,6 +56,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
     }
 }

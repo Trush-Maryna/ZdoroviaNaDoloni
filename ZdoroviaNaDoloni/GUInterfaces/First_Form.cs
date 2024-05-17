@@ -1,4 +1,3 @@
-
 namespace ZdoroviaNaDoloni
 {
     public partial class First_Form : Form
@@ -7,10 +6,10 @@ namespace ZdoroviaNaDoloni
         private int currentImageIndex = 0;
         private readonly string[] imagePaths =
         {
-            Constants.SlideImgUrl1,
-            Constants.SlideImgUrl2,
-            Constants.SlideImgUrl3,
-            Constants.SlideImgUrl4
+            Constants.Instance.SlideImgUrl1,
+            Constants.Instance.SlideImgUrl2,
+            Constants.Instance.SlideImgUrl3,
+            Constants.Instance.SlideImgUrl4
         };
 
         public First_Form()
@@ -20,8 +19,8 @@ namespace ZdoroviaNaDoloni
 
         private void First_Form_Load(object sender, EventArgs e)
         {
-            Location = new Point(Constants.xCoord, Constants.yCoord);
-            timer_img.Interval = Constants.SlideTimerInterval;
+            Location = new Point(Constants.Instance.xCoord, Constants.Instance.yCoord);
+            timer_img.Interval = Constants.Instance.SlideTimerInterval;
             timer_img.Start();
         }
 
@@ -35,13 +34,13 @@ namespace ZdoroviaNaDoloni
         {
             previousLocation = GetLocation().Location;
             timer_img.Stop();
-            Hide();
             Guest_Home_1 guestForm1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guestForm1.Show();
+            Hide();
         }
 
         private First_Form GetLocation() => this;

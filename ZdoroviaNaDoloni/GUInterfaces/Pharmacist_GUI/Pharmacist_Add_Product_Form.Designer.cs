@@ -108,6 +108,7 @@
             Develop_product_txt.BackColor = Color.FromArgb(75, 73, 180);
             Develop_product_txt.BorderStyle = BorderStyle.None;
             Develop_product_txt.Font = new Font("Segoe UI", 12F);
+            Develop_product_txt.ForeColor = Color.White;
             Develop_product_txt.Location = new Point(36, 262);
             Develop_product_txt.Multiline = true;
             Develop_product_txt.Name = "Develop_product_txt";
@@ -119,6 +120,7 @@
             Name_product_txt.BackColor = Color.FromArgb(75, 73, 180);
             Name_product_txt.BorderStyle = BorderStyle.None;
             Name_product_txt.Font = new Font("Segoe UI", 12F);
+            Name_product_txt.ForeColor = Color.White;
             Name_product_txt.Location = new Point(36, 191);
             Name_product_txt.Multiline = true;
             Name_product_txt.Name = "Name_product_txt";
@@ -130,6 +132,7 @@
             Descr_product_txt.BackColor = Color.FromArgb(75, 73, 180);
             Descr_product_txt.BorderStyle = BorderStyle.None;
             Descr_product_txt.Font = new Font("Segoe UI", 12F);
+            Descr_product_txt.ForeColor = Color.White;
             Descr_product_txt.Location = new Point(35, 336);
             Descr_product_txt.Multiline = true;
             Descr_product_txt.Name = "Descr_product_txt";
@@ -141,6 +144,7 @@
             Price_product_txt.BackColor = Color.FromArgb(75, 73, 180);
             Price_product_txt.BorderStyle = BorderStyle.None;
             Price_product_txt.Font = new Font("Segoe UI", 12F);
+            Price_product_txt.ForeColor = Color.White;
             Price_product_txt.Location = new Point(35, 498);
             Price_product_txt.Multiline = true;
             Price_product_txt.Name = "Price_product_txt";
@@ -190,6 +194,7 @@
             Quant_product_txt.BackColor = Color.FromArgb(75, 73, 180);
             Quant_product_txt.BorderStyle = BorderStyle.None;
             Quant_product_txt.Font = new Font("Segoe UI", 12F);
+            Quant_product_txt.ForeColor = Color.White;
             Quant_product_txt.Location = new Point(216, 498);
             Quant_product_txt.Multiline = true;
             Quant_product_txt.Name = "Quant_product_txt";

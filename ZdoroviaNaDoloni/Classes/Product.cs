@@ -94,41 +94,10 @@ namespace ZdoroviaNaDoloni
 
         public List<Product> FilterProducts(int minId, int maxId)
         {
-            string jsonFilePath = Constants.productspath;
+            string jsonFilePath = Constants.Instance.productspath;
             List<Product> products = LoadProducts(jsonFilePath);
             List<Product> filteredProducts = products.Where(p => p.ID >= minId && p.ID <= maxId).ToList();
             return filteredProducts;
-        }
-
-        public static List<Product> ReadJson(string jsonFilePath)
-        {
-            string productsJsonPath = GetJsonFilePath(jsonFilePath);
-            try
-            {
-                string productsJson = File.ReadAllText(productsJsonPath);
-                List<Product> products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-                return products;
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Помилка при зчитуванні даних: {ex.Message}");
-            }
-        }
-
-        public static void AddProductToJson(Product newProduct, string jsonFilePath)
-        {
-            string productsJsonPath = GetJsonFilePath(jsonFilePath);
-            try
-            {
-                List<Product> products = ReadJson(productsJsonPath);
-                products.Add(newProduct);
-                string productsJson = JsonConvert.SerializeObject(products, Formatting.Indented);
-                File.WriteAllText(productsJsonPath, productsJson);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Помилка при додаванні нового продукту: {ex.Message}");
-            }
         }
 
         public static int GetNextAvailableId(List<Product> products)

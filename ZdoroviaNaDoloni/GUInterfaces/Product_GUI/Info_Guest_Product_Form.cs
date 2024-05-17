@@ -43,52 +43,52 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Guest_Home_2 guestForm2 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guestForm2.Show();
+            Hide();
         }
 
         private void Sign_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Autorization_Form autorizationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             autorizationForm.Show();
+            Hide();
         }
 
         private void Log_In_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Registration_Form registrationForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             registrationForm.Show();
+            Hide();
         }
 
         private void Btn_Buy_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Info_Product_Warning_Form info_product_warning_Form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             info_product_warning_Form.Show();
+            Hide();
         }
 
         private void Detailed_Descr_Btn_Click(object sender, EventArgs e)
@@ -101,52 +101,52 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Guest_Home_1 guest_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guest_Home_1.Show();
+            Hide();
         }
 
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Search_Form searchForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             searchForm.Show();
+            Hide();
         }
 
         private void guest_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Guest_Home_1 homeForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             homeForm.Show();
+            Hide();
         }
 
         private void guest_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
             ClearForm();
-            Hide();
             Categories_Form categorForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
     }
 }

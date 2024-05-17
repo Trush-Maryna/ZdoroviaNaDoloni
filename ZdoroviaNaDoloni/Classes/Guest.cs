@@ -1,5 +1,4 @@
-﻿using ZdoroviaNaDoloni.Classes.Enums;
-using ZdoroviaNaDoloni.Classes.Interfaces;
+﻿using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
 {

@@ -9,7 +9,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private Point previousLocation;
         private List<Product> products;
         private Product selectedProduct;
-        private string json = Constants.productspath;
+        private string json = Constants.Instance.productspath;
         private Search_Form GetLocation() => this;
 
         public Search_Form()
@@ -21,10 +21,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
 
         private void Search_Form_Load(object sender, EventArgs e)
         {
-            if (products != null)
-            {
-                products = Product.LoadProducts(json);
-            }
+            products = Product.LoadProducts(json);
         }
 
         private void Txt_Search_TextChanged(object sender, EventArgs e)
@@ -71,13 +68,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
                 if (!Classes.User.IsRegistered && !Classes.User.IsAuthorized)
                 {
                     previousLocation = GetLocation().Location;
-                    Hide();
                     Info_Guest_Product_Form infoGuestProductForm = new(selectedProduct)
                     {
                         StartPosition = FormStartPosition.Manual,
                         Location = previousLocation
                     };
                     infoGuestProductForm.Show();
+                    Hide();
                 }
                 else if (Classes.User.IsRegistered)
                 {
@@ -118,25 +115,25 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void OpenInfoRegisterProductForm(Product selectedProduct)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Info_Registered_Product_Form infoProductForm = new(selectedProduct)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             infoProductForm.Show();
+            Hide();
         }
 
         private void OpenInfoPharmProductForm(Product selectedProduct)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Info_Pharm_Product_Form infoProductForm = new(selectedProduct)
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             infoProductForm.Show();
+            Hide();
         }
 
         private void Btn_1_Click(object sender, EventArgs e)
@@ -144,20 +141,20 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
             try
             {
                 List<Product> products = Product.LoadProducts(json);
-                Product selectedProduct = products.FirstOrDefault(p => p.ID == 13);
+                selectedProduct = products.FirstOrDefault(p => p.ID == 13);
 
                 if (selectedProduct != null)
                 {
                     if (!Classes.User.IsRegistered && !Classes.User.IsAuthorized)
                     {
                         previousLocation = GetLocation().Location;
-                        Hide();
                         Info_Guest_Product_Form infoGuestProductForm = new(selectedProduct)
                         {
                             StartPosition = FormStartPosition.Manual,
                             Location = previousLocation
                         };
                         infoGuestProductForm.Show();
+                        Hide();
                     }
                     else if (Classes.User.IsRegistered)
                     {
@@ -183,7 +180,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         {
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = Constants.TelegramLink,
+                FileName = Constants.Instance.TelegramLink,
                 UseShellExecute = true
             };
             Process.Start(psi);
@@ -192,13 +189,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Guest_GUI
         private void btn_open_home_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Guest_Home_1 guestForm1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             guestForm1.Show();
+            Hide();
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
 using System.IO;
 using System.Windows.Forms;
+using ZdoroviaNaDoloni.Classes;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
 {
     public partial class Pharmacist_Add_Product_Form : Form
     {
         private Point previousLocation;
-        private string json = Constants.productspath;
+        private string json = Constants.Instance.productspath;
         private Pharmacist_Add_Product_Form GetLocation() => this;
 
         public Pharmacist_Add_Product_Form()
@@ -38,7 +39,7 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
                 string image = Pictr_product.ImageLocation;
                 Product newProduct = new(id, name, developer, descr, price, quantity);
                 newProduct.Image = image;
-                Product.AddProductToJson(newProduct, json);
+                Pharmacist.AddProductToJson(newProduct, json);
                 MessageBox.Show("Новий продукт успішно додано!");
                 ClearFields();
             }
@@ -61,37 +62,37 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
         private void pharm_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Pharmacist_Home_1 pharmForm1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharmForm1.Show();
+            Hide();
         }
 
         private void pharm_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Categories_Form categorForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            Hide();
         }
 
         private void pharm_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            Hide();
             Pharmacist_Info_Form pharmInfoForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharmInfoForm.Show();
+            Hide();
         }
     }
 }

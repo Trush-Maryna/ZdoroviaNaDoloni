@@ -35,7 +35,6 @@
             register_Info_btn = new Button();
             Btn_User_Info = new Button();
             Btn_Discount_Card = new Button();
-            Btn_List_Orders = new Button();
             Btn_FAQ = new Button();
             Btn_Close_Profile = new Button();
             Btn_Delete_Profile = new Button();
@@ -129,20 +128,6 @@
             Btn_Discount_Card.TabIndex = 30;
             Btn_Discount_Card.UseVisualStyleBackColor = false;
             // 
-            // Btn_List_Orders
-            // 
-            Btn_List_Orders.BackColor = Color.Transparent;
-            Btn_List_Orders.BackgroundImage = (Image)resources.GetObject("Btn_List_Orders.BackgroundImage");
-            Btn_List_Orders.Cursor = Cursors.Hand;
-            Btn_List_Orders.FlatAppearance.BorderSize = 0;
-            Btn_List_Orders.FlatStyle = FlatStyle.Flat;
-            Btn_List_Orders.Font = new Font("Segoe UI", 8F);
-            Btn_List_Orders.Location = new Point(0, 366);
-            Btn_List_Orders.Name = "Btn_List_Orders";
-            Btn_List_Orders.Size = new Size(393, 100);
-            Btn_List_Orders.TabIndex = 31;
-            Btn_List_Orders.UseVisualStyleBackColor = false;
-            // 
             // Btn_FAQ
             // 
             Btn_FAQ.BackColor = Color.Transparent;
@@ -151,7 +136,7 @@
             Btn_FAQ.FlatAppearance.BorderSize = 0;
             Btn_FAQ.FlatStyle = FlatStyle.Flat;
             Btn_FAQ.Font = new Font("Segoe UI", 8F);
-            Btn_FAQ.Location = new Point(0, 466);
+            Btn_FAQ.Location = new Point(0, 366);
             Btn_FAQ.Name = "Btn_FAQ";
             Btn_FAQ.Size = new Size(393, 100);
             Btn_FAQ.TabIndex = 32;
@@ -166,7 +151,7 @@
             Btn_Close_Profile.FlatAppearance.BorderSize = 0;
             Btn_Close_Profile.FlatStyle = FlatStyle.Flat;
             Btn_Close_Profile.Font = new Font("Segoe UI", 8F);
-            Btn_Close_Profile.Location = new Point(0, 566);
+            Btn_Close_Profile.Location = new Point(0, 466);
             Btn_Close_Profile.Name = "Btn_Close_Profile";
             Btn_Close_Profile.Size = new Size(196, 100);
             Btn_Close_Profile.TabIndex = 33;
@@ -181,7 +166,7 @@
             Btn_Delete_Profile.FlatAppearance.BorderSize = 0;
             Btn_Delete_Profile.FlatStyle = FlatStyle.Flat;
             Btn_Delete_Profile.Font = new Font("Segoe UI", 8F);
-            Btn_Delete_Profile.Location = new Point(196, 566);
+            Btn_Delete_Profile.Location = new Point(196, 466);
             Btn_Delete_Profile.Name = "Btn_Delete_Profile";
             Btn_Delete_Profile.Size = new Size(196, 100);
             Btn_Delete_Profile.TabIndex = 34;
@@ -197,7 +182,6 @@
             Controls.Add(Btn_Delete_Profile);
             Controls.Add(Btn_Close_Profile);
             Controls.Add(Btn_FAQ);
-            Controls.Add(Btn_List_Orders);
             Controls.Add(Btn_Discount_Card);
             Controls.Add(Btn_User_Info);
             Controls.Add(register_Info_btn);
@@ -218,7 +202,6 @@
         private Button register_Info_btn;
         private Button Btn_User_Info;
         private Button Btn_Discount_Card;
-        private Button Btn_List_Orders;
         private Button Btn_FAQ;
         private Button Btn_Close_Profile;
         private Button Btn_Delete_Profile;
