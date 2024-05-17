@@ -1,92 +1,157 @@
 ﻿using ZdoroviaNaDoloni;
-using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes;
+using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace UnitTests
 {
     public class OrderBasketTest
     {
         [Fact]
-        public void Add_Product_ToOrderList_SelfPickup()
+        public void Constructor_ShouldInitializeOrderBasket()
         {
-            var orderBasket = new OrderBasket("Address", DeliveryMethods.SelfPickup);
-            var product = new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-
-            orderBasket.AddProducts(product);
-
-            Assert.Contains(product, orderBasket.Orders);
+            var orderBasket = new OrderBasket();
+            Assert.NotNull(orderBasket.Orders);
+            Assert.Empty(orderBasket.Orders);
         }
 
         [Fact]
-        public void Add_Product_ToOrderList_DeliveryService()
+        public void AddProduct_ShouldAddProductToBasket()
         {
-            var orderBasket = new OrderBasket("PostalService", DeliveryMethods.DeliveryService);
-            var product = new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-
-            orderBasket.AddProducts(product);
-
-            Assert.Contains(product, orderBasket.Orders);
+            var orderBasket = new OrderBasket();
+            var product = new Product { ID = 1, Name = "Фурагін", Quantity = 900 };
+            orderBasket.AddProduct(product);
+            Assert.Single(orderBasket.CartItems);
+            Assert.Equal(product, orderBasket.CartItems.First());
         }
-
-        //[Fact]
-        //public void Remove_Product_FromOrderList()
-        //{
-        //    var product = new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-        //    var orderBasket = new OrderBasket("Address", DeliveryMethods.SelfPickup, null);
-        //    orderBasket.AddProducts(product);
-
-        //    orderBasket.DeleteProducts(product, new List<Product>());
-
-        //    Assert.DoesNotContain(product, orderBasket.Orders);
-        //}
 
         [Fact]
-        public void Constructor_With_ValidParameters()
+        public void NumTel_SetInvalidPhoneNumber()
         {
-            string deliveryAddress = "Address";
-            DeliveryMethods deliveryMethod = DeliveryMethods.SelfPickup;
-
-            var orderBasket = new OrderBasket(deliveryAddress, deliveryMethod);
-
-            Assert.Equal(deliveryAddress, orderBasket.DeliveryAddress);
-            Assert.Equal(deliveryMethod, orderBasket.DeliveryMethod);
+            var orderBasket = new OrderBasket();
+            Assert.Throws<Exception>(() => orderBasket.NumTel = "123");
         }
-
-        //[Fact]
-        //public void Constructor_With_DiscountCard()
-        //{
-        //    string deliveryAddress = "Address";
-        //    DeliveryMethods deliveryMethod = DeliveryMethods.SelfPickup;
-        //    var discountCard = new DiscountCard("Trush", "Maryna", Discounts.Five, DateTime.Now);
-
-        //    var orderBasket = new OrderBasket(deliveryAddress, deliveryMethod, discountCard);
-
-        //    Assert.Equal(deliveryAddress, orderBasket.DeliveryAddress);
-        //    Assert.Equal(deliveryMethod, orderBasket.DeliveryMethod);
-        //    Assert.Equal(discountCard, orderBasket.DiscountCard);
-        //}
 
         [Fact]
-        public void Constructor_With_InvalidParameters()
+        public void GetJsonFilePath_ShouldReturnCorrectPath()
         {
-            string deliveryAddress = "";
-            DeliveryMethods deliveryMethod = DeliveryMethods.SelfPickup;
-
-            Assert.Throws<ArgumentException>(() => new OrderBasket(deliveryAddress, deliveryMethod));
+            string jsonFilePath = "orders.json";
+            string expectedPath = Path.Combine(Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName).FullName, jsonFilePath);
+            Assert.Equal(expectedPath, OrderBasket.GetJsonFilePath(jsonFilePath));
         }
 
-        //[Fact]
-        //public void Calculate_TotalCost_Correctly()
-        //{
-        //    var product1 = new Product("Ibuprofen", "Description", 100, 2, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-        //    var product2 = new Product("Analgin", "Description", 50, 3, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-        //    var orderBasket = new OrderBasket("Address", DeliveryMethods.SelfPickup);
-        //    orderBasket.AddProducts(product1);
-        //    orderBasket.AddProducts(product2);
+        [Fact]
+        public void SaveProducts_ShouldSaveProductsToJsonFile()
+        {
+            string jsonFilePath = "orders_test.json";
+            var feedbackList = new List<OrderBasket.Feedback>
+            {
+                new OrderBasket.Feedback { PanelVisible = true, Product = new Product { ID = 1, Name = "Фурагін", Quantity = 900 } }
+            };
+            var orderBasket = new OrderBasket();
+            orderBasket.SaveProducts(jsonFilePath, feedbackList);
+            string jsonPath = OrderBasket.GetJsonFilePath(jsonFilePath);
+            string json = File.ReadAllText(jsonPath);
+            var data = JsonConvert.DeserializeObject<OrderBasket.PanelAndProductsData>(json);
+            Assert.Single(data.PanelDataList);
+            Assert.Equal(feedbackList[0].Product.ID, data.PanelDataList[0].Product.ID);
+        }
 
-        //    orderBasket.CalculateTotalCost();
+        [Fact]
+        public void RestorePanelStateAndProductsFromJson_ShouldRestorePanels()
+        {
+            string jsonFilePath = "orders_test.json";
+            var feedbackList = new List<OrderBasket.Feedback>
+            {
+                new OrderBasket.Feedback { PanelVisible = true, Product = new Product { ID = 1, Name = "Фурагін", Quantity = 900 } }
+            };
+            var data = new OrderBasket.PanelAndProductsData { PanelDataList = feedbackList };
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(OrderBasket.GetJsonFilePath(jsonFilePath), json);
+            var panels = new List<Panel> { new Panel { Visible = false } };
+            var orderBasket = new OrderBasket();
+            orderBasket.RestorePanelStateAndProductsFromJson(jsonFilePath, panels);
+            Assert.True(panels[0].Visible);
+        }
 
-        //    Assert.Equal(100 * 2 + 50 * 3, orderBasket.TotalCost);
-        //}
+        [Fact]
+        public void ClearJsonFile_ShouldDeleteJsonFile()
+        {
+            string jsonFilePath = "orders_test.json";
+            File.WriteAllText(OrderBasket.GetJsonFilePath(jsonFilePath), "{}");
+            var orderBasket = new OrderBasket();
+            orderBasket.ClearJsonFile(jsonFilePath);
+            Assert.False(File.Exists(OrderBasket.GetJsonFilePath(jsonFilePath)));
+        }
+
+        [Fact]
+        public void DeleteProductWithFile_ShouldRemoveProductFromJson()
+        {
+            string jsonFilePath = "orders_test.json";
+            var feedbackList = new List<OrderBasket.Feedback>
+            {
+                new OrderBasket.Feedback { PanelVisible = true, Product = new Product { ID = 1, Name = "Фурагін", Quantity = 900 } }
+            };
+            var data = new OrderBasket.PanelAndProductsData { PanelDataList = feedbackList };
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(OrderBasket.GetJsonFilePath(jsonFilePath), json);
+            var orderBasket = new OrderBasket();
+            orderBasket.DeleteProductWithFile(jsonFilePath, 1);
+            string newJson = File.ReadAllText(OrderBasket.GetJsonFilePath(jsonFilePath));
+            var newData = JsonConvert.DeserializeObject<OrderBasket.PanelAndProductsData>(newJson);
+            Assert.Empty(newData.PanelDataList);
+        }
+
+        [Fact]
+        public void GetProductPriceByIndex_ShouldReturnCorrectPrice()
+        {
+            string jsonFilePath = "orders_test.json";
+            var feedbackList = new List<OrderBasket.Feedback>
+            {
+                new OrderBasket.Feedback { PanelVisible = true, Product = new Product { ID = 1, Name = "Фурагін", Price = 159, Quantity = 900 } }
+            };
+            var data = new OrderBasket.PanelAndProductsData { PanelDataList = feedbackList };
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(OrderBasket.GetJsonFilePath(jsonFilePath), json);
+            var orderBasket = new OrderBasket();
+            decimal price = orderBasket.GetProductPriceByIndex(jsonFilePath, 0);
+            Assert.Equal(159, price);
+        }
+
+        [Fact]
+        public void RestoreFileJson_ShouldReturnFeedbackList()
+        {
+            string jsonFilePath = "feedback_test.json";
+            var feedbackList = new List<OrderBasket.Feedback>
+            {
+                new OrderBasket.Feedback { PanelVisible = true, Product = new Product { ID = 1, Name = "Фурагін", Quantity = 900 } }
+            };
+            var data = new OrderBasket.PanelAndProductsData { PanelDataList = feedbackList };
+            string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(OrderBasket.GetJsonFilePath(jsonFilePath), json);
+            var orderBasket = new OrderBasket();
+            var restoredFeedbackList = orderBasket.RestoreFileJson(OrderBasket.GetJsonFilePath(jsonFilePath));
+            Assert.Single(restoredFeedbackList);
+            Assert.Equal(feedbackList[0].Product.ID, restoredFeedbackList[0].Product.ID);
+        }
+
+        [Fact]
+        public void GetEnumerator_ShouldReturnProductsEnumerator()
+        {
+            var orderBasket = new OrderBasket();
+            var product1 = new Product { ID = 1, Name = "Фурагін", Quantity = 900 };
+            var product2 = new Product { ID = 2, Name = "Спазмалгон", Quantity = 50 };
+            orderBasket.AddProduct(product1);
+            orderBasket.AddProduct(product2);
+            var enumerator = orderBasket.GetEnumerator();
+            var products = new List<Product>();
+            while (enumerator.MoveNext())
+            {
+                products.Add(enumerator.Current);
+            }
+            Assert.Equal(2, products.Count);
+            Assert.Contains(product1, products);
+            Assert.Contains(product2, products);
+        }
     }
 }

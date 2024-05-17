@@ -1,0 +1,18 @@
+{
+  "PanelDataList": [
+    {
+      "PanelVisible": true,
+      "Product": {
+        "ID": 1,
+        "Name": "Фурагін",
+        "Description": null,
+        "Price": 0.0,
+        "Quantity": 900,
+        "Image": null,
+        "Developer": null,
+        "Confirmation": false,
+        "Feedbacks": null
+      }
+    }
+  ]
+}

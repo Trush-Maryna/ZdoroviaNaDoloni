@@ -1,102 +1,99 @@
-﻿using ZdoroviaNaDoloni;
+﻿using Newtonsoft.Json;
 using ZdoroviaNaDoloni.Classes;
-using ZdoroviaNaDoloni.Classes.Enums;
 
 namespace UnitTests
 {
     public class FeedbackTest
     {
         [Fact]
-        public void Add_Feedback_Successfully()
+        public void Feedback_DefaultConstructor()
         {
-            var fb_1 = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-            var fb_2 = new Feedback("Feedback 2", 3, DateTime.Now, new Product("Product 2", "Description 2", 100, 4, Statuses.InStock, Categories.BeautyAndCare, Discounts.Five, new List<Feedback>()));
-            var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-            var registered = new Registered("666395820", "Mar03Mar", Roles.Registered, Genders.Female);
-
-            pharmacist.AddFeedback(fb_1);
-            registered.AddFeedback(fb_2);
-
-            Assert.Contains(fb_1, pharmacist.Feedbacks);
-            Assert.Contains(fb_2, registered.Feedbacks);
+            var feedback = new Feedback();
+            Assert.Equal(1, feedback.IDFeedback);
         }
 
         [Fact]
-        public void Add_Feedback_Fails_Text_Is_Empty()
+        public void Feedback_Constructor_ShouldInitializeProperties()
         {
-            var grade = 3;
-            var creationDate = DateTime.Now;
-            var product = new Product("Product1", "Description", 200, 5, Statuses.InStock, Categories.Various, Discounts.Null, new List<Feedback>());
-
-            Assert.Throws<ArgumentException>(() => new Feedback("", grade, creationDate, product));
+            int idProduct = 1;
+            string textFeedback = "Шикарний продукт!";
+            int grade = 5;
+            DateTime creationDate = DateTime.Now;
+            string userName = "Труш Марина";
+            var feedback = new Feedback(idProduct, textFeedback, grade, creationDate, userName);
+            Assert.Equal(idProduct, feedback.IDProduct);
+            Assert.Equal(textFeedback, feedback.TextFeedback);
+            Assert.Equal(grade, feedback.Grade);
+            Assert.Equal(creationDate.ToString("yyyy-MM-dd HH:mm:ss"), feedback.CreationDate);
+            Assert.Equal(userName, feedback.UserName);
         }
 
         [Fact]
-        public void Edit_Feedback_Successfully()
+        public void Grade_SetInvalidValue_ShouldThrowArgumentException()
         {
-            var originalfb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-            var editedfb = new Feedback("Feedback 2", 3, DateTime.Now, new Product("Product 2", "Description 2", 100, 4, Statuses.InStock, Categories.BeautyAndCare, Discounts.Five, new List<Feedback>()));
-            var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-            pharmacist.Feedbacks.Add(originalfb);
-
-            pharmacist.EditFeedback(originalfb, editedfb);
-
-            Assert.DoesNotContain(originalfb, pharmacist.Feedbacks);
-            Assert.Contains(editedfb, pharmacist.Feedbacks);
+            var feedback = new Feedback();
+            Assert.Throws<ArgumentException>(() => feedback.Grade = -1);
+            Assert.Throws<ArgumentException>(() => feedback.Grade = 6);
         }
 
-        //[Fact]
-        //public void Edit_Feedback_Fails_When_Not_In_List()
-        //{
-        //    var originalfb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-        //    var editedfb = new Feedback("Feedback 2", 3, DateTime.Now, new Product("Product 2", "Description 2", 100, 4, Statuses.InStock, Categories.BeautyAndCare, Discounts.Five, new List<Feedback>()));
-        //    var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-
-        //    Assert.Throws<ArgumentException>(() => pharmacist.EditFeedback(originalfb, editedfb));
-        //}
-
         [Fact]
-        public void Remove_Feedback_Successfully()
+        public void GetStarsString_ShouldReturnCorrectString()
         {
-            var fb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-            var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-            pharmacist.Feedbacks.Add(fb);
-
-            pharmacist.DeleteFeedback(fb);
-
-            Assert.DoesNotContain(fb, pharmacist.Feedbacks);
+            int grade = 3;
+            string expected = "★★★";
+            string result = Feedback.GetStarsString(grade);
+            Assert.Equal(expected, result);
         }
 
-        //[Fact]
-        //public void Remove_Feedback_Fail_When_Not_In_List()
-        //{
-        //    var fb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-        //    var pharmacist = new Pharmacist("trush.marina.13@gmail.com");
-
-        //    Assert.Throws<ArgumentException>(() => pharmacist.DeleteFeedback(fb));
-        //}
-
         [Fact]
-        public void Calculate_AverageGrade_When_Feedbacks_Present()
+        public void CalculateAverageGrade_ShouldReturnCorrectAverage()
         {
             var feedbacks = new List<Feedback>
             {
-                new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List < Feedback >())),
-                new Feedback("Feedback 2", 3, DateTime.Now, new Product("Product 2", "Description 2", 100, 4, Statuses.InStock, Categories.Medicines, Discounts.Null, new List < Feedback >())),
-                new Feedback("Feedback 3", 5, DateTime.Now, new Product("Product 3", "Description 3", 500, 6, Statuses.InStock, Categories.Medicines, Discounts.Null, new List < Feedback >()))
+                new Feedback { Grade = 4 },
+                new Feedback { Grade = 5 },
+                new Feedback { Grade = 3 }
             };
-
-            var result = Feedback.CalculateAverageGrade(feedbacks);
-
-            Assert.True(result >= 0 && result <= 5);
+            double expectedAverage = 4.0;
+            double? averageGrade = Feedback.CalculateAverageGrade(feedbacks);
+            Assert.Equal(expectedAverage, averageGrade);
         }
 
-        //[Fact]
-        //public void Calculate_AverageGrade_No_Feedbacks_Present()
-        //{
-        //    List<Feedback> feedbacks = new List<Feedback>();
+        [Fact]
+        public void CalculateAverageGrade_NoFeedbacks_ShouldReturnNull()
+        {
+            var feedbacks = new List<Feedback>();
+            double? averageGrade = Feedback.CalculateAverageGrade(feedbacks);
+            Assert.Null(averageGrade);
+        }
 
-        //    Assert.Throws<InvalidOperationException>(() => Feedback.CalculateAverageGrade(feedbacks));
-        //}
+        [Fact]
+        public void GetJsonFilePath_ShouldReturnCorrectPath()
+        {
+            string jsonFilePath = "feedbacks.json";
+            string result = Feedback.GetJsonFilePath(jsonFilePath);
+            Assert.EndsWith(jsonFilePath, result);
+        }
+
+        [Fact]
+        public void SaveFeedbackToJson_ShouldSaveFeedback()
+        {
+            string jsonFilePath = "feedbacks_test.json";
+            var feedback = new Feedback(1, "Гарний продукт!", 5, DateTime.Now, "Труш Марина");
+            Feedback.SaveFeedbackToJson(jsonFilePath, feedback);
+            string json = File.ReadAllText(Feedback.GetJsonFilePath(jsonFilePath));
+            var feedbackList = JsonConvert.DeserializeObject<List<Feedback>>(json);
+            Assert.Contains(feedbackList, f => f.TextFeedback == "Гарний продукт!");
+        }
+
+        [Fact]
+        public void GetRandomFeedbackFromJson_ShouldReturnFeedback()
+        {
+            string jsonFilePath = "feedbacks_test.json";
+            var feedback = new Feedback(1, "Гарний продукт!", 5, DateTime.Now, "Труш Марина");
+            Feedback.SaveFeedbackToJson(jsonFilePath, feedback);
+            var result = Feedback.GetRandomFeedbackFromJson(Feedback.GetJsonFilePath(jsonFilePath));
+            Assert.NotNull(result);
+        }
     }
 }

@@ -1,141 +1,128 @@
-﻿using ZdoroviaNaDoloni;
+﻿using Newtonsoft.Json;
+using ZdoroviaNaDoloni;
 using ZdoroviaNaDoloni.Classes;
-using ZdoroviaNaDoloni.Classes.Enums;
 
 namespace UnitTests
 {
     public class PharmacistTest
     {
         [Fact]
-        public void Pharmacist_Add_Feedback()
+        public void Pharmacist_SetName_ValidValue()
         {
-            var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-            var fb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-
-            pharmacist.AddFeedback(fb);
-
-            Assert.Contains(fb, pharmacist.Feedbacks);
+            var pharmacist = new Pharmacist();
+            pharmacist.Name = "Марина";
+            Assert.Equal("Марина", pharmacist.Name);
         }
 
         [Fact]
-        public void Pharmacist_Delete_Feedback()
+        public void Pharmacist_SetName_InvalidValue_ThrowsException()
         {
-            var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-            var fb = new Feedback("Feedback 1", 4, DateTime.Now, new Product("Product 1", "Description 1", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, new List<Feedback>()));
-            pharmacist.Feedbacks = new List<Feedback> { fb };
-
-            pharmacist.DeleteFeedback(fb);
-
-            Assert.DoesNotContain(fb, pharmacist.Feedbacks);
+            var pharmacist = new Pharmacist();
+            Assert.Throws<ArgumentException>(() => pharmacist.Name = "");
         }
 
         [Fact]
-        public void Pharmacist_Edit_Product()
+        public void Pharmacist_SetSurname_ValidValue()
         {
-            var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-            var product = new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null);
-            var newName = "Ibuprofen125";
-            var newDescription = "New Description";
-            var newPrice = 150;
-
-            pharmacist.EditProduct(product, newName, newDescription, newPrice);
-
-            Assert.Equal(newName, product.Name);
-            Assert.Equal(newDescription, product.Description);
-            Assert.Equal(newPrice, product.Price);
+            var pharmacist = new Pharmacist();
+            pharmacist.Surname = "Труш";
+            Assert.Equal("Труш", pharmacist.Surname);
         }
 
-        //[Fact]
-        //public void Pharmacist_Add_DiscountCard_Success()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var card = new DiscountCard("Trush", "Maryna", Discounts.Null, DateTime.Now);
+        [Fact]
+        public void Pharmacist_SetSurname_InvalidValue_ThrowsException()
+        {
+            var pharmacist = new Pharmacist();
+            Assert.Throws<ArgumentException>(() => pharmacist.Surname = "");
+        }
 
-        //    pharmacist.AddDiscountCard(card.OwnerName, card.OwnerSurname, card.UserDiscount, card.CreationDate);
+        [Fact]
+        public void Pharmacist_ReceiveOrderCount_ValidOrders_ReturnsOrderCount()
+        {
+            var pharmacist = new Pharmacist
+            {
+                Orders = new List<OrderBasket> { new OrderBasket(), new OrderBasket() }
+            };
+            var count = pharmacist.ReceiveOrderCount();
+            Assert.Equal(2, count);
+        }
 
-        //    Assert.Contains(card, pharmacist.Cards);
-        //}
+        [Fact]
+        public void Pharmacist_ReceiveOrderCount_NoOrders_ThrowsException()
+        {
+            var pharmacist = new Pharmacist();
+            Assert.Throws<InvalidOperationException>(() => pharmacist.ReceiveOrderCount());
+        }
 
-        //[Fact]
-        //public void Pharmacist_Remove_DiscountCard_Success()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var card = new DiscountCard("Trush", "Maryna", Discounts.Thirty, DateTime.Now);
-        //    pharmacist.Cards = new List<DiscountCard> { card };
+        [Fact]
+        public void Pharmacist_ReceiveOrders_ValidOrders_ReturnsOrders()
+        {
+            var expectedOrders = new List<OrderBasket> { new OrderBasket(), new OrderBasket() };
+            var pharmacist = new Pharmacist
+            {
+                Orders = expectedOrders
+            };
+            var orders = pharmacist.ReceiveOrders();
+            Assert.Equal(expectedOrders, orders);
+        }
 
-        //    pharmacist.RemoveDiscountCard(card);
+        [Fact]
+        public void Pharmacist_ReceiveOrders_NoOrders_ThrowsException()
+        {
+            var pharmacist = new Pharmacist();
+            Assert.Throws<InvalidOperationException>(() => pharmacist.ReceiveOrders());
+        }
 
-        //    Assert.DoesNotContain(card, pharmacist.Cards);
-        //}
+        [Fact]
+        public void Pharmacist_OrderProducts_ValidProducts_AddsOrder()
+        {
+            var pharmacist = new Pharmacist
+            {
+                Name = "Марина",
+                Surname = "Труш",
+                UniquePhoneNumber = "666666666"
+            };
+            var products = new List<Product> { new Product { Name = "Азітроміцин", Quantity = 10 } };
+            pharmacist.OrderProducts(products);
+            Assert.Single(pharmacist.Orders);
+        }
 
-        //[Fact]
-        //public void Pharmacist_Remove_DiscountCard_Fail()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var card = new DiscountCard("Trush", "Maryna", Discounts.Fifteen, DateTime.Now);
+        [Fact]
+        public void Pharmacist_AddFeedback_Valid()
+        {
+            var pharmacist = new Pharmacist();
+            var feedback = new Feedback();
+            pharmacist.AddFeedback(feedback);
+            Assert.Single(pharmacist.Feedbacks);
+        }
 
-        //    Assert.Throws<InvalidOperationException>(() => pharmacist.RemoveDiscountCard(card));
-        //}
+        [Fact]
+        public void Pharmacist_DeleteFeedback_Valid()
+        {
+            var pharmacist = new Pharmacist();
+            var feedback = new Feedback();
+            pharmacist.AddFeedback(feedback);
+            pharmacist.DeleteFeedback(feedback);
+            Assert.Empty(pharmacist.Feedbacks);
+        }
 
-        //[Fact]
-        //public void Pharmacist_Delete_Account_Success()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    pharmacist.Name = "";
+        [Fact]
+        public void GetJsonFilePath_ValidPath()
+        {
+            string relativePath = "products.json";
+            string fullPath = Pharmacist.GetJsonFilePath(relativePath);
+            Assert.True(fullPath.EndsWith(relativePath));
+        }
 
-        //    pharmacist.DeleteAccount();
-
-        //    Assert.Null(pharmacist.UniqueEmail);
-        //}
-
-        //[Fact]
-        //public void Pharmacist_Delete_Account_With_Unfinished_Orders_Fail()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var order = new OrderBasket("Address", DeliveryMethods.SelfPickup);
-        //    pharmacist.Orders = new List<OrderBasket> { order };
-
-        //    Assert.Throws<InvalidOperationException>(() => pharmacist.DeleteAccount());
-        //}
-
-        //[Fact]
-        //public void Pharmacist_Search_Product_Return_True()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
-
-        //    pharmacist.FindProduct(products);
-
-        //    Assert.True(true);
-        //}
-
-        //[Fact]
-        //public void Pharmacist_Search_Product_Return_False()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-        //    var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
-
-        //    pharmacist.FindProduct(products);
-
-        //    Assert.True(false);
-        //}
-
-        //[Fact]
-        //public void Pharmacist_Search_Cities_Success()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-
-        //    var result = pharmacist.SearchCities("Kiev");
-
-        //    Assert.NotEmpty(result);
-        //}
-
-        //[Fact]
-        //public void Pharmacist_Search_Cities_Fail()
-        //{
-        //    var pharmacist = new Pharmacist("pharm_Maryna@google.com");
-
-        //    Assert.Throws<ArgumentException>(() => pharmacist.SearchCities(""));
-        //}
+        [Fact]
+        public void Pharmacist_EditProduct_ValidProduct_EditsProduct()
+        {
+            var product = new Product { Name = "Аугментин (BD)", Description = "таблетки, в/плів. обол. по 875 мг/125 мг", Price = 394 };
+            var pharmacist = new Pharmacist();
+            pharmacist.EditProduct(product, "Фурадонін", "таблетки по 100 мг", 104);
+            Assert.Equal("Фурадонін", product.Name);
+            Assert.Equal("таблетки по 100 мг", product.Description);
+            Assert.Equal(104, product.Price);
+        }
     }
 }

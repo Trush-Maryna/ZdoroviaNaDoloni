@@ -1,37 +1,24 @@
-﻿using ZdoroviaNaDoloni;
-using ZdoroviaNaDoloni.Classes;
-using ZdoroviaNaDoloni.Classes.Enums;
+﻿using ZdoroviaNaDoloni.Classes;
 
 namespace UnitTests
 {
     public class GuestTest
     {
         [Fact]
-        public void Guest_InitializesWithID()
+        public void ID_ShouldIncrement_OnEachCall()
         {
-            var guest = new Guest();
-
-            Assert.Equal(1, Guest.ID);
+            int firstId = Guest.ID;
+            int secondId = Guest.ID;
+            int thirdId = Guest.ID;
+            Assert.Equal(firstId + 1, secondId);
+            Assert.Equal(secondId + 1, thirdId);
         }
 
         [Fact]
-        public void Guest_Search_Product_Return_True()
+        public void Constructor_ShouldInitializeGuest()
         {
             var guest = new Guest();
-            var products = new List<Product>() { new Product("Ibuprofen", "Description", 200, 5, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
-
-            guest.FindProduct(products);
-
-            Assert.True(true);
+            Assert.NotNull(guest);
         }
-
-        //[Fact]
-        //public void Guest_Search_Product_With_Empty_Name_Return_False()
-        //{
-        //    var guest = new Guest();
-        //    var products = new List<Product>() { new Product("", "", 0, 0, Statuses.InStock, Categories.Medicines, Discounts.Null, null) };
-
-        //    Assert.Throws<ArgumentException>(() => guest.FindProduct(products));
-        //}
     }
 }

@@ -1,151 +1,184 @@
-using Xunit.Abstractions;
+using Microsoft.VisualBasic.ApplicationServices;
+using ZdoroviaNaDoloni;
 using ZdoroviaNaDoloni.Classes;
-using ZdoroviaNaDoloni.Classes.Enums;
 
 namespace UnitTests
 {
     public class UserTest
     {
-        [Fact]
-        public void Guest_Successful_Registration()
+        private ZdoroviaNaDoloni.Classes.User CreateRegisterInstance()
         {
-            var guest = new Guest();
-            var phoneNumber = "666395820";
-            var password = "Mar03Mar";
-            var confidentMark = true;
-            bool registeredEventRaised = false;
+            return new Registered();
+        }
 
-            guest.Registered += () => registeredEventRaised = true;
-
-            guest.Register(phoneNumber, password, confidentMark);
-
-            Assert.True(registeredEventRaised);
+        private ZdoroviaNaDoloni.Classes.User CreatePharmacistInstance()
+        {
+            return new Pharmacist();
         }
 
         [Fact]
-        public void Guest_Fail_Registration_InvalidPhone()
+        public void Register_ValidatePhoneNumber_ReturnsTrue()
         {
-            var guest = new Guest();
-            var phoneNumber = "";
-
-            Assert.Throws<ArgumentException>(() => guest.Register(phoneNumber, "Mar03Mar", true));
+            var user = CreateRegisterInstance();
+            var result = user.ValidatePhoneNumber("666666666");
+            Assert.True(result);
         }
 
         [Fact]
-        public void Guest_Fail_Registration_InvalidPassword()
+        public void Pharmacist_ValidatePhoneNumber_ReturnsTrue()
         {
-            var guest = new Guest();
-            var password = "";
-
-            Assert.Throws<ArgumentException>(() => guest.Register("666395820", password, true));
+            var user = CreatePharmacistInstance();
+            var result = user.ValidatePhoneNumber("666695822");
+            Assert.True(result);
         }
 
         [Fact]
-        public void Guest_Fail_Registration_InvalidConfMark()
+        public void Register_ValidatePass_ReturnsTrue()
         {
-            var guest = new Guest();
-
-            Assert.Throws<ArgumentException>(() => guest.Register("666395820", "Mar03Mar", false));
+            var user = CreateRegisterInstance();
+            var result = user.ValidatePass("Abasd45");
+            Assert.True(result);
         }
 
         [Fact]
-        public void Pharmacist_Successful_Authorization()
+        public void Pharmacist_ValidatePass_ReturnsTrue()
         {
-            string validPhoneNumber = "666395820";
-            string validPassword = "Mar03Mar";
-            string validEmail = "marina13@gmail.com";
-            User user = new Pharmacist(validPhoneNumber, validPassword, Roles.Registered, Genders.Female);
-
-            bool isAuthorized = user.IsAuthorized(validPhoneNumber, validPassword, validEmail);
-
-            Assert.True(isAuthorized);
+            var user = CreatePharmacistInstance();
+            var result = user.ValidatePass("Mfjkcnst1256lsm");
+            Assert.True(result);
         }
 
         [Fact]
-        public void Pharmacist_Fail_Authorization_InvalidPassword()
+        public void Register_Authorized_ReturnsTrue()
         {
-            string validPhoneNumber = "666395820";
-            string invalidPassword = "invalid";
-            Assert.Throws<ArgumentException>(() => new Pharmacist(validPhoneNumber, invalidPassword, Roles.Registered, Genders.Female));
+            var user = CreateRegisterInstance();
+            int phoneNumber = 666666666;
+            string password = "Abasd45";
+            var result = user.Authorized(phoneNumber, password);
+            Assert.True(result);
         }
 
         [Fact]
-        public void Pharmacist_Fail_Authorization_InvalidEmail()
+        public void Pharmacist_Authorized_ReturnsTrue()
         {
-            string invalidEmail = "marina13gmail.com";
-
-            Assert.Throws<ArgumentException>(() => new Pharmacist(invalidEmail));
+            var user = CreatePharmacistInstance();
+            int phoneNumber = 666695822;
+            string password = "Mfjkcnst1256lsm";
+            var result = user.Authorized(phoneNumber, password);
+            Assert.True(result);
         }
 
         [Fact]
-        public void Pharmacist_Fail_Authorization_InvalidPhone()
+        public void Register_isUserExists_ReturnsTrue()
         {
-            string validPhoneNumber = "66639582";
-            string invalidPassword = "Mar03Mar";
-            Assert.Throws<ArgumentException>(() => new Pharmacist(validPhoneNumber, invalidPassword, Roles.Registered, Genders.Female));
+            var user = CreateRegisterInstance();
+            int phoneNumber = 666666666;
+            var result = user.isUserExists(phoneNumber);
+            Assert.True(result);
         }
 
         [Fact]
-        public void Pharmacist_Fail_SubAuthorization()
+        public void Register_isUserExists_ReturnsFalse()
         {
-            string validPhoneNumber = "666395820";
-            string validPassword = "Mar03Mar";
-            string validEmail = "marina13@gmail.com";
-            User user = validPhoneNumber != null && validPassword != null ? new Pharmacist(validPhoneNumber, validPassword, Roles.Registered, Genders.Female) : null;
-
-            bool isAuthorized = user != null && user.IsAuthorized(validPhoneNumber, validPassword, validEmail);
-
-            Assert.True(isAuthorized);
+            var user = CreateRegisterInstance();
+            int phoneNumber = 111111111;
+            var result = user.isUserExists(phoneNumber);
+            Assert.False(result);
         }
 
         [Fact]
-        public void Registered_Successful_Authorization()
+        public void Pharmacist_Authorized_ReturnsFalsePass()
         {
-            string validPhoneNumber = "666395820";
-            string validPassword = "Mar03Mar";
-            string validEmail = "marina13@gmail.com";
-            User user = new Registered(validPhoneNumber, validPassword, Roles.Registered, Genders.Female);
-
-            bool isAuthorized = user.IsAuthorized(validPhoneNumber, validPassword, validEmail);
-
-            Assert.True(isAuthorized);
+            var user = CreatePharmacistInstance();
+            int phoneNumber = 666666666;
+            string password = "mfj";
+            var result = user.Authorized(phoneNumber, password);
+            Assert.False(result);
         }
 
         [Fact]
-        public void Registered_Fail_Authorization_InvalidPassword()
+        public void Pharmacist_isUserExists_ReturnsTrue()
         {
-            string validPhoneNumber = "666395820";
-            string invalidPassword = "invalid";
-            Assert.Throws<ArgumentException>(() => new Registered(validPhoneNumber, invalidPassword, Roles.Registered, Genders.Female));
+            var user = CreatePharmacistInstance();
+            int phoneNumber = 666695822;
+            var result = user.isUserExists(phoneNumber);
+            Assert.True(result);
         }
 
         [Fact]
-        public void Registered_Fail_Authorization_InvalidEmail()
+        public void Pharmacist_isUserExists_ReturnsFalse()
         {
-            string invalidEmail = "marina13gmail.com";
-
-            Assert.Throws<ArgumentException>(() => new Registered(invalidEmail));
+            var user = CreatePharmacistInstance();
+            int phoneNumber = 111111111;
+            var result = user.isUserExists(phoneNumber);
+            Assert.False(result);
         }
 
         [Fact]
-        public void Registered_Fail_Authorization_InvalidPhone()
+        public void Register_Registered_ReturnsTrue()
         {
-            string validPhoneNumber = "66639582";
-            string invalidPassword = "Mar03Mar";
-            Assert.Throws<ArgumentException>(() => new Registered(validPhoneNumber, invalidPassword, Roles.Registered, Genders.Female));
+            var user = CreateRegisterInstance();
+            int phoneNumber = 666666666;
+            string password = "Abasd45";
+            bool confidentmark = true;
+            var result = user.Register(phoneNumber, password, confidentmark);
+            Assert.True(result);
         }
 
         [Fact]
-        public void Registered_Fail_SubAuthorization()
+        public void Register_Logout()
         {
-            string validPhoneNumber = "666395820";
-            string validPassword = "Mar03Mar";
-            string validEmail = "marina13@gmail.com";
-            User user = validPhoneNumber != null && validPassword != null ? new Registered(validPhoneNumber, validPassword, Roles.Registered, Genders.Female) : null;
+            var user = CreateRegisterInstance();
+            ZdoroviaNaDoloni.Classes.User.IsAuthorized = true;
+            ZdoroviaNaDoloni.Classes.User.IsRegistered = true;
+            ZdoroviaNaDoloni.Classes.User.CurrentUser = user;
+            ZdoroviaNaDoloni.Classes.User.Logout();
+            Assert.False(ZdoroviaNaDoloni.Classes.User.IsAuthorized);
+            Assert.False(ZdoroviaNaDoloni.Classes.User.IsRegistered);
+            Assert.Null(ZdoroviaNaDoloni.Classes.User.CurrentUser);
+        }
 
-            bool isAuthorized = user != null && user.IsAuthorized(validPhoneNumber, validPassword, validEmail);
+        [Fact]
+        public void Pharmacist_Logout()
+        {
+            var user = CreatePharmacistInstance();
+            ZdoroviaNaDoloni.Classes.User.IsAuthorized = true;
+            ZdoroviaNaDoloni.Classes.User.IsRegistered = true;
+            ZdoroviaNaDoloni.Classes.User.CurrentUser = user;
+            ZdoroviaNaDoloni.Classes.User.Logout();
+            Assert.False(ZdoroviaNaDoloni.Classes.User.IsAuthorized);
+            Assert.False(ZdoroviaNaDoloni.Classes.User.IsRegistered);
+            Assert.Null(ZdoroviaNaDoloni.Classes.User.CurrentUser);
+        }
 
-            Assert.True(isAuthorized);
+        [Fact]
+        public void Register_SearchProductsByName_ReturnsEmptyList()
+        {
+            var user = CreateRegisterInstance();
+            var products = new List<Product>
+            {
+                new Product { Name = "Ношпа" },
+                new Product { Name = "Парацетамол" },
+                new Product { Name = "Азітроміцин" }
+            };
+            var query = "Іва";
+            var result = user.SearchProductsByName(products, query);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void Pharmacist_SearchProductsByName_ReturnsEmptyList()
+        {
+            var user = CreateRegisterInstance();
+            var products = new List<Product>
+            {
+                new Product { Name = "Ношпа" },
+                new Product { Name = "Парацетамол" },
+                new Product { Name = "Азітроміцин" }
+            };
+            var query = "Іва";
+            var result = user.SearchProductsByName(products, query);
+            Assert.Empty(result);
         }
     }
 }
