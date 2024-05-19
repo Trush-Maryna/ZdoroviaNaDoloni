@@ -1,94 +1,93 @@
 ﻿using System.Diagnostics;
 using ZdoroviaNaDoloni.Classes;
 using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
-
-namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI
-{
-    public partial class Registered_Info_Form : Form
-    {
-        private Point previousLocation;
+namespace ZdoroviaNaDoloni.GUInterfaces.Registered_GUI 
+{ 
+    public partial class Registered_Info_Form : Form 
+    { 
+        private Point previousLocation; 
         private Registered_Info_Form GetLocation() => this;
-        private string nameUser;
-        private string regionUser;
-        private string cityUser;
-        private string numTelUser;
-        private int numNPUser;
-        private OrderBasket userInfo;
+        private Registered userDB;
 
-        public Registered_Info_Form()
-        {
+        public Registered_Info_Form() 
+        { 
             InitializeComponent();
         }
 
-        public Registered_Info_Form(string name, string region, string city, string numTel, int numNP, OrderBasket userinfo)
+        public Registered_Info_Form(Registered user)
         {
             InitializeComponent();
-            this.nameUser = name;
-            this.regionUser = region;
-            this.cityUser = city;
-            this.numTelUser = numTel;
-            this.numNPUser = numNP;
-            this.userInfo = userinfo;
+            this.userDB = user;
         }
 
-        private void Btn_Close_Profile_Click(object sender, EventArgs e)
-        {
-            User.Logout();
+        private void Btn_Close_Profile_Click(object sender, EventArgs e) 
+        { 
+            User.Logout(); 
+            previousLocation = GetLocation().Location; 
+            Guest_Home_1 guestHome1Form = new() 
+            { 
+                StartPosition = FormStartPosition.Manual, Location = previousLocation 
+            }; 
+            guestHome1Form.Show(); 
+            Hide(); 
+        } 
+        
+        private void Btn_Delete_Profile_Click(object sender, EventArgs e) 
+        { 
+            if (MessageBox.Show("Ви впевнені, що хочете видалити свій профіль?", "Підтвердження видалення", MessageBoxButtons.YesNo) == DialogResult.Yes) 
+            { 
+                string? deleteResult = User.CurrentUser.DeleteUserFromDatabase(User.CurrentUser); 
+                if (deleteResult == null) 
+                { 
+                    MessageBox.Show("Профіль успішно видалено."); 
+                    User.Logout(); 
+                    previousLocation = GetLocation().Location; 
+                    Guest_Home_1 guestHome1Form = new() 
+                    { 
+                        StartPosition = FormStartPosition.Manual, Location = previousLocation 
+                    }; 
+                    guestHome1Form.Show(); 
+                    Hide(); 
+                } 
+                else 
+                { 
+                    MessageBox.Show("Помилка: " + deleteResult); 
+                } 
+            } 
+        } 
+        
+        private void Btn_User_Info_Click(object sender, EventArgs e) 
+        { 
             previousLocation = GetLocation().Location;
-            Guest_Home_1 guestHome1Form = new()
+            if (userDB == null) 
             {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            guestHome1Form.Show();
-            Hide();
-        }
-
-        private void Btn_Delete_Profile_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Ви впевнені, що хочете видалити свій профіль?", "Підтвердження видалення", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                string? deleteResult = User.CurrentUser.DeleteUserFromDatabase(User.CurrentUser);
-                if (deleteResult == null)
+                Registered_Info_User_Form registeredInfoUserForm = new()
                 {
-                    MessageBox.Show("Профіль успішно видалено.");
-                    User.Logout();
-                    previousLocation = GetLocation().Location;
-                    Guest_Home_1 guestHome1Form = new()
-                    {
-                        StartPosition = FormStartPosition.Manual,
-                        Location = previousLocation
-                    };
-                    guestHome1Form.Show();
-                    Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Помилка: " + deleteResult);
-                }
+                    StartPosition = FormStartPosition.Manual,
+                    Location = previousLocation
+                };
+                registeredInfoUserForm.Show();
+                Hide();
             }
-        }
-
-        private void Btn_User_Info_Click(object sender, EventArgs e)
-        {
-            previousLocation = GetLocation().Location;
-            Registered_Info_User_Form registeredInfoUserForm = new(nameUser, regionUser, cityUser, numTelUser, numNPUser, userInfo)
+            if (userDB.Name != null && userDB.NumNP != null && userDB.PhoneNumber != null && userDB.Region != null)
             {
-                StartPosition = FormStartPosition.Manual,
-                Location = previousLocation
-            };
-            registeredInfoUserForm.Show();
-            Hide();
-        }
-
-        private void Btn_FAQ_Click(object sender, EventArgs e)
-        {
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = Constants.Instance.ConditionsRulesLink,
-                UseShellExecute = true
-            };
-            Process.Start(psi);
+                Registered_Info_User_Form registeredInfoUserForm = new(userDB)
+                {
+                    StartPosition = FormStartPosition.Manual,
+                    Location = previousLocation
+                };
+                registeredInfoUserForm.Show();
+                Hide();
+            }
+        } 
+        
+        private void Btn_FAQ_Click(object sender, EventArgs e) 
+        { 
+            ProcessStartInfo psi = new ProcessStartInfo 
+            { 
+                FileName = Constants.Instance.ConditionsRulesLink, UseShellExecute = true 
+            }; 
+            Process.Start(psi); 
         }
 
         private void register_home_btn_Click(object sender, EventArgs e)

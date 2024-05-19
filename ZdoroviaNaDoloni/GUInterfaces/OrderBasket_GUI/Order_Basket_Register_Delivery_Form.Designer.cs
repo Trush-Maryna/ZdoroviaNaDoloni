@@ -45,6 +45,7 @@
             City_txt_box = new TextBox();
             NumTel_txt_box = new TextBox();
             Num_NP_txt_box = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
             // Txt_Price
@@ -197,55 +198,87 @@
             Name_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Name_txt_box.BorderStyle = BorderStyle.None;
             Name_txt_box.Font = new Font("Segoe UI", 12F);
+            Name_txt_box.ForeColor = Color.White;
             Name_txt_box.Location = new Point(35, 285);
             Name_txt_box.Multiline = true;
             Name_txt_box.Name = "Name_txt_box";
             Name_txt_box.Size = new Size(322, 34);
             Name_txt_box.TabIndex = 84;
+            Name_txt_box.Text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+            Name_txt_box.Enter += Name_txt_box_Enter;
+            Name_txt_box.Leave += Name_txt_box_Leave;
             // 
             // Region_txt_box
             // 
             Region_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Region_txt_box.BorderStyle = BorderStyle.None;
             Region_txt_box.Font = new Font("Segoe UI", 12F);
+            Region_txt_box.ForeColor = Color.White;
             Region_txt_box.Location = new Point(35, 356);
             Region_txt_box.Multiline = true;
             Region_txt_box.Name = "Region_txt_box";
             Region_txt_box.Size = new Size(322, 34);
             Region_txt_box.TabIndex = 85;
+            Region_txt_box.Text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+            Region_txt_box.Enter += Region_txt_box_Enter;
+            Region_txt_box.Leave += Region_txt_box_Leave;
             // 
             // City_txt_box
             // 
             City_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             City_txt_box.BorderStyle = BorderStyle.None;
             City_txt_box.Font = new Font("Segoe UI", 12F);
+            City_txt_box.ForeColor = Color.White;
             City_txt_box.Location = new Point(35, 425);
             City_txt_box.Multiline = true;
             City_txt_box.Name = "City_txt_box";
             City_txt_box.Size = new Size(322, 34);
             City_txt_box.TabIndex = 86;
+            City_txt_box.Text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+            City_txt_box.Enter += City_txt_box_Enter;
+            City_txt_box.Leave += City_txt_box_Leave;
             // 
             // NumTel_txt_box
             // 
             NumTel_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             NumTel_txt_box.BorderStyle = BorderStyle.None;
             NumTel_txt_box.Font = new Font("Segoe UI", 12F);
-            NumTel_txt_box.Location = new Point(35, 496);
+            NumTel_txt_box.ForeColor = Color.White;
+            NumTel_txt_box.Location = new Point(89, 496);
             NumTel_txt_box.Multiline = true;
             NumTel_txt_box.Name = "NumTel_txt_box";
-            NumTel_txt_box.Size = new Size(322, 34);
+            NumTel_txt_box.Size = new Size(268, 34);
             NumTel_txt_box.TabIndex = 87;
+            NumTel_txt_box.Text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+            NumTel_txt_box.Enter += NumTel_txt_box_Enter;
+            NumTel_txt_box.Leave += NumTel_txt_box_Leave;
             // 
             // Num_NP_txt_box
             // 
             Num_NP_txt_box.BackColor = Color.FromArgb(75, 73, 180);
             Num_NP_txt_box.BorderStyle = BorderStyle.None;
             Num_NP_txt_box.Font = new Font("Segoe UI", 12F);
+            Num_NP_txt_box.ForeColor = Color.White;
             Num_NP_txt_box.Location = new Point(35, 568);
             Num_NP_txt_box.Multiline = true;
             Num_NP_txt_box.Name = "Num_NP_txt_box";
             Num_NP_txt_box.Size = new Size(322, 34);
             Num_NP_txt_box.TabIndex = 88;
+            Num_NP_txt_box.Text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _";
+            Num_NP_txt_box.Enter += Num_NP_txt_box_Enter;
+            Num_NP_txt_box.Leave += Num_NP_txt_box_Leave;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(34, 496);
+            label1.Name = "label1";
+            label1.Size = new Size(59, 28);
+            label1.TabIndex = 89;
+            label1.Text = "+380";
             // 
             // Order_Basket_Register_Delivery_Form
             // 
@@ -253,6 +286,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(392, 852);
+            Controls.Add(label1);
             Controls.Add(Num_NP_txt_box);
             Controls.Add(NumTel_txt_box);
             Controls.Add(City_txt_box);
@@ -269,6 +303,7 @@
             Controls.Add(register_home_btn);
             Controls.Add(register_user_info_btn);
             Controls.Add(register_categor_btn);
+            ForeColor = Color.Black;
             FormBorderStyle = FormBorderStyle.None;
             Name = "Order_Basket_Register_Delivery_Form";
             Text = "Order_Basket_Register_Delivery_Form";
@@ -294,5 +329,6 @@
         private TextBox City_txt_box;
         private TextBox NumTel_txt_box;
         private TextBox Num_NP_txt_box;
+        private Label label1;
     }
 }

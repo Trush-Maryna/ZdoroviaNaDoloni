@@ -21,21 +21,6 @@ namespace UnitTests
         }
 
         [Fact]
-        public void Surname_SetValidValue()
-        {
-            var registered = new Registered();
-            registered.Surname = "Труш";
-            Assert.Equal("Труш", registered.Surname);
-        }
-
-        [Fact]
-        public void Surname_SetInvalidValue()
-        {
-            var registered = new Registered();
-            Assert.Throws<ArgumentException>(() => registered.Surname = "");
-        }
-
-        [Fact]
         public void City_SetValidValue()
         {
             var registered = new Registered();
@@ -56,7 +41,6 @@ namespace UnitTests
             var registered = new Registered
             {
                 Name = "Марина",
-                Surname = "Труш",
                 PhoneNumber = "666666666"
             };
             var products = new List<Product>

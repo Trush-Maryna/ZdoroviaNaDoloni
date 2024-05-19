@@ -66,7 +66,7 @@ namespace ZdoroviaNaDoloni.Classes
             userHeader.Range.Font.Size = 16;
             userHeader.Range.Font.Italic = 0;
             userHeader.Range.Text = $"Користувач: { userinfo.Name}";
-            userHeader.Range.Text += $"Номер телефону: {userinfo.NumTel}";
+            userHeader.Range.Text += $"Номер телефону: +380{userinfo.NumTel}";
             userHeader.Range.Font.Size = 14;
             userHeader.Range.Font.Italic = 1;
             userHeader.Range.InsertParagraphAfter();

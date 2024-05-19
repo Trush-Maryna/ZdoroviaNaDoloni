@@ -52,15 +52,14 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
                 object fileName = ReceiptWord.CreateReceiptSelfPickup(panelDataList, priceTotal, countTotal, pharmacyMarks);
                 MessageBox.Show("Дякуємо за замовлення! \nОсь ваш чек:");
                 orderBasket.ClearJsonFile(jsonfilePath);
+                orderBasket.HideAllProductPanels(productsPanels);
+                Total_Price_Product.Text = "";
+                Total_Count_Product.Text = "";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            orderBasket.HideAllProductPanels(productsPanels);
-
-            Total_Price_Product.Text = "";
-            Total_Count_Product.Text = "";
         }
 
         private void register_home_btn_Click(object sender, EventArgs e)

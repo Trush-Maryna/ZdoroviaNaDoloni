@@ -44,17 +44,17 @@ namespace ZdoroviaNaDoloni.Classes
             UserName = userName;
         }
 
-        public static string GetStarsString(int grade)
-        {
-            return new string('★', grade);
-        }
-
         public static double? CalculateAverageGrade(List<Feedback> feedbacks)
         {
             if (feedbacks == null || !feedbacks.Any())
                 return null;
 
             return feedbacks.Average(f => f.Grade);
+        }
+
+        public static string GetStarsString(int grade)
+        {
+            return new string('★', grade);
         }
 
         public static string GetJsonFilePath(string jsonFilePath)
@@ -97,14 +97,14 @@ namespace ZdoroviaNaDoloni.Classes
                     string json = File.ReadAllText(jsonPath);
                     List<Feedback> feedbackList = JsonConvert.DeserializeObject<List<Feedback>>(json);
 
-                    if (feedbackList == null || feedbackList.Count == 0)
+                    if (!feedbackList.Any())
                     {
                         throw new Exception("Список фідбеків порожній.");
                     }
 
                     Random random = new Random();
-                    int randomIndex = random.Next(0, feedbackList.Count);
-                    return feedbackList[randomIndex];
+                    Feedback randomFeedback = feedbackList.OrderBy(f => random.Next()).FirstOrDefault();
+                    return randomFeedback;
                 }
                 else
                 {

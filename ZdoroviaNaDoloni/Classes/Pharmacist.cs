@@ -17,7 +17,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (!string.IsNullOrWhiteSpace(value) && value.Length > 0)
                     name = value;
                 else
-                    throw new ArgumentException("Name cannot be empty.");
+                    throw new ArgumentException("Ім'я не може бути пустим.");
             }
         }
         public string? Surname
@@ -28,7 +28,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (!string.IsNullOrWhiteSpace(value) && value.Length > 0)
                     surname = value;
                 else
-                    throw new ArgumentException("Surname cannot be empty.");
+                    throw new ArgumentException("Прізвище не може бути пустим.");
             }
         }
 
@@ -69,36 +69,24 @@ namespace ZdoroviaNaDoloni.Classes
 
         public int ReceiveOrderCount()
         {
-            if (Orders == null || Orders.Count == 0)
-                throw new InvalidOperationException("No orders found for this account.");
-
-            return Orders.Count;
+            return Orders?.Count ?? throw new InvalidOperationException("Немає замовлень у цього користувача.");
         }
 
         public List<OrderBasket> ReceiveOrders()
         {
-            if (Orders == null || Orders.Count == 0)
-                throw new InvalidOperationException("No orders found for this account.");
-
-            return Orders;
+            return Orders ?? throw new InvalidOperationException("Немає замовлень у цього користувача.");
         }
 
         public void OrderProducts(List<Product> products)
         {
-            if (Orders == null)
-                Orders = new List<OrderBasket>();
-
-            foreach (var product in products)
+            if (products.Any(p => p.Quantity <= 0))
             {
-                if (product.Quantity <= 0)
-                {
-                    throw new InvalidOperationException($"The quantity of {product.Name} is not available.");
-                }
+                throw new InvalidOperationException("Кількість товару не може бути менше або дорівнювати нулю.");
             }
 
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Surname) || string.IsNullOrEmpty(UniquePhoneNumber))
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Surname) || string.IsNullOrWhiteSpace(UniquePhoneNumber))
             {
-                throw new InvalidOperationException("Required fields are missing.");
+                throw new InvalidOperationException("Заповніть обов'язкові поля.");
             }
 
             Orders ??= new List<OrderBasket>();
@@ -153,7 +141,7 @@ namespace ZdoroviaNaDoloni.Classes
         public void EditProduct(Product product, string newName, string newDescription, decimal newPrice)
         {
             if (product == null)
-                throw new ArgumentNullException(nameof(product), "Product cannot be null.");
+                throw new ArgumentNullException(nameof(product), "Заповніть обов'язкові поля.");
 
             product.Name = newName;
             product.Description = newDescription;

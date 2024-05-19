@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
+using ZdoroviaNaDoloni.Classes.Enums;
 using ZdoroviaNaDoloni.Classes.Interfaces;
 
 namespace ZdoroviaNaDoloni.Classes
@@ -39,6 +40,8 @@ namespace ZdoroviaNaDoloni.Classes
             }
         }
 
+        public Genders? Gender { get; set; }
+
         public static bool IsAuthorized;
         public static bool IsRegistered;
         public static bool IsDeleted;
@@ -56,12 +59,18 @@ namespace ZdoroviaNaDoloni.Classes
             Password = password;
         }
 
-        public User(string phoneNumber, string password, string name, string region, string city, int numNP) : this(phoneNumber, password)
+        public User(string phoneNumber, string password, Genders gender) : this(phoneNumber, password)
+        {
+            Gender = gender;
+        }
+
+        public User(string phoneNumber, string password, string name, Genders gender, string region, string city, int numNP) : this(phoneNumber, password)
         {
             Name = name;
             Region = region;
             City = city;
             NumNP = numNP;
+            Gender = gender;
         }
 
         public bool ValidatePhoneNumber(string value)
@@ -112,7 +121,7 @@ namespace ZdoroviaNaDoloni.Classes
         {
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `phone_number` = @pn AND `pass` = @p", getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `PhoneNumber` = @pn AND `pass` = @p", getConnection());
             command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phonenumber;
             command.Parameters.Add("@p", MySqlDbType.VarChar).Value = password;
             adapter.SelectCommand = command;
@@ -132,7 +141,7 @@ namespace ZdoroviaNaDoloni.Classes
 
         public bool Register(int phonenumber, string password, bool confidentmark)
         {
-            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`phone_number`, `pass`, `CheckButtonClicked`) VALUES (@pn, @p, @cbc)", getConnection());
+            MySqlCommand command = new MySqlCommand("INSERT INTO `users` (`PhoneNumber`, `pass`, `CheckButtonClicked`) VALUES (@pn, @p, @cbc)", getConnection());
             command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phonenumber;
             command.Parameters.Add("@p", MySqlDbType.VarChar).Value = password;
             command.Parameters.Add("@cbc", MySqlDbType.Bit).Value = confidentmark;
@@ -156,7 +165,7 @@ namespace ZdoroviaNaDoloni.Classes
         {
             DataTable table = new DataTable();
             MySqlDataAdapter adapter = new MySqlDataAdapter();
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `phone_number` = @pn", getConnection());
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` WHERE `PhoneNumber` = @pn", getConnection());
             command.Parameters.Add("@pn", MySqlDbType.Int32).Value = phoneNumber;
             adapter.SelectCommand = command;
             adapter.Fill(table);
@@ -184,7 +193,7 @@ namespace ZdoroviaNaDoloni.Classes
                 if (currentUser != null)
                 {
                     AccountDeleted?.Invoke(this);
-                    MySqlCommand command = new MySqlCommand("DELETE FROM `users` WHERE `phone_number` = @pn", getConnection());
+                    MySqlCommand command = new MySqlCommand("DELETE FROM `users` WHERE `PhoneNumber` = @pn", getConnection());
                     command.Parameters.AddWithValue("@pn", currentUser.PhoneNumber);
 
                     openConnectionDB();

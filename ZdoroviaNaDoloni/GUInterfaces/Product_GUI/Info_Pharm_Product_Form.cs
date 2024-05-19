@@ -62,13 +62,13 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void Btn_Map_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Pharmacist_Home_2 pharmacist_Home_2 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharmacist_Home_2.Show();
+            ClearForm();
             Hide();
         }
 
@@ -89,65 +89,65 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Product_GUI
         private void btn_open_home_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Pharmacist_Home_1 pharm_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharm_Home_1.Show();
+            ClearForm();
             Hide();
         }
 
         private void btn_search_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Search_Form searchForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             searchForm.Show();
+            ClearForm();
             Hide();
         }
 
         private void pharm_home_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Pharmacist_Home_1 pharm_Home_1 = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharm_Home_1.Show();
+            ClearForm();
             Hide();
         }
 
         private void pharm_categor_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Categories_Form categorForm = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             categorForm.Show();
+            ClearForm();
             Hide();
         }
 
         private void pharm_user_info_btn_Click(object sender, EventArgs e)
         {
             previousLocation = GetLocation().Location;
-            ClearForm();
             Pharmacist_Info_Form pharmacist_info_form = new()
             {
                 StartPosition = FormStartPosition.Manual,
                 Location = previousLocation
             };
             pharmacist_info_form.Show();
+            ClearForm();
             Hide();
         }
     }
