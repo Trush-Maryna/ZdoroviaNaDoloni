@@ -1,6 +1,4 @@
 ﻿using ZdoroviaNaDoloni.GUInterfaces.Guest_GUI;
-using System.IO;
-using System.Windows.Forms;
 using ZdoroviaNaDoloni.Classes;
 
 namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
@@ -43,9 +41,9 @@ namespace ZdoroviaNaDoloni.GUInterfaces.Pharmacist_GUI
                 MessageBox.Show("Новий продукт успішно додано!");
                 ClearFields();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Сталася помилка: {ex.Message}");
+                MessageBox.Show("Сталася помилка при додаванні товару. Перевірте поля на вірне заповнення.");
             }
         }
 

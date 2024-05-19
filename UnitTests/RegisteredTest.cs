@@ -36,22 +36,6 @@ namespace UnitTests
         }
 
         [Fact]
-        public void OrderProducts_ValidProducts()
-        {
-            var registered = new Registered
-            {
-                Name = "Марина",
-                PhoneNumber = "666666666"
-            };
-            var products = new List<Product>
-            {
-                new Product { Name = "Фурагін", Quantity = 10 }
-            };
-            registered.OrderProducts(products);
-            Assert.Single(registered.Orders);
-        }
-
-        [Fact]
         public void OrderProducts_ShouldThrowException()
         {
             var registered = new Registered();

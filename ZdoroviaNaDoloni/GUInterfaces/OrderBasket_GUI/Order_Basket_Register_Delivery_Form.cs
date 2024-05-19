@@ -40,29 +40,33 @@ namespace ZdoroviaNaDoloni.GUInterfaces.OrderBasket_GUI
         } 
 
         private void Btn_Confirm_Click(object sender, EventArgs e) 
-        { 
-            string name = Name_txt_box.Text; 
-            string region = Region_txt_box.Text; 
-            string city = City_txt_box.Text; 
-            string numTel = NumTel_txt_box.Text; 
-            int numNP = int.Parse(Num_NP_txt_box.Text);
-            try 
-            { 
-                OrderBasket userinfo = new OrderBasket(name, region, city, numTel, numNP); 
-                List<OrderBasket.Feedback> panelDataList = orderBasket.RestoreFileJson(jsonfilePath); 
-                object fileName = ReceiptWord.CreateReceiptDelivery(panelDataList, priceTotal, countTotal, userinfo); 
+        {
+            try
+            {
+                string name = Name_txt_box.Text;
+                string region = Region_txt_box.Text;
+                string city = City_txt_box.Text;
+                string numTel = NumTel_txt_box.Text;
+                int numNP = int.Parse(Num_NP_txt_box.Text);
+                OrderBasket userinfo = new OrderBasket(name, region, city, numTel, numNP);
+                List<OrderBasket.Feedback> panelDataList = orderBasket.RestoreFileJson(jsonfilePath);
+                object fileName = ReceiptWord.CreateReceiptDelivery(panelDataList, priceTotal, countTotal, userinfo);
                 MessageBox.Show("Дякуємо за замовлення! \nОсь ваш чек:");
                 user = new(name, region, city, numTel, numNP);
                 if (user.isInfoExists(int.Parse(numTel)) == false)
                 {
                     user.SaveUserDataToDatabase(name, region, city, numTel, numNP);
                 }
-                orderBasket.ClearJsonFile(jsonfilePath); 
+                orderBasket.ClearJsonFile(jsonfilePath);
                 orderBasket.HideAllProductPanels(productsPanels);
-            } 
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(ex.Message); 
+            }
+            catch (SystemException ex) 
+            {
+                MessageBox.Show("Сталася помилка при оформленні замовлення. Перевірте поля на вірне заповнення.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             } 
         } 
 

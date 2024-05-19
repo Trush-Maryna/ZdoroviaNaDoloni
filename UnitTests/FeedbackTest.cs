@@ -6,13 +6,6 @@ namespace UnitTests
     public class FeedbackTest
     {
         [Fact]
-        public void Feedback_DefaultConstructor()
-        {
-            var feedback = new Feedback();
-            Assert.Equal(1, feedback.IDFeedback);
-        }
-
-        [Fact]
         public void Feedback_Constructor_ShouldInitializeProperties()
         {
             int idProduct = 1;

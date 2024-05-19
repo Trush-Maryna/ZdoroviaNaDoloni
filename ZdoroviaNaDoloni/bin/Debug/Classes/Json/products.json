@@ -163,5 +163,16 @@
     "Developer": "ПАТ «Хімфармзавод «Червона зірка»",
     "Confirmation": false,
     "Feedbacks": null
+  },
+  {
+    "ID": 16,
+    "Name": "Дротаверин таблетки по 40 мг",
+    "Description": "Засоби, які застосовуються при функціональних шлунково-кишкових розладах.",
+    "Price": 60.0,
+    "Quantity": 200,
+    "Image": "D:\\VS Community\\C#.NET_2\\ZdoroviaNaDoloni\\ZdoroviaNaDoloni\\bin\\Debug\\net8.0-windows\\Img\\16.jpg",
+    "Developer": "ПАТ «Київмедпрепарат»",
+    "Confirmation": false,
+    "Feedbacks": null
   }
 ]

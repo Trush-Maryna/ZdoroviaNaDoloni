@@ -233,7 +233,7 @@
             panel1.Controls.Add(Feedback_txt);
             panel1.Location = new Point(96, 622);
             panel1.Name = "panel1";
-            panel1.Size = new Size(194, 84);
+            panel1.Size = new Size(279, 84);
             panel1.TabIndex = 40;
             // 
             // Star_Lbl
